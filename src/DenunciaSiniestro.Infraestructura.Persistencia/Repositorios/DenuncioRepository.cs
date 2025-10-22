@@ -69,5 +69,48 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Repositorios
                 await _context.SaveChangesAsync(cancellationToken);
             }
         }
+
+        public async Task<Denuncio> Crear(Denuncio denuncio, CancellationToken cancellationToken = default)
+        {
+            denuncio.FechaDenuncio = DateTime.UtcNow;
+            denuncio.FechaCreacion = DateTime.UtcNow;
+            denuncio.FechaActualizacion = DateTime.UtcNow;
+
+            await _dbSet.AddAsync(denuncio, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return denuncio;
+        }
+
+        public async Task<Denuncio?> Editar(Denuncio denuncio, CancellationToken cancellationToken = default)
+        {
+            var existe = await _dbSet.FindAsync(new object[] { denuncio.IdDenuncio }, cancellationToken);
+
+            if (existe == null)
+                return null;
+
+            denuncio.FechaActualizacion = DateTime.UtcNow;
+
+            _dbSet.Update(denuncio);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return denuncio;
+        }
+
+        public async Task<bool> Eliminar(int id, CancellationToken cancellationToken = default)
+        {
+            var denuncio = await _dbSet.FindAsync(new object[] { id }, cancellationToken);
+
+            if (denuncio == null)
+                return false;
+
+            _dbSet.Remove(denuncio);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return true;
+        }
     }
 }
+
+
+

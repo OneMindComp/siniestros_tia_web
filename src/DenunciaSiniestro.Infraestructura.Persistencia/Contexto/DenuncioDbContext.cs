@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using DenunciaSiniestro.Infraestructura.Persistencia.Modelo;
+using DenunciaSiniestro.Infraestructura.Persistencia.Seeds;
+using Microsoft.EntityFrameworkCore;
 
 namespace DenunciaSiniestro.Infraestructura.Persistencia.Contexto
 {
@@ -22,6 +23,7 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Contexto
 
             // Aplicar todas las configuraciones de entidades
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DenuncioDbContext).Assembly);
+            modelBuilder.ApplySeeds();
         }
     }
 }

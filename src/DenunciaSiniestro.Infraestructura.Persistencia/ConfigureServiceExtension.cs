@@ -20,11 +20,12 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia
             //string connectionStringMySql = VaultHelper.ObtenerSecretVault(vaultInfraestructuraMySql!.UrlBase, vaultInfraestructuraMySql.NombreRecurso, vaultInfraestructuraMySql.Secrets.ConnectionString);
 
             //configuration["connectionStringMySql"] = connectionStringMySql;
-            string connectionStringMySql = "Server=localhost;Database=denuncio_siniestro;User=root;Password=your_password;";
+            string connectionStringMySql = "Host=127.0.0.1;Port=3308;Database=SiniestrosDenuncio;Username=root;Password=123456;";
             services.AddDbContext<DenuncioDbContext>(options =>
             {
                 options.UseMySQL(connectionStringMySql);
             });
+           
 
             // Registrar repositorios
             services.AddScoped<ITipoDenuncioRepository, TipoDenuncioRepository>();

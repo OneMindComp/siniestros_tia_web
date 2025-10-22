@@ -26,5 +26,20 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Repositorios.Interfaces
         /// Desactiva todas las configuraciones de un tipo de denuncio
         /// </summary>
         Task DesactivarConfiguracionesPorTipoDenuncio(int idTipoDenuncio, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Crea una nueva configuracion de formulario
+        /// </summary>
+        Task<ConfiguracionFormulario> Crear(ConfiguracionFormulario configuracion, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Edita una configuracion de formulario existente
+        /// </summary>
+        Task<ConfiguracionFormulario?> Editar(ConfiguracionFormulario configuracion, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Elimina una configuracion de formulario por su ID
+        /// </summary>
+        Task<bool> Eliminar(int id, CancellationToken cancellationToken = default);
     }
 }

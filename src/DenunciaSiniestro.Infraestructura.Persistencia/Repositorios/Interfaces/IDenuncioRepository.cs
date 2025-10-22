@@ -36,5 +36,20 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Repositorios.Interfaces
         /// Actualiza el estado de un denuncio
         /// </summary>
         Task ActualizarEstado(int id, string nuevoEstado, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Crea un nuevo denuncio
+        /// </summary>
+        Task<Denuncio> Crear(Denuncio denuncio, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Edita un denuncio existente
+        /// </summary>
+        Task<Denuncio?> Editar(Denuncio denuncio, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Elimina un denuncio por su ID
+        /// </summary>
+        Task<bool> Eliminar(int id, CancellationToken cancellationToken = default);
     }
 }
