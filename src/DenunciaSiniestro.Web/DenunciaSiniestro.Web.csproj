@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DenunciaSiniestro.Aplicacion\DenunciaSiniestro.Aplicacion.csproj" />
     <ProjectReference Include="..\DenunciaSiniestro.Dominio\DenunciaSiniestro.Dominio.csproj" />
+    <ProjectReference Include="..\DenunciaSiniestro.Infraestructura.CoreSiniestro\DenunciaSiniestro.Infraestructura.CoreSiniestro.csproj" />
   </ItemGroup>
 
 </Project>

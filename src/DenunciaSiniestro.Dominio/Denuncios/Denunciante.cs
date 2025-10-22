@@ -7,8 +7,16 @@
         public string Rut{ get; set; } = default!;
         public string Celular { get; set; } = default!;
         public string Mail { get; set; } = default!;
+
         public Denunciante() { }
-        public Denunciante(string nombre, string apellidos, string rut, string celular, string mail) { }
+
+        public Denunciante(string nombre, string apellidos, string rut, string celular, string mail) {
+            Nombre = nombre;
+            Apellidos = apellidos;
+            Rut = rut;
+            Celular = celular;
+            Mail = mail;
+        }
 
         public static Denunciante Crear(
             string nombre,

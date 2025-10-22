@@ -12,8 +12,15 @@ namespace DenunciaSiniestro.Dominio.Denuncios
         public string Rut { get; set; } = default!;
         public string Celular { get; set; } = default!;
         public string Mail { get; set; } = default!;
+
         public Lesionado() { }
-        public Lesionado(string nombre, string rut, string celular, string mail) { }
+
+        public Lesionado(string nombre, string rut, string celular, string mail) {
+            Nombre = nombre;
+            Rut = rut;
+            Celular = celular;
+            Mail = mail;
+        }
 
         public static Lesionado Crear(
             string nombre,

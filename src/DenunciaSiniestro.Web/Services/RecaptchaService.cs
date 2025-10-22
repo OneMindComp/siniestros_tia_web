@@ -1,4 +1,7 @@
-﻿using Microsoft.JSInterop;
+﻿using System.Text.Json;
+using Microsoft.JSInterop;
+using Sbins.Mediador.Abstracciones;
+using static DenunciaSiniestro.Aplicacion.Comandos.ProcesarDenuncioCommandHandler;
 
 public class RecaptchaService
 {
@@ -12,7 +15,7 @@ public class RecaptchaService
         _siteKey = "";
     }
 
-    public async Task<string> GetTokenAsync(string action = "form_submit")
+    public async Task<bool> ValidateToken(string action = "form_submit")
     {
         string valor;
         try
@@ -22,11 +25,22 @@ public class RecaptchaService
             _siteKey,
             action);
 
+            var secretKey = ""; // clave secreta
+
+            using var http = new HttpClient();
+            var response = await http.PostAsync(
+                $"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={valor}",
+                null);
+
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<RecaptchaResponse>(json);
+
+            return result?.Success == true && result.Score >= 0.5;
+      
         }
         catch (Exception ex)
         {
             throw;
         }
-        return valor;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace DenunciaSiniestro.Dominio
+﻿using DenunciaSiniestro.Dominio.Denuncios;
+
+namespace DenunciaSiniestro.Dominio
 {
     public class Denuncio
     {
@@ -14,5 +16,18 @@
         public List<Seccion> Secciones { get; set; } = new List<Seccion>();
         public DateTime FechaCreacion { get; set; } = default!;
         public DateTime FechaActualizacion { get; set; } = default!;
+        public Soap DenuncioSoap { get; set; } = default!;
+
+        public Denuncio() { }
+
+        public Denuncio(string producto, Soap denuncioSoap) {
+            Producto = producto;
+            DenuncioSoap = denuncioSoap;
+        }
+
+        public static Denuncio Crear(string producto, Soap denuncioSoap)
+        {
+            return new Denuncio(producto, denuncioSoap);
+        }
     }
 }

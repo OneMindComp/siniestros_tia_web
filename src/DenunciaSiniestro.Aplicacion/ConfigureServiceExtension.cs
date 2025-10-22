@@ -1,6 +1,6 @@
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Sbins.Mediador.DependencyInjection;
-using System.Reflection;
 
 namespace DenunciaSiniestro.Aplicacion
 {
@@ -17,7 +17,6 @@ namespace DenunciaSiniestro.Aplicacion
         /// <returns></returns>
         public static IServiceCollection AddAplicacion(this IServiceCollection services)
         {
-
             services.AddMediador(config =>
             {
 

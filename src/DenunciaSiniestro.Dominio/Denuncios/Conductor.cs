@@ -10,8 +10,13 @@ namespace DenunciaSiniestro.Dominio.Denuncios
     {
         public string Nombre { get; set; } = default!;
         public string Rut { get; set; } = default!;
+
         public Conductor() { }
-        public Conductor(string nombre, string rut) { }
+        
+        public Conductor(string nombre, string rut) { 
+            Nombre = nombre;
+            Rut = rut;
+        }
 
         public static Conductor Crear(
             string nombre,

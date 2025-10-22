@@ -1,4 +1,5 @@
 ﻿using DenunciaSiniestro.Aplicacion;
+using DenunciaSiniestro.Infraestructura.CoreSiniestro;
 using DenunciaSiniestro.Web.Components;
 
 
@@ -10,7 +11,9 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<RecaptchaService>();
+builder.Services.AddScoped<DenuncioService>();
 builder.Services.AddAplicacion();
+builder.Services.AddCoreSiniestroInfraestructura(builder.Configuration);
 
 var app = builder.Build();
 

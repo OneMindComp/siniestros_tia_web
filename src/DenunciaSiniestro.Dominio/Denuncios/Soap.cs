@@ -9,7 +9,14 @@
         public Siniestro Siniestro { get; set; } = default!;
 
         public Soap() { }
-        public Soap(Vehiculo vehiculo, Denunciante denunciante, Conductor conductor, Lesionado lesionado, Siniestro siniestro) { }
+
+        public Soap(Vehiculo vehiculo, Denunciante denunciante, Conductor conductor, Lesionado lesionado, Siniestro siniestro) {
+            Vehiculo = vehiculo;
+            Denunciante = denunciante;
+            Conductor = conductor;
+            Lesionado = lesionado;
+            Siniestro = siniestro;
+        }
 
         public static Soap Crear(
             Vehiculo vehiculo,

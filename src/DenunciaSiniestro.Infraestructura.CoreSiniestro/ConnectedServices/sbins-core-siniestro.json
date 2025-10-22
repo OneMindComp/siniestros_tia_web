@@ -1,0 +1,4161 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SBINS - API Integracion Core Emision",
+    "description": "API's para la emision de productos y endosos hacia el CORE TIA..",
+    "version": "v1.6.0"
+  },
+  "paths": {
+    "/api/accidentes-personales": {
+      "post": {
+        "tags": [
+          "AccidentesPersonales"
+        ],
+        "summary": "Cotizar polizas accidentes personales.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AccidentesPersonalesCotizacionRequest"
+                  }
+                ],
+                "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AccidentesPersonalesCotizacionRequest"
+                  }
+                ],
+                "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AccidentesPersonalesCotizacionRequest"
+                  }
+                ],
+                "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AccidentesPersonales"
+        ],
+        "summary": "Modificar polizas accidentes personales cotizadas.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AccidentesPersonalesModificacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar poliza seguro accidentes personales modificacion."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AccidentesPersonalesModificacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar poliza seguro accidentes personales modificacion."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/AccidentesPersonalesModificacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar poliza seguro accidentes personales modificacion."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auto-planet": {
+      "post": {
+        "tags": [
+          "AutoPlanet"
+        ],
+        "summary": "Cotiza poliza de Auto.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CrearCotizacionAutoPlanetRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro Auto."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CrearCotizacionAutoPlanetRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro Auto."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CrearCotizacionAutoPlanetRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro Auto."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cancelacion/poliza": {
+      "post": {
+        "tags": [
+          "Cancelacion"
+        ],
+        "summary": "Genera la cancelacion de una poliza.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CancelacionPolizaRequest"
+                  }
+                ],
+                "description": "Request para cancelacion de poliza cotizada."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CancelacionPolizaRequest"
+                  }
+                ],
+                "description": "Request para cancelacion de poliza cotizada."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CancelacionPolizaRequest"
+                  }
+                ],
+                "description": "Request para cancelacion de poliza cotizada."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/emision": {
+      "post": {
+        "tags": [
+          "Emision"
+        ],
+        "summary": "Emitir polizas.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EmisionRequest"
+                  }
+                ],
+                "description": "Request para emision de poliza cotizada."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EmisionRequest"
+                  }
+                ],
+                "description": "Request para emision de poliza cotizada."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/EmisionRequest"
+                  }
+                ],
+                "description": "Request para emision de poliza cotizada."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmisionResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "HealthCheck"
+        ],
+        "operationId": "ObtenerEstadoSalud",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/full": {
+      "get": {
+        "tags": [
+          "HealthCheck"
+        ],
+        "operationId": "ObtenerEstadoSaludCompleto",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCompleteResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/hogar": {
+      "post": {
+        "tags": [
+          "Hogar"
+        ],
+        "summary": "Cotizar polizas hogar.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HogarCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HogarCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HogarCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Hogar"
+        ],
+        "summary": "Modificar polizas hogar cotizadas.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HogarModificacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HogarModificacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/HogarModificacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/mascota": {
+      "post": {
+        "tags": [
+          "Mascota"
+        ],
+        "summary": "Cotizar polizas mascotas.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro de mascota."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro de mascota."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro de mascota."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Mascota"
+        ],
+        "summary": "Modificar polizas mascotas cotizadas.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaModificacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para modificar una poliza seguro de mascota."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaModificacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para modificar una poliza seguro de mascota."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaModificacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para modificar una poliza seguro de mascota."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/mascota-colectivo": {
+      "post": {
+        "tags": [
+          "MascotaColectivo"
+        ],
+        "summary": "Cotizar polizas mascotas colectivo.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaColectivoCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaColectivoCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MascotaColectivoCotizacionRequest"
+                  }
+                ],
+                "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/oncologico": {
+      "post": {
+        "tags": [
+          "Oncologico"
+        ],
+        "summary": "Cotiza polizas oncologicas.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OncologicoCotizacionRequest"
+                  }
+                ],
+                "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OncologicoCotizacionRequest"
+                  }
+                ],
+                "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OncologicoCotizacionRequest"
+                  }
+                ],
+                "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Oncologico"
+        ],
+        "summary": "Modifica polizas oncologicas cotizadas.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OncologicoModificacionRequest"
+                  }
+                ],
+                "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OncologicoModificacionRequest"
+                  }
+                ],
+                "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/OncologicoModificacionRequest"
+                  }
+                ],
+                "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operaciones-poliza": {
+      "post": {
+        "tags": [
+          "Operaciones Poliza"
+        ],
+        "summary": "Crear cotizacion de una poliza en TIA.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CrearCotizacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar una poliza en TIA."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CrearCotizacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar una poliza en TIA."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CrearCotizacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar una poliza en TIA."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CrearCotizacionResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Operaciones Poliza"
+        ],
+        "summary": "Actualiza cotizacion de una poliza en TIA.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ActualizarCotizacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar una poliza en TIA."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ActualizarCotizacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar una poliza en TIA."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/ActualizarCotizacionRequest"
+                  }
+                ],
+                "description": "Request para cotizar una poliza en TIA."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActualizarCotizacionResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/renovacion/{numeroPoliza}": {
+      "post": {
+        "tags": [
+          "Renovacion"
+        ],
+        "summary": "Renovar poliza.",
+        "parameters": [
+          {
+            "name": "numeroPoliza",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RenovarPolizaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transacciones": {
+      "post": {
+        "tags": [
+          "Transacciones"
+        ],
+        "summary": "Crea transacciones TIA .",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransaccionRequest"
+                  }
+                ],
+                "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+              }
+            },
+            "text/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransaccionRequest"
+                  }
+                ],
+                "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/TransaccionRequest"
+                  }
+                ],
+                "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PolizaEmitidaResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccidentesPersonalesAseguradoCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "relacion": {
+            "type": "string",
+            "description": "Relacion con el contratante."
+          },
+          "porcentaje": {
+            "type": "number",
+            "description": "Porcentaje de suma asegurada en beneficio del beneficiario.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request asegurado para cotizar poliza seguro accidentes personales cotizacion."
+      },
+      "AccidentesPersonalesAseguradoModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "relacion": {
+            "type": "string",
+            "description": "Relacion con el contratante."
+          },
+          "porcentaje": {
+            "type": "number",
+            "description": "Porcentaje de suma asegurada en beneficio del beneficiario.",
+            "format": "double"
+          },
+          "operacion": {
+            "type": "string",
+            "description": "Tipo de operacion a realizar para el beneficiario durante el proceso de endoso."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request asegurado para cotizar poliza seguro accidentes personales modificacion."
+      },
+      "AccidentesPersonalesContratanteCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contratante."
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electronico del contratante."
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionRequest"
+              }
+            ],
+            "description": "Direccion postal del contratante."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro accidentes personales cotizacion."
+      },
+      "AccidentesPersonalesContratanteModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contratante."
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electronico del contratante."
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionRequest"
+              }
+            ],
+            "description": "Direccion postal del contratante."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro accidentes personales modificacion."
+      },
+      "AccidentesPersonalesCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AccidentesPersonalesContratanteCotizacionRequest"
+              }
+            ],
+            "description": "Contratante de la poliza."
+          },
+          "asegurados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccidentesPersonalesAseguradoCotizacionRequest"
+            },
+            "description": "Beneficiarios de la poliza."
+          },
+          "tipoCobertura": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
+      },
+      "AccidentesPersonalesModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AccidentesPersonalesContratanteModificacionRequest"
+              }
+            ],
+            "description": "Contratante de la poliza."
+          },
+          "asegurados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccidentesPersonalesAseguradoModificacionRequest"
+            },
+            "description": "Beneficiarios de la poliza."
+          },
+          "tipoCobertura": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para cotizar poliza seguro accidentes personales modificacion."
+      },
+      "AccionRequest": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "description": "Nombre de la accion."
+          },
+          "propiedades": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PropiedadRequest"
+            },
+            "description": "Lista de Propiedades de una accion."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Objeto accion de TIA."
+      },
+      "ActualizarCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza"
+          },
+          "itemsPoliza": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LineaPolizaRequest"
+            },
+            "description": "Lineas de la poliza."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para cotizar una poliza en TIA."
+      },
+      "ActualizarCotizacionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Identificador unico de la cotizacion.",
+            "format": "int64"
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza generado por la cotizacion."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response para la actualizacion de una cotizacion de poliza de seguro."
+      },
+      "ActualizarCotizacionResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ActualizarCotizacionResponse"
+              }
+            ],
+            "description": "Response para la actualizacion de una cotizacion de poliza de seguro."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AsistenciaRequest": {
+        "type": "object",
+        "properties": {
+          "fechaInicioVigencia": {
+            "type": "string",
+            "description": "Fecha inicio vigencia",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFinVigencia": {
+            "type": "string",
+            "description": "Fecha fin vigencia",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tipoMoneda": {
+            "type": "string",
+            "description": "Tipo moneda",
+            "nullable": true
+          },
+          "prima": {
+            "type": "number",
+            "description": "Prima",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para la asistencia de una poliza de seguro en una cotizacion."
+      },
+      "AutoPlanetContratanteRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contratante."
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electronico del contratante."
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionRequest"
+              }
+            ],
+            "description": "Direccion postal del contratante."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro Auto."
+      },
+      "AutoPlanetCotizacionFieldAutoRequest": {
+        "type": "object",
+        "properties": {
+          "codPlan": {
+            "type": "string",
+            "description": "Codigo Plan."
+          },
+          "patente": {
+            "type": "string",
+            "description": "Patente Vehiculo."
+          },
+          "patenteDV": {
+            "type": "string",
+            "description": "PatenteDV Vehiculo."
+          },
+          "anio": {
+            "type": "string",
+            "description": "Anio Vehiculo."
+          },
+          "numeroMotor": {
+            "type": "string",
+            "description": "Numero Motor Vehiculo"
+          },
+          "marca": {
+            "type": "string",
+            "description": "Marca Vehiculo"
+          },
+          "modelo": {
+            "type": "string",
+            "description": "Modelo Vehiculo"
+          },
+          "tipoVehiculo": {
+            "type": "string",
+            "description": "TipoVehiculo Vehiculo"
+          },
+          "vin": {
+            "type": "string",
+            "description": "Numero VIN"
+          },
+          "tipoPlan": {
+            "type": "integer",
+            "description": "Tipo plan.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con detalles de auto requerida para cotizar una poliza seguro Auto."
+      },
+      "AutoPlanetCotizacionFieldCorredorRequest": {
+        "type": "object",
+        "properties": {
+          "idCorredor": {
+            "type": "integer",
+            "description": "Rut de corredor.",
+            "format": "int32"
+          },
+          "comision": {
+            "type": "integer",
+            "description": "Comision de corredor",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro Auto."
+      },
+      "CancelacionPolizaRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza."
+          },
+          "codCancelacion": {
+            "type": "integer",
+            "description": "Codigo de cancelacion.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para cancelacion de poliza cotizada."
+      },
+      "CoaseguroRequest": {
+        "type": "object",
+        "properties": {
+          "participantes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParticipanteCoaseguroRequest"
+            },
+            "description": "Participantes del coaseguro."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para el coaseguro en una poliza."
+      },
+      "CoberturaModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "description": "Codigo de cobertura."
+          },
+          "monto": {
+            "type": "number",
+            "description": "Monto de cobertura.",
+            "format": "double"
+          },
+          "operacion": {
+            "type": "string",
+            "description": "Tipo de operacion a realizar para el beneficiario durante el proceso de cotizacion."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para modificar una cobertura en una poliza cotizada."
+      },
+      "CoberturaRequest": {
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "description": "Codigo de cobertura."
+          },
+          "monto": {
+            "type": "number",
+            "description": "Monto de cobertura.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data de cobertura requerida para cotizar una poliza."
+      },
+      "ComisionCorredorRequest": {
+        "type": "object",
+        "properties": {
+          "rol": {
+            "type": "string",
+            "description": "Rol del corredor.\r\nValor TIA: agentRole.",
+            "nullable": true
+          },
+          "posicionEnPoliza": {
+            "type": "string",
+            "description": "Posicion del corredor en poliza.\r\nValor TIA: agentPositionOnPolicy.",
+            "nullable": true
+          },
+          "codigo": {
+            "type": "string",
+            "description": "Codigo del corredor.\r\nValor TIA: agentNo.",
+            "nullable": true
+          },
+          "comision": {
+            "type": "number",
+            "description": "Comision.\r\nValor TIA: percentageOfCommission.",
+            "format": "double",
+            "nullable": true
+          },
+          "grupoComision": {
+            "type": "string",
+            "description": "Grupo de comisiones al que pertenece el corredor.\r\nValor TIA: commissionGroup.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para la comision de un corredor en una cotizacion de poliza de seguro."
+      },
+      "CorredorRequest": {
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "description": "Codido de corredor."
+          },
+          "portal": {
+            "type": "integer",
+            "description": "Portal.",
+            "format": "int32"
+          },
+          "comision": {
+            "type": "string",
+            "description": "Comision."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Corredor request."
+      },
+      "CrearCotizacionAutoPlanetRequest": {
+        "type": "object",
+        "properties": {
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AutoPlanetContratanteRequest"
+              }
+            ],
+            "description": "Contratante."
+          },
+          "auto": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AutoPlanetCotizacionFieldAutoRequest"
+              }
+            ],
+            "description": "Auto a asegurar."
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AutoPlanetCotizacionFieldCorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "maestraPoliza": {
+            "type": "string",
+            "description": "Poliza Maestra.",
+            "nullable": true
+          },
+          "notificaciones": {
+            "type": "string",
+            "description": "Notificaciones.",
+            "nullable": true
+          },
+          "plataformaVenta": {
+            "type": "string",
+            "description": "Plataforma de venta.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data requerida para cotizar una poliza seguro Auto."
+      },
+      "CrearCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "codigoProducto": {
+            "type": "string",
+            "description": "Codigo Producto EJ: HF, M4.\r\nValor TIA: prodId.",
+            "nullable": true
+          },
+          "fechaEmision": {
+            "type": "string",
+            "description": "Fecha Emision.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "inicioVigencia": {
+            "type": "string",
+            "description": "Inicio de Vigencia.\r\nValor TIA: coverStartDate",
+            "format": "date-time",
+            "nullable": true
+          },
+          "terminoVigencia": {
+            "type": "string",
+            "description": "Termino de Vigencia.\r\nValor TIA: coverEndDate",
+            "format": "date-time",
+            "nullable": true
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de Venta EJ: 6, 8.\r\nValor TIA: salesChannel.",
+            "nullable": true
+          },
+          "plataformaVenta": {
+            "type": "string",
+            "description": "Plataforma de Venta EJ: SVC, ANS.\r\nValor TIA: platform.",
+            "nullable": true
+          },
+          "origenVenta": {
+            "type": "string",
+            "description": "Estrategia de Venta.\r\nValor TIA: origen.",
+            "nullable": true
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Poliza EJ: 0020187867.\r\nValor TIA: policyNoAlt.",
+            "nullable": true
+          },
+          "certificado": {
+            "type": "integer",
+            "description": "Certificado EJ: 4900.",
+            "format": "int32",
+            "nullable": true
+          },
+          "renovacion": {
+            "type": "integer",
+            "description": "Renovacion.",
+            "format": "int32",
+            "nullable": true
+          },
+          "codigoPropuesta": {
+            "type": "integer",
+            "description": "Codigo propuesta.",
+            "format": "int32",
+            "nullable": true
+          },
+          "subRamo": {
+            "type": "string",
+            "description": "Sub Ramo.\r\nValor TIA: subRamoCmf.",
+            "nullable": true
+          },
+          "codigoSic": {
+            "type": "string",
+            "description": "Codigo SIC.\r\nValor TIA: sicCode.",
+            "nullable": true
+          },
+          "tipoPoliza": {
+            "type": "string",
+            "description": "Tipo de poliza.\r\nValor TIA: clPolicyType.",
+            "nullable": true
+          },
+          "porcentajeComision": {
+            "type": "integer",
+            "description": "Porcentaje de comision de la poliza, es la suma de las comisiones individiales de los corredores.\r\nValor TIA: comPercent.",
+            "format": "int32",
+            "nullable": true
+          },
+          "esFacultativo": {
+            "type": "string",
+            "description": "Indica si la poliza se crea con facultativo.\r\nValor TIA: facYn.",
+            "nullable": true
+          },
+          "hora": {
+            "type": "string",
+            "description": "Hora.\r\nValor TIA: time",
+            "nullable": true
+          },
+          "resumenMontos": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ResumenMontosRequest"
+              }
+            ],
+            "description": "Resumen de montos de la poliza.",
+            "nullable": true
+          },
+          "itemsPoliza": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LineaPolizaRequest"
+            },
+            "description": "Items de la poliza.",
+            "nullable": true
+          },
+          "comisionCorredores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ComisionCorredorRequest"
+            },
+            "description": "Comision de corredores.",
+            "nullable": true
+          },
+          "datosPago": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DatosPagoRequest"
+              }
+            ],
+            "description": "Datos Pago.",
+            "nullable": true
+          },
+          "participantes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParticipanteRequest"
+            },
+            "description": "Participantes.",
+            "nullable": true
+          },
+          "coaseguro": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CoaseguroRequest"
+              }
+            ],
+            "description": "Coaseguro de la poliza.",
+            "nullable": true
+          },
+          "reaseguro": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReaseguroRequest"
+              }
+            ],
+            "description": "Reaseguro de la poliza.",
+            "nullable": true
+          },
+          "limite": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LimiteRequest"
+              }
+            ],
+            "description": "Limite.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para cotizar una poliza en TIA."
+      },
+      "CrearCotizacionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id unico de la cotizacion.",
+            "format": "int64"
+          },
+          "identificadorPoliza": {
+            "type": "integer",
+            "description": "Identificador de poliza generado por la cotizacion.",
+            "format": "int64"
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza generado por la cotizacion."
+          },
+          "idContratantePoliza": {
+            "type": "integer",
+            "description": "Id contratante poliza.",
+            "format": "int64"
+          },
+          "idAseguradoPoliza": {
+            "type": "integer",
+            "description": "Id asegurado poliza.",
+            "format": "int64"
+          },
+          "idObjetoAsegurado": {
+            "type": "integer",
+            "description": "Id objeto asegurado.",
+            "format": "int64"
+          },
+          "contenido": {
+            "description": "Contenido."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response para la creacion de una cotizacion de poliza de seguro."
+      },
+      "CrearCotizacionResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CrearCotizacionResponse"
+              }
+            ],
+            "description": "Response para la creacion de una cotizacion de poliza de seguro."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Cuota": {
+        "type": "object",
+        "properties": {
+          "numeroCuota": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "fechaPago": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tasaInteres": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "montoInteres": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ivaPrima": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ivaInteres": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "primaNeta": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "totalPrima": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CuotaRequest": {
+        "type": "object",
+        "properties": {
+          "numeroCuota": {
+            "type": "integer",
+            "description": "Numero Cuota.\r\nValor TIA: instalmentNo",
+            "format": "int32",
+            "nullable": true
+          },
+          "fechaPago": {
+            "type": "string",
+            "description": "Fecha de Pago.\r\nValor TIA: dueDate",
+            "format": "date-time",
+            "nullable": true
+          },
+          "tasaInteres": {
+            "type": "number",
+            "description": "Tasa Interes",
+            "format": "double",
+            "nullable": true
+          },
+          "montoInteres": {
+            "type": "number",
+            "description": "Monto interes",
+            "format": "double",
+            "nullable": true
+          },
+          "ivaPrima": {
+            "type": "number",
+            "description": "Prima IVA",
+            "format": "double",
+            "nullable": true
+          },
+          "ivaInteres": {
+            "type": "number",
+            "description": "Interes IVA",
+            "format": "double",
+            "nullable": true
+          },
+          "primaNeta": {
+            "type": "number",
+            "description": "Prima neta",
+            "format": "double",
+            "nullable": true
+          },
+          "totalPrima": {
+            "type": "number",
+            "description": "Prima total.\r\nValor TIA: amount.",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los detalles de una cuota en una cotizacion de poliza de seguro."
+      },
+      "DatosPagoRequest": {
+        "type": "object",
+        "properties": {
+          "codigoPlanPago": {
+            "type": "string",
+            "description": "Codigo de Plan Pago.\r\nValor TIA: instlPlanType.",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo Pago.\r\nValor TIA: paymentMethod",
+            "nullable": true
+          },
+          "totalCuotas": {
+            "type": "integer",
+            "description": "Total Cuotas",
+            "format": "int32",
+            "nullable": true
+          },
+          "diaPago": {
+            "type": "string",
+            "description": "Dia Pago",
+            "nullable": true
+          },
+          "tipoRegistro": {
+            "type": "string",
+            "description": "Tipo Registro",
+            "nullable": true
+          },
+          "cupon": {
+            "type": "string",
+            "description": "Cupon",
+            "nullable": true
+          },
+          "datosTarjeta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TarjetaRequest"
+              }
+            ],
+            "description": "Datos Bancarios",
+            "nullable": true
+          },
+          "planCuotas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CuotaRequest"
+            },
+            "description": "Detalle de cuotas",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los datos de pago en una cotizacion de poliza de seguro."
+      },
+      "DependencyResponse": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "tipo": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string"
+          },
+          "ubicacion": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "duracion": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DetalleCuotas": {
+        "type": "object",
+        "properties": {
+          "cuotas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Cuota"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "DetalleCuotasRequest": {
+        "type": "object",
+        "properties": {
+          "cuotas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CuotaRequest"
+            },
+            "description": "Detalle de cuotas",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para el detalle pago de una emision de poliza."
+      },
+      "DireccionCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numero": {
+            "type": "integer",
+            "description": "Numero de la direccion.\r\nValor TIA: streetNo",
+            "format": "int32",
+            "nullable": true
+          },
+          "numeroDepartamento": {
+            "type": "integer",
+            "description": "Numero del departamento.",
+            "format": "int32",
+            "nullable": true
+          },
+          "numeroDePiso": {
+            "type": "integer",
+            "description": "Numero de piso donde se encuentra la propiedad.",
+            "format": "int32",
+            "nullable": true
+          },
+          "calle": {
+            "type": "string",
+            "description": "Calle de la direccion.\r\nValor TIA: street",
+            "nullable": true
+          },
+          "codigoPostal": {
+            "type": "string",
+            "description": "Codigo postal de la direccion.\r\nValor TIA: postCode.",
+            "nullable": true
+          },
+          "comuna": {
+            "type": "string",
+            "description": "Comuna de la direccion.",
+            "nullable": true
+          },
+          "codigoComuna": {
+            "type": "string",
+            "description": "Codigo de la comuna.",
+            "nullable": true
+          },
+          "ciudad": {
+            "type": "string",
+            "description": "Ciudad de la direccion.",
+            "nullable": true
+          },
+          "codigoCiudad": {
+            "type": "string",
+            "description": "Codigo de la ciudad.",
+            "nullable": true
+          },
+          "region": {
+            "type": "string",
+            "description": "Region de la direccion.",
+            "nullable": true
+          },
+          "codigoRegion": {
+            "type": "string",
+            "description": "Codigo de la region.",
+            "nullable": true
+          },
+          "pais": {
+            "type": "string",
+            "description": "Pais de la direccion.",
+            "nullable": true
+          },
+          "codigoPais": {
+            "type": "string",
+            "description": "Codigo del pais.\r\nValor TIA: countryCode.",
+            "nullable": true
+          },
+          "latitud": {
+            "type": "string",
+            "description": "Latitud.\r\nValor TIA: latitude.",
+            "nullable": true
+          },
+          "longitud": {
+            "type": "string",
+            "description": "Longitud.\r\nValor TIA: longitude.",
+            "nullable": true
+          },
+          "resolucion": {
+            "type": "string",
+            "description": "Resolucion de las coordenadas geograficas.\r\nValor TIA: resolution.",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "description": "Descripcion de la direccion.\r\nValor TIA: Description.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para la direccion de un objeto asegurado en una cotizacion de poliza."
+      },
+      "DireccionRequest": {
+        "type": "object",
+        "properties": {
+          "calle": {
+            "type": "string",
+            "description": "Nombre de la calle."
+          },
+          "numeroCalle": {
+            "type": "string",
+            "description": "Numero de calle."
+          },
+          "departamento": {
+            "type": "string",
+            "description": "Departamento.",
+            "nullable": true
+          },
+          "codigoComuna": {
+            "type": "string",
+            "description": "Codigo de comuna."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data de direccion de persona requerida para cotizar una poliza."
+      },
+      "EmisionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza."
+          },
+          "notificarPago": {
+            "type": "boolean",
+            "description": "Indicador si es requerido notificar el pago a Pasarela de Pago.",
+            "nullable": true
+          },
+          "detalleCuotas": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DetalleCuotasRequest"
+              }
+            ],
+            "description": "Detalle cuotas.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para emision de poliza cotizada."
+      },
+      "EmisionResponse": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response de emision de poliza de seguro."
+      },
+      "EmisionResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/EmisionResponse"
+              }
+            ],
+            "description": "Response de emision de poliza de seguro."
+          }
+        },
+        "additionalProperties": false
+      },
+      "HealthCompleteResponse": {
+        "type": "object",
+        "properties": {
+          "estado": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dependencias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DependencyResponse"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "estado": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string",
+            "nullable": true
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HogarContratanteRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contratante."
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electronico del contratante."
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionRequest"
+              }
+            ],
+            "description": "Direccion postal del contratante."
+          },
+          "tipo": {
+            "type": "string",
+            "description": "\"1\"-> \"Propietario\"\r\n\"2\"-> \"Arrendatario\"\r\n\"3\"-> \"Inversionista\""
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro hogar full cotizacion."
+      },
+      "HogarCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HogarContratanteRequest"
+              }
+            ],
+            "description": "Contratante."
+          },
+          "hogar": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HogarRequest"
+              }
+            ],
+            "description": "Hogar a asegurar."
+          },
+          "coberturas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CoberturaRequest"
+            },
+            "description": "Coberturas."
+          },
+          "aceptaEnvioCorreos": {
+            "type": "string",
+            "description": "Acepta envios de correo."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+      },
+      "HogarModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HogarContratanteRequest"
+              }
+            ],
+            "description": "Contratante."
+          },
+          "hogar": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HogarRequest"
+              }
+            ],
+            "description": "Hogar a asegurar."
+          },
+          "coberturas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CoberturaModificacionRequest"
+            },
+            "description": "Lista de coberturas"
+          },
+          "aceptaEnvioCorreos": {
+            "type": "string",
+            "description": "Acepta envios de correo."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
+      },
+      "HogarRequest": {
+        "type": "object",
+        "properties": {
+          "calle": {
+            "type": "string",
+            "description": "Calle."
+          },
+          "numeroCalle": {
+            "type": "string",
+            "description": "Numero de calle."
+          },
+          "departamento": {
+            "type": "string",
+            "description": "Letra o numero departamento.",
+            "nullable": true
+          },
+          "piso": {
+            "type": "string",
+            "description": "Piso.",
+            "nullable": true
+          },
+          "codigoComuna": {
+            "type": "string",
+            "description": "Codigo de la comuna"
+          },
+          "codigoRegion": {
+            "type": "string",
+            "description": "Codigo de la region."
+          },
+          "superficie": {
+            "type": "string",
+            "description": "Superficie del domicilio en m2.",
+            "nullable": true
+          },
+          "comunaExcluida": {
+            "type": "string",
+            "description": "Indica si la comuna esta excluida o no."
+          },
+          "antiguedad": {
+            "type": "string",
+            "description": "Antiguedad del domicilio."
+          },
+          "tipoUso": {
+            "type": "string",
+            "description": "Tipo de uso del domicilio."
+          },
+          "tipo": {
+            "type": "string",
+            "description": "Tipo de domicilio."
+          },
+          "materialConstruccion": {
+            "type": "string",
+            "description": "Material de construccion del domicilio."
+          },
+          "sector": {
+            "type": "string",
+            "description": "Indica el sector en el que se encuentra el domicilio."
+          },
+          "clasificacion": {
+            "type": "string",
+            "description": "Indica la clasificacion industrial del domicilio.",
+            "nullable": true
+          },
+          "tipoConstruccion": {
+            "type": "string",
+            "description": "Indica el tipo de construccion del domicilio.",
+            "nullable": true
+          },
+          "zonaRiesgo": {
+            "type": "string",
+            "description": "Indica si es una zona de riesgo o no."
+          },
+          "condominio": {
+            "type": "string",
+            "description": "Indica si es un condominio o no."
+          },
+          "numeroCasa": {
+            "type": "string",
+            "description": "Indica numero de casa..",
+            "nullable": true
+          },
+          "medidasSeguridad": {
+            "type": "string",
+            "description": "Indica si cumple con las medidas de seguridad o no."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con detalles de hogar requerida para cotizar una poliza seguro hogar full."
+      },
+      "LimiteRequest": {
+        "type": "object",
+        "properties": {
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Id tipo objeto.\r\nValor TIA: typeId"
+          },
+          "nivelLimite": {
+            "type": "string",
+            "description": "Nivel limite.\r\nValor TIA: limitLevel.",
+            "nullable": true
+          },
+          "valorLimite": {
+            "type": "string",
+            "description": "Valor limite.\r\nValor TIA: limitLevel.",
+            "nullable": true
+          },
+          "nivelRetencion": {
+            "type": "string",
+            "description": "Nivel de retencion.\r\nValorTIA: retentionLevel",
+            "nullable": true
+          },
+          "codigoRiesgo": {
+            "type": "string",
+            "description": "CodigoRiesgo.\r\nValorTIA: risk",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para limte de una poliza."
+      },
+      "LineaPolizaRequest": {
+        "type": "object",
+        "properties": {
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Codigo cobertura EJ: PTOSB.\r\nValor TIA: productLineId"
+          },
+          "tasa": {
+            "type": "string",
+            "description": "Tasa.\r\nValor TIA: Tasa.",
+            "nullable": true
+          },
+          "fechaInicioCobertura": {
+            "type": "string",
+            "description": "Fecha de inicio de la cobertura de la poliza.\r\nValor TIA: coverStartDate.",
+            "nullable": true
+          },
+          "moneda": {
+            "type": "string",
+            "description": "Moneda de la cobertura EJ: CLP, USD.\r\nValorTIA: currencyCode",
+            "nullable": true
+          },
+          "objetoAsegurado": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObjetoAseguradoRequest"
+              }
+            ],
+            "description": "Contiene los datos del asegurado (Puede ser persona, objeto, bienes, etc.).",
+            "nullable": true
+          },
+          "riesgos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiesgoRequest"
+            },
+            "description": "Lista de riesgos asociados a la cobertura.",
+            "nullable": true
+          },
+          "asistencias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AsistenciaRequest"
+            },
+            "description": "Asistencia",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para lineas de una poliza de seguro."
+      },
+      "MascotaColectivoCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "numeroPolizaMaestra": {
+            "type": "string",
+            "description": "Numero de poliza maestra."
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MascotaContratanteRequest"
+              }
+            ],
+            "description": "Contratante de la poliza."
+          },
+          "mascota": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MascotaColectivoRequest"
+            },
+            "description": "Plan de seguro de mascotas."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
+      },
+      "MascotaColectivoRequest": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "description": "Nombre de la Mascota"
+          },
+          "edad": {
+            "type": "string",
+            "description": "Edad de la Mascota."
+          },
+          "sexo": {
+            "type": "string",
+            "description": "Sexo \"M\" o \"H\"."
+          },
+          "tipo": {
+            "type": "string",
+            "description": "Tipo."
+          },
+          "linaje": {
+            "type": "string",
+            "description": "Linaje."
+          },
+          "raza": {
+            "type": "string",
+            "description": "Raza.",
+            "nullable": true
+          },
+          "tipoCobertura": {
+            "type": "string",
+            "description": "Tipo de cobertura",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data de mascota para cotizar una poliza seguro de mascota colectivo."
+      },
+      "MascotaContratanteRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contratante."
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electronico del contratante."
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionRequest"
+              }
+            ],
+            "description": "Direccion postal del contratante."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro mascota."
+      },
+      "MascotaCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MascotaContratanteRequest"
+              }
+            ],
+            "description": "Contratante de la poliza."
+          },
+          "mascota": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MascotaRequest"
+              }
+            ],
+            "description": "Plan de seguro de mascotas."
+          },
+          "tipoCobertura": {
+            "type": "string",
+            "description": "Tipo de cobertura"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data requerida para cotizar una poliza seguro de mascota."
+      },
+      "MascotaModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MascotaContratanteRequest"
+              }
+            ],
+            "description": "Contratante de la poliza."
+          },
+          "mascota": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MascotaRequest"
+              }
+            ],
+            "description": "Plan de seguro de mascotas."
+          },
+          "tipoCobertura": {
+            "type": "string",
+            "description": "Tipo de cobertura"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data requerida para modificar una poliza seguro de mascota."
+      },
+      "MascotaRequest": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "description": "Nombre de la Mascota"
+          },
+          "edad": {
+            "type": "string",
+            "description": "Edad de la Mascota."
+          },
+          "sexo": {
+            "type": "string",
+            "description": "Sexo \"M\" o \"H\"."
+          },
+          "tipo": {
+            "type": "string",
+            "description": "Tipo."
+          },
+          "linaje": {
+            "type": "string",
+            "description": "Linaje."
+          },
+          "raza": {
+            "type": "string",
+            "description": "Raza.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data de mascota para cotizar una poliza seguro de mascota."
+      },
+      "ObjetoAseguradoRequest": {
+        "type": "object",
+        "properties": {
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto.\r\nValor TIA: objectType",
+            "nullable": true
+          },
+          "idTipo": {
+            "type": "string",
+            "description": "ID del tipo de objeto.\r\nValor TIA: typeId",
+            "nullable": true
+          },
+          "propiedades": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Propiedades del objeto.",
+            "nullable": true
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionCotizacionRequest"
+              }
+            ],
+            "description": "Direccion del objeto.",
+            "nullable": true
+          },
+          "subObjetos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubObjetoRequest"
+            },
+            "description": "Lista de sub objetos asociados al objeto asegurado.",
+            "nullable": true
+          },
+          "idTitularPoliza": {
+            "type": "string",
+            "description": "Id titular poliza.\r\nValor TIA: custNo",
+            "nullable": true
+          },
+          "idNombreObjeto": {
+            "type": "string",
+            "description": "Id nombre objeto.\r\nValor TIA: objectNameId",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para el objeto asegurado."
+      },
+      "OncologicoAseguradoCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "relacion": {
+            "type": "string",
+            "description": "Relacion con el contratante."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request asegurado para cotizar poliza seguro oncologico cotizacion."
+      },
+      "OncologicoAseguradoModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "relacion": {
+            "type": "string",
+            "description": "Relacion con el contratante."
+          },
+          "operacion": {
+            "type": "string",
+            "description": "Tipo de operacion a realizar para el beneficiario durante el proceso de endoso."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request asegurado para cotizar poliza seguro oncologico modificacion."
+      },
+      "OncologicoContratanteCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contratante."
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electronico del contratante."
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionRequest"
+              }
+            ],
+            "description": "Direccion postal del contratante."
+          },
+          "tipoIsapre": {
+            "type": "string",
+            "description": "Tipo de Isapre."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro oncologico cotizacion."
+      },
+      "OncologicoContratanteModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroDocumento": {
+            "type": "string",
+            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
+          },
+          "tipoDocumento": {
+            "type": "string",
+            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del beneficiario."
+          },
+          "apellidoPaterno": {
+            "type": "string",
+            "description": "Apellido paterno del beneficiario."
+          },
+          "apellidoMaterno": {
+            "type": "string",
+            "description": "Apellido materno del beneficiario.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento del beneficiario.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono del contratante."
+          },
+          "correo": {
+            "type": "string",
+            "description": "Correo electronico del contratante."
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionRequest"
+              }
+            ],
+            "description": "Direccion postal del contratante."
+          },
+          "tipoIsapre": {
+            "type": "string",
+            "description": "Tipo de Isapre."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request contratante para cotizar poliza seguro oncologico modificacion."
+      },
+      "OncologicoCotizacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OncologicoContratanteCotizacionRequest"
+              }
+            ],
+            "description": "Contratante de la poliza."
+          },
+          "asegurados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OncologicoAseguradoCotizacionRequest"
+            },
+            "description": "Asegurados de la poliza."
+          },
+          "oncologico": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OncologicoRequest"
+              }
+            ],
+            "description": "Plan de seguro oncologico."
+          },
+          "tipoCobertura": {
+            "type": "string",
+            "description": "Tipo de cobertura"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
+      },
+      "OncologicoModificacionRequest": {
+        "type": "object",
+        "properties": {
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza entregado en la cotizacion.",
+            "nullable": true
+          },
+          "idProducto": {
+            "type": "string",
+            "description": "Codigo de producto."
+          },
+          "idLineaProducto": {
+            "type": "string",
+            "description": "Id de la linea de producto."
+          },
+          "fechaInicio": {
+            "type": "string",
+            "description": "Fecha inicio.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaFin": {
+            "type": "string",
+            "description": "Fecha fin.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "metodoPago": {
+            "type": "string",
+            "description": "Metodo de pago."
+          },
+          "planPago": {
+            "type": "string",
+            "description": "Tipo de plan de pago a plazos."
+          },
+          "aceptaTerminos": {
+            "type": "string",
+            "description": "Acepta terminos y condiciones."
+          },
+          "tipoObjeto": {
+            "type": "string",
+            "description": "Tipo de objeto."
+          },
+          "idTipoObjeto": {
+            "type": "string",
+            "description": "Tipo de cobertura."
+          },
+          "canalVenta": {
+            "type": "string",
+            "description": "Canal de venta."
+          },
+          "codigoDescuento": {
+            "type": "string",
+            "description": "Codigo de descuento."
+          },
+          "corredor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CorredorRequest"
+              }
+            ],
+            "description": "Informacion de corredor.",
+            "nullable": true
+          },
+          "contratante": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OncologicoContratanteModificacionRequest"
+              }
+            ],
+            "description": "Contratante de la poliza."
+          },
+          "asegurados": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OncologicoAseguradoModificacionRequest"
+            },
+            "description": "Asegurados de la poliza."
+          },
+          "oncologico": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OncologicoRequest"
+              }
+            ],
+            "description": "Plan de seguro oncologico."
+          },
+          "tipoCobertura": {
+            "type": "string",
+            "description": "Tipo de cobertura"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
+      },
+      "OncologicoRequest": {
+        "type": "object",
+        "properties": {
+          "codigoPlan": {
+            "type": "string",
+            "description": "Codigo del plan."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request con data de plan oncologico requerido para cotizar una poliza oncologica."
+      },
+      "ParticipanteCoaseguroRequest": {
+        "type": "object",
+        "properties": {
+          "idCoasegurador": {
+            "type": "string",
+            "description": "Identificador del participante en el coaseguro.\r\nValor TIA: nameIdNo",
+            "nullable": true
+          },
+          "tipo": {
+            "type": "string",
+            "description": "Tipo de participante en el coaseguro. EJ: LEAD, FOLL.\r\nValor TIA: coinsType",
+            "nullable": true
+          },
+          "porcentajeParticipacion": {
+            "type": "integer",
+            "description": "Porcentaje de participacion del coasegurador en el coaseguro.\r\nValor TIA: participation.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los participantes del coaseguro en una poliza."
+      },
+      "ParticipanteReaseguroRequest": {
+        "type": "object",
+        "properties": {
+          "idReasegurado": {
+            "type": "integer",
+            "description": "Identificador del participante en el reaseguro.\r\nValor TIA: nameIdNo",
+            "format": "int64"
+          },
+          "numeroAgente": {
+            "type": "integer",
+            "description": "Numero de agente.\r\nValor TIA: agentNo",
+            "format": "int32"
+          },
+          "porcentajeCesion": {
+            "type": "integer",
+            "description": "Porcentaje de cesion.\r\nValor TIA: cesionPercent.",
+            "format": "int32"
+          },
+          "porcentajeComision": {
+            "type": "integer",
+            "description": "Porcentaje de comision.\r\nValor TIA: commissionPercent.",
+            "format": "int32"
+          },
+          "margenPrima": {
+            "type": "integer",
+            "description": "Margen de prima.\r\nValor TIA: markupPremium.",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los participantes del reaseguro en una poliza."
+      },
+      "ParticipanteRequest": {
+        "type": "object",
+        "properties": {
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Roles del participante."
+          },
+          "informacionAdicional": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Informacion adicional del participante.",
+            "nullable": true
+          },
+          "persona": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PersonaRequest"
+              }
+            ],
+            "description": "Datos del participante.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los participantes en una cotizacion de poliza de seguro."
+      },
+      "PersonaRequest": {
+        "type": "object",
+        "properties": {
+          "tipoPersona": {
+            "type": "string",
+            "description": "Tipo de persona.\r\nValor TIA: type.",
+            "nullable": true
+          },
+          "nombresRazonSocial": {
+            "type": "string",
+            "description": "Primer nombre o razon social.\r\nValor TIA: forename",
+            "nullable": true
+          },
+          "apellidos": {
+            "type": "string",
+            "description": "Apellidos.\r\n///Valor TIA: lastname",
+            "nullable": true
+          },
+          "rut": {
+            "type": "string",
+            "description": "Rut de la persona.\r\nValor TIA: civilRegistrationCode.",
+            "nullable": true
+          },
+          "tipoIdentificacion": {
+            "type": "string",
+            "description": "Tipo de documentacion.\r\nValor TIA: documentType.",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "description": "Fecha de nacimiento.\r\nValor TIA: birthDate.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "description": "Telefono de contacto.\r\nValor TIA: phone.",
+            "nullable": true
+          },
+          "mail": {
+            "type": "string",
+            "description": "Direccion de correo electronico.\r\nValor TIA: email",
+            "nullable": true
+          },
+          "direccion": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DireccionCotizacionRequest"
+              }
+            ],
+            "description": "Direccion",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los datos de una persona participante en una cotizacion de poliza de seguro."
+      },
+      "Poliza": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "readOnly": true
+          },
+          "precioPagado": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "precioTarifa": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "idTrazabilidad": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "idContratantePoliza": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "idAseguradoPoliza": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "idObjetoAsegurado": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "contenido": {
+            "readOnly": true
+          },
+          "identificadorPoliza": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "codigoRecaudador": {
+            "type": "string",
+            "readOnly": true
+          },
+          "detalleCuotas": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DetalleCuotas"
+              }
+            ],
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PolizaApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Poliza"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "PolizaEmitidaResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id de registro.",
+            "format": "int64"
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza."
+          },
+          "idTrazabilidad": {
+            "type": "number",
+            "description": "Id de trazabilidad.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response de una poliza creada."
+      },
+      "PolizaEmitidaResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolizaEmitidaResponse"
+              }
+            ],
+            "description": "Response de una poliza creada."
+          }
+        },
+        "additionalProperties": false
+      },
+      "PolizaPropuestaResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id de registro.",
+            "format": "int64"
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza."
+          },
+          "precioPagado": {
+            "type": "number",
+            "description": "Precio pagado.",
+            "format": "double"
+          },
+          "precioTarifa": {
+            "type": "number",
+            "description": "Precio de tarifa.",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response de la cotizacion de una poliza."
+      },
+      "PolizaPropuestaResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolizaPropuestaResponse"
+              }
+            ],
+            "description": "Response de la cotizacion de una poliza."
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropiedadRequest": {
+        "type": "object",
+        "properties": {
+          "clave": {
+            "type": "string",
+            "description": "Clave de la propiedad."
+          },
+          "valor": {
+            "type": "string",
+            "description": "Valor de la propiedad."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Propiedad de una accion."
+      },
+      "ReaseguroRequest": {
+        "type": "object",
+        "properties": {
+          "tipoFacultativo": {
+            "type": "string",
+            "description": "Tipo reaseguro\r\nValor TIA: facType",
+            "nullable": true
+          },
+          "porcentajeLimite": {
+            "type": "integer",
+            "description": "Porcentaje limite",
+            "format": "int32",
+            "nullable": true
+          },
+          "participantes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParticipanteReaseguroRequest"
+            },
+            "description": "Participantes del coaseguro.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para el reaseguro en una poliza."
+      },
+      "RenovarPolizaResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Id de registro.",
+            "format": "int64"
+          },
+          "numeroPoliza": {
+            "type": "string",
+            "description": "Numero de poliza."
+          },
+          "polizaRenovada": {
+            "type": "boolean",
+            "description": "Poliza renovada"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response de una poliza renovada."
+      },
+      "RenovarPolizaResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RenovarPolizaResponse"
+              }
+            ],
+            "description": "Response de una poliza renovada."
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResumenMontosRequest": {
+        "type": "object",
+        "properties": {
+          "moneda": {
+            "type": "string",
+            "description": "Moneda de la cobertura EJ: CLP, USD.\r\nValorTIA: currencyCode",
+            "nullable": true
+          },
+          "totalMontoInteres": {
+            "type": "number",
+            "description": "Total monto interes",
+            "format": "double",
+            "nullable": true
+          },
+          "totalIvaPrima": {
+            "type": "number",
+            "description": "Total iva prima",
+            "format": "double",
+            "nullable": true
+          },
+          "totalIvaInteres": {
+            "type": "number",
+            "description": "Total iva interes",
+            "format": "double",
+            "nullable": true
+          },
+          "totalPrimaBruta": {
+            "type": "number",
+            "description": "Total prima bruta",
+            "format": "double",
+            "nullable": true
+          },
+          "totalPrimaNeta": {
+            "type": "number",
+            "description": "Total prima neta",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para el resumen de montos de una cotizacion de poliza en TIA."
+      },
+      "RiesgoRequest": {
+        "type": "object",
+        "properties": {
+          "codigoRiesgo": {
+            "type": "string",
+            "description": "Codigo del riesgo.\r\nValor TIA: riskNo.",
+            "nullable": true
+          },
+          "riesgoCubierto": {
+            "type": "string",
+            "description": "riesgo Cubierto.\r\nValor TIA: riskYn.",
+            "nullable": true
+          },
+          "primaManual": {
+            "type": "number",
+            "description": "Prima total bruta poliza.\r\nValor TIA: manualPremium.",
+            "format": "double",
+            "nullable": true
+          },
+          "montoAsegurado": {
+            "type": "number",
+            "description": "Monto asegurado por la cobertura.\r\nValor TIA: RiskSum.",
+            "format": "double",
+            "nullable": true
+          },
+          "subLimite": {
+            "type": "number",
+            "description": "Sub Limite de la cobertura.\r\nValor TIA: subLimit.",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los riesgos asociados a una poliza de seguro en una cotizacion."
+      },
+      "SubObjetoRequest": {
+        "type": "object",
+        "properties": {
+          "tipo": {
+            "type": "string",
+            "description": "Tipo de sub objeto, por ejemplo: \"Vehiculo\", \"Inmueble\", etc.",
+            "nullable": true
+          },
+          "propiedades": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Propiedades del sub objeto, como marca, modelo, a�o, etc.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para un sub objeto dentro de un objeto asegurado en una poliza."
+      },
+      "TarjetaRequest": {
+        "type": "object",
+        "properties": {
+          "numeroTarjeta": {
+            "type": "string",
+            "description": "Numero de Tarjeta.",
+            "nullable": true
+          },
+          "entidadFinanciera": {
+            "type": "string",
+            "description": "Banco.",
+            "nullable": true
+          },
+          "tipoTarjeta": {
+            "type": "string",
+            "description": "Tipo Tarjeta.",
+            "nullable": true
+          },
+          "redPago": {
+            "type": "string",
+            "description": "Red de Pago de la Tarjeta.",
+            "nullable": true
+          },
+          "nombreCliente": {
+            "type": "string",
+            "description": "Nombre cliente.",
+            "nullable": true
+          },
+          "fechaVencimiento": {
+            "type": "string",
+            "description": "Fecha de vencimiento de la Tarjeta.",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Request para los datos de la tarjeta en una cotizacion de poliza de seguro."
+      },
+      "TransaccionRequest": {
+        "type": "object",
+        "properties": {
+          "acciones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccionRequest"
+            },
+            "description": "Lista de acciones de una transaccion."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+      }
+    }
+  }
+}

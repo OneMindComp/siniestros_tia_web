@@ -1,4 +1,5 @@
-﻿@using DenunciaSiniestro.Web.Components.ViewModel;
+﻿@using DenunciaSiniestro.Aplicacion.Dtos.Request
+@using DenunciaSiniestro.Web.Components.ViewModel;
 @using DenunciaSiniestro.Dominio;
 @* Puedes inyectar servicios aquí si es necesario, pero para este caso no lo es. *@
 
@@ -14,7 +15,7 @@
         case TipoCampo.Numero:
             {
                 // Usamos <input> en lugar de InputText / InputNumber
-                Input value = GetValue(Campo.Nombre);
+                InputRequest value = GetValue(Campo.Nombre);
                 var inputType = Campo.Tipo == TipoCampo.Numero ? "number" : "text";
 
                 <input id="@Campo.Nombre"
@@ -131,28 +132,28 @@
     public Campo Campo { get; set; } = default!;
 
     [Parameter, EditorRequired]
-    public Dictionary<string, Input> FormData { get; set; } = default!;
+    public Dictionary<string, InputRequest> FormData { get; set; } = default!;
 
     [Parameter, EditorRequired]
-    public EventCallback<KeyValuePair<string, Input>> OnSetValue { get; set; }
+    public EventCallback<KeyValuePair<string, InputRequest>> OnSetValue { get; set; }
 
     [Parameter, EditorRequired]
-    public Func<string, Input?> GetValueMethod { get; set; } = default!;
+    public Func<string, InputRequest?> GetValueMethod { get; set; } = default!;
 
 
     // Método local para obtener el valor, llamando al método padre
-    private Input? GetValue(string key) => GetValueMethod(key);
+    private InputRequest? GetValue(string key) => GetValueMethod(key);
 
     // Método local para establecer el valor, invocando el EventCallback al padre
     private async Task SetValue(string sectionName, string key, object? value)
     {
-        Input valor = new Input()
+        InputRequest valor = new InputRequest()
         {
             NombreSeccion = sectionName,
             Valor = value
         };
 
         // Se encapsula la lógica de SetValue para llamarla desde el componente padre
-        await OnSetValue.InvokeAsync(new KeyValuePair<string, Input>(key, valor));
+        await OnSetValue.InvokeAsync(new KeyValuePair<string, InputRequest>(key, valor));
     }
 }

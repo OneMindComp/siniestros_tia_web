@@ -3,10 +3,14 @@
 @using System.Text.Json
 @using System.Text.Json.Serialization
 @using DenunciaSiniestro.Aplicacion
+@using DenunciaSiniestro.Aplicacion.Dtos.Request
 @using DenunciaSiniestro.Dominio
 @using DenunciaSiniestro.Web.Components.ViewModel
 @using Sbins.Mediador.Abstracciones
+@rendermode InteractiveServer
 @using static System.Net.WebRequestMethods
+@inject RecaptchaService RecaptchaService
+@inject DenuncioService DenuncioService
 
 <div class="page">
     <main>
@@ -69,17 +73,17 @@
 </div>
 
 @code {
-    private async Task HandleSetValue(KeyValuePair<string, Input> args)
+    private async Task HandleSetValue(KeyValuePair<string, InputRequest> args)
     {
         SetValue(args.Key, args.Value);
     }
 
-    private Dictionary<string, Input> FormData = new Dictionary<string, Input>();
+    private Dictionary<string, InputRequest> FormData = new Dictionary<string, InputRequest>();
 
     private ConfiguracionFormulario _ConfiguracionFormulario { get; set; } = default!;
 
 
-    private Input GetValue(string key) => FormData.TryGetValue(key, out var value) ? value : null;
+    private InputRequest GetValue(string key) => FormData.TryGetValue(key, out var value) ? value : null;
 
     private T GetValue<T>(string key)
     {
@@ -90,7 +94,7 @@
         return default!; // Devuelve el valor por defecto para el tipo (ej. null para DateTime?)
     }
 
-    private void SetValue(string key, Input value)
+    private void SetValue(string key, InputRequest value)
     {
         // Limpia el valor si es nulo o cadena vacía para InputText/InputTextArea
         if (value.Valor is string strValue && string.IsNullOrEmpty(strValue))
@@ -143,9 +147,9 @@
                     Descripcion = "Información del vehículo involucrado en el accidente",
                     Campos = new List<Campo>
                     {
-                        new Campo { Nombre = "Número", Descripcion = "Número de póliza", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "NumeroPoliza", Descripcion = "Número de póliza", Tipo = TipoCampo.Texto, Requerido = true },
                         new Campo { Nombre = "Patente", Descripcion = "Patente", Tipo = TipoCampo.Texto, Requerido = true },
-                        new Campo { Nombre = "Número", Descripcion = "Número de motor", Tipo = TipoCampo.Texto, Requerido = true }
+                        new Campo { Nombre = "NumeroMotor", Descripcion = "Número de motor", Tipo = TipoCampo.Texto, Requerido = true }
                     }
                 },
                 new Seccion
@@ -158,7 +162,7 @@
                         new Campo { Nombre = "Apellidos", Descripcion = "Apellidos del denunciante", Tipo = TipoCampo.Texto, Requerido = true },
                         new Campo { Nombre = "Rut", Descripcion = "Rut del denunciante", Tipo = TipoCampo.Texto, Requerido = true },
                         new Campo { Nombre = "Celular", Descripcion = "Celular / Teléfono del denunciante", Tipo = TipoCampo.Texto, Requerido = true },
-                        new Campo { Nombre = "Correo", Descripcion = "Correo electrónico del denunciante", Tipo = TipoCampo.Email, Requerido = true }
+                        new Campo { Nombre = "Mail", Descripcion = "Correo electrónico del denunciante", Tipo = TipoCampo.Email, Requerido = true }
                     }
                 },
                 new Seccion
@@ -180,7 +184,7 @@
                         new Campo { Nombre = "Nombre", Descripcion = "Nombre del lesionado", Tipo = TipoCampo.Texto, Requerido = true },
                         new Campo { Nombre = "Rut", Descripcion = "Rut del lesionado", Tipo = TipoCampo.Texto, Requerido = true },
                         new Campo { Nombre = "Celular", Descripcion = "Celular / Teléfono del lesionado", Tipo = TipoCampo.Texto, Requerido = true },
-                        new Campo { Nombre = "Correo", Descripcion = "Correo electrónico del lesionado", Tipo = TipoCampo.Email, Requerido = true }
+                        new Campo { Nombre = "Mail", Descripcion = "Correo electrónico del lesionado", Tipo = TipoCampo.Email, Requerido = true }
                     }
                 },
                 new Seccion
@@ -189,10 +193,10 @@
                     Descripcion = "Información del siniestro reportado",
                     Campos = new List<Campo>
                     {
-                        new Campo { Nombre = "Ubicación", Descripcion = "Ubicación en la que se produjo el accidente", Tipo = TipoCampo.TextoMultilinea, Requerido = true },
+                        new Campo { Nombre = "Ubicacion", Descripcion = "Ubicación en la que se produjo el accidente", Tipo = TipoCampo.TextoMultilinea, Requerido = true },
                         new Campo { Nombre = "Fecha", Descripcion = "Fecha siniestro", Tipo = TipoCampo.Fecha, Requerido = true },
                         new Campo { Nombre = "Relato", Descripcion = "Relato del accidente", Tipo = TipoCampo.TextoMultilinea, Requerido = true },
-                        new Campo { Nombre = "Número", Descripcion = "Número Parte Policial", Tipo = TipoCampo.Numero, Requerido = true },
+                        new Campo { Nombre = "NumeroPartePolicial", Descripcion = "Número Parte Policial", Tipo = TipoCampo.Numero, Requerido = true },
                         new Campo
                         {
                             Nombre = "recordType",
@@ -221,27 +225,21 @@
             try
             {
                 // 1. Ejecutar reCAPTCHA
-                // var token = await RecaptchaService.GetTokenAsync("denuncia_form");
-                var token = "asassa";
+                var token = await RecaptchaService.ValidateToken("denuncia_form");
 
-                Console.WriteLine($"Token reCAPTCHA: {token}");
-
-                // 2. Enviar token al backend para validación
-                var response = await new HttpClient().PostAsJsonAsync("https://localhost:7198/recaptcha/validate", new { Token = token });
-
-                if (response.IsSuccessStatusCode)
+                if (token)
                 {
                     Console.WriteLine("✅ reCAPTCHA validado correctamente");
 
-                    Dictionary<string, Input> data = FormData;
+                    Dictionary<string, InputRequest> data = FormData;
 
-                    var body = new
+                    DenuncioRequest denuncio = new DenuncioRequest
                     {
-                        tipoDenuncio = _ConfiguracionFormulario.Id,
-                        valores = FormData
+                        TipoDenuncio = _ConfiguracionFormulario.Id,
+                        Valores = data
                     };
 
-                    var response2 = await new HttpClient().PostAsJsonAsync("https://localhost:7198/denuncio", body);
+                    var response2 = await DenuncioService.CrearDenuncio(denuncio);
                 }
                 else
                 {

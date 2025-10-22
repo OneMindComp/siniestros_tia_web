@@ -12,8 +12,15 @@ namespace DenunciaSiniestro.Dominio.Denuncios
         public DateTime Fecha { get; set; }
         public string RelatoAccidente { get; set; } = default!;
         public string NumeroPartePolicial { get; set; } = default!;
+
         public Siniestro() { }
-        public Siniestro(string ubicacion, DateTime fecha, string relatoAccidente, string numeroPartePolicial) { }
+
+        public Siniestro(string ubicacion, DateTime fecha, string relatoAccidente, string numeroPartePolicial) {
+            Ubicacion = ubicacion;
+            Fecha = fecha;
+            RelatoAccidente = relatoAccidente;
+            NumeroPartePolicial = numeroPartePolicial;
+        }
 
         public static Siniestro Crear(
             string ubicacion,
