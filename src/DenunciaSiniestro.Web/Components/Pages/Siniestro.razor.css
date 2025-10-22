@@ -1,0 +1,100 @@
+﻿/* SiniestroForm.razor.css */
+
+.form-container {
+    margin: 0 auto;
+}
+
+h2 {
+    font-family: Arial, sans-serif;
+}
+
+h3 {
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    padding: 5px 60px;
+}
+
+/* Blazor Input* components render as standard HTML inputs/textareas/etc., 
+   so the CSS selectors for the elements should still apply. */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="number"],
+textarea,
+select,
+.form-control { /* Add .form-control to match the class added to Blazor Input* components */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Targeting the button by its class */
+.btnSmtForm {
+    width: 100%;
+    padding: 15px 10px;
+    background-color: #4f74e3;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    max-width: 200px; /* Kept the max-width for the button from the original CSS */
+}
+
+    .btnSmtForm:hover {
+        background-color: #2a3881;
+        text-decoration: none !important;
+    }
+
+.t3form {
+    border-bottom: 2px solid #2d387c;
+    padding-bottom: 10px;
+    color: #2d387c;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.titulos {
+    color: #2d387c
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Validation styling (optional, but good practice) */
+.validation-message {
+    color: red;
+    font-size: 0.9em;
+}
+
+/* Media query from original CSS */
+@media (max-width: 575px) {
+    .form-group {
+        margin-bottom: 10px;
+        padding: 5px 0px;
+    }
+}

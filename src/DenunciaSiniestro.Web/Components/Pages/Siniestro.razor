@@ -1,0 +1,282 @@
+﻿@page "/"
+@page "/siniestro"
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using DenunciaSiniestro.Aplicacion
+@using DenunciaSiniestro.Dominio
+@using DenunciaSiniestro.Web.Components.ViewModel
+@using Sbins.Mediador.Abstracciones
+@using static System.Net.WebRequestMethods
+
+<div class="page">
+    <main>
+        <article class="content px-4">
+            <div class="container mt-5">
+                <div class="p-4 border rounded">
+                    @* ... (Carga y encabezados) ... *@
+                    @if (_ConfiguracionFormulario == null)
+                    {
+                        <p>Cargando configuración del formulario...</p>
+                    }
+                    else
+                    {
+                        <div class="form-container">
+                            <img class="mx-auto d-block" src="@_ConfiguracionFormulario.TipoDenuncio.IconoUrl" alt="soap_icon" title="">
+                            <h2 class="heading-bold titulos text-primary-emphasis text-center">@_ConfiguracionFormulario.TipoDenuncio.Nombre</h2>
+                            <EditForm Model="@FormData" OnValidSubmit="HandleValidSubmit" FormName="dynamicForm">
+                                <DataAnnotationsValidator />
+                                @foreach (var seccion in _ConfiguracionFormulario.Secciones)
+                                {
+                                    <div>
+                                        <h3 class="t3form">@seccion.Nombre</h3>
+                                        <p>@seccion.Descripcion</p>
+                                    </div>
+
+                                    @foreach (var campo in seccion.Campos)
+                                    {
+                                        <div class="form-group">
+                                            <label for="@campo.Nombre">@campo.Descripcion @(campo.Requerido ? "*" : "")</label>
+
+                                            @* USO DEL COMPONENTE EXTERNO PARA RENDERIZAR EL CAMPO *@
+                                            <DynamicFieldRenderer Campo="campo"
+                                                                  Seccion="seccion"
+                                                                  FormData="FormData"
+                                                                  OnSetValue="HandleSetValue"
+                                                                  GetValueMethod="GetValue" />
+                                            @* -------------------------------------------------------- *@
+
+                                            @if (campo.Requerido && IsFieldEmpty(campo.Nombre))
+                                            {
+                                                <span class="text-danger">Este campo es requerido.</span>
+                                            }
+                                        </div>
+                                    }
+                                }
+                                @* Aquí termina el foreach de secciones y campos *@
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btnSmtForm">
+                                        Enviar
+                                    </button>
+                                </div>
+
+                            </EditForm>
+                        </div>
+                    }
+                </div>
+            </div>
+        </article>
+    </main>
+</div>
+
+@code {
+    private async Task HandleSetValue(KeyValuePair<string, Input> args)
+    {
+        SetValue(args.Key, args.Value);
+    }
+
+    private Dictionary<string, Input> FormData = new Dictionary<string, Input>();
+
+    private ConfiguracionFormulario _ConfiguracionFormulario { get; set; } = default!;
+
+
+    private Input GetValue(string key) => FormData.TryGetValue(key, out var value) ? value : null;
+
+    private T GetValue<T>(string key)
+    {
+        if (FormData.TryGetValue(key, out var value) && value is T typedValue)
+        {
+            return typedValue;
+        }
+        return default!; // Devuelve el valor por defecto para el tipo (ej. null para DateTime?)
+    }
+
+    private void SetValue(string key, Input value)
+    {
+        // Limpia el valor si es nulo o cadena vacía para InputText/InputTextArea
+        if (value.Valor is string strValue && string.IsNullOrEmpty(strValue))
+        {
+            FormData.Remove(key);
+            return;
+        }
+
+        // Manejo específico para InputDate
+        if (value.Valor is DateTime dateValue && dateValue == default(DateTime))
+        {
+            FormData.Remove(key);
+            return;
+        }
+
+        FormData[key] = value;
+        // Notifica a Blazor del cambio, especialmente útil para campos que usan @onchange
+        StateHasChanged();
+    }
+
+    private bool IsFieldEmpty(string key)
+    {
+        if (!FormData.ContainsKey(key) || FormData[key] == null)
+            return true;
+
+        if (FormData[key].Valor is string strValue)
+            return string.IsNullOrWhiteSpace(strValue);
+
+        // Podrías añadir lógica para otros tipos si es necesario.
+        return false;
+    }
+
+    protected override void OnInitialized()
+    {
+        // Simulación de carga de la configuración dinámica
+        _ConfiguracionFormulario = new ConfiguracionFormulario
+        {
+            TipoDenuncio = new TipoDenuncio
+            {
+                Nombre = "Denuncia Seguro SOAP",
+                Descripcion = "",
+                IconoUrl = "https://southbridgeseguros.cl/media/wysiwyg/sb-seguros/soap_icon.png",
+            },
+            Id = 2,
+            Secciones = new List<Seccion>
+            {
+                new Seccion
+                {
+                    Nombre = "DatosVehiculo",
+                    Descripcion = "Información del vehículo involucrado en el accidente",
+                    Campos = new List<Campo>
+                    {
+                        new Campo { Nombre = "Número", Descripcion = "Número de póliza", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Patente", Descripcion = "Patente", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Número", Descripcion = "Número de motor", Tipo = TipoCampo.Texto, Requerido = true }
+                    }
+                },
+                new Seccion
+                {
+                    Nombre = "DatosDenunciante",
+                    Descripcion = "Información personal del denunciante",
+                    Campos = new List<Campo>
+                    {
+                        new Campo { Nombre = "Nombre", Descripcion = "Nombre del denunciante", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Apellidos", Descripcion = "Apellidos del denunciante", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Rut", Descripcion = "Rut del denunciante", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Celular", Descripcion = "Celular / Teléfono del denunciante", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Correo", Descripcion = "Correo electrónico del denunciante", Tipo = TipoCampo.Email, Requerido = true }
+                    }
+                },
+                new Seccion
+                {
+                    Nombre = "DatosConductor",
+                    Descripcion = "Información sobre el conductor involucrado",
+                    Campos = new List<Campo>
+                    {
+                        new Campo { Nombre = "Nombre", Descripcion = "Nombre del conductor", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Rut", Descripcion = "Rut del conductor", Tipo = TipoCampo.Texto, Requerido = true }
+                    }
+                },
+                new Seccion
+                {
+                    Nombre = "DatosLesionado",
+                    Descripcion = "Información sobre el lesionado en el accidente",
+                    Campos = new List<Campo>
+                    {
+                        new Campo { Nombre = "Nombre", Descripcion = "Nombre del lesionado", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Rut", Descripcion = "Rut del lesionado", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Celular", Descripcion = "Celular / Teléfono del lesionado", Tipo = TipoCampo.Texto, Requerido = true },
+                        new Campo { Nombre = "Correo", Descripcion = "Correo electrónico del lesionado", Tipo = TipoCampo.Email, Requerido = true }
+                    }
+                },
+                new Seccion
+                {
+                    Nombre = "DatosSiniestro",
+                    Descripcion = "Información del siniestro reportado",
+                    Campos = new List<Campo>
+                    {
+                        new Campo { Nombre = "Ubicación", Descripcion = "Ubicación en la que se produjo el accidente", Tipo = TipoCampo.TextoMultilinea, Requerido = true },
+                        new Campo { Nombre = "Fecha", Descripcion = "Fecha siniestro", Tipo = TipoCampo.Fecha, Requerido = true },
+                        new Campo { Nombre = "Relato", Descripcion = "Relato del accidente", Tipo = TipoCampo.TextoMultilinea, Requerido = true },
+                        new Campo { Nombre = "Número", Descripcion = "Número Parte Policial", Tipo = TipoCampo.Numero, Requerido = true },
+                        new Campo
+                        {
+                            Nombre = "recordType",
+                            Descripcion = "Tipo de registro del caso",
+                            Tipo = TipoCampo.Select,
+                            Requerido = false,
+                            Opciones = new List<Opcion>
+                            {
+                                new("--Ninguno--", ""),
+                                new("Caso General", "012Uf0000003ixO"),
+                                new("Caso Glia", "012Uf000003cYuz"),
+                                new("Caso Protección Patrimonial", "012Uf000000JYHJ"),
+                                new("Caso Siniestro", "0124T00000054Ym")
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        if (ValidateAllFields())
+        {
+            try
+            {
+                // 1. Ejecutar reCAPTCHA
+                // var token = await RecaptchaService.GetTokenAsync("denuncia_form");
+                var token = "asassa";
+
+                Console.WriteLine($"Token reCAPTCHA: {token}");
+
+                // 2. Enviar token al backend para validación
+                var response = await new HttpClient().PostAsJsonAsync("https://localhost:7198/recaptcha/validate", new { Token = token });
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine("✅ reCAPTCHA validado correctamente");
+
+                    Dictionary<string, Input> data = FormData;
+
+                    var body = new
+                    {
+                        tipoDenuncio = _ConfiguracionFormulario.Id,
+                        valores = FormData
+                    };
+
+                    var response2 = await new HttpClient().PostAsJsonAsync("https://localhost:7198/denuncio", body);
+                }
+                else
+                {
+                    Console.WriteLine("❌ Error validando reCAPTCHA");
+                    // Mostrar mensaje al usuario
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"⚠️ Error: {ex.Message}");
+            }
+
+        }
+        else
+        {
+            Console.WriteLine("El formulario dinámico tiene campos requeridos vacíos.");
+        }
+    }
+
+    // Validación de todos los campos requeridos
+    private bool ValidateAllFields()
+    {
+        bool isValid = true;
+        foreach (var seccion in _ConfiguracionFormulario.Secciones)
+        {
+            foreach (var campo in seccion.Campos.Where(c => c.Requerido))
+            {
+                if (IsFieldEmpty(campo.Nombre))
+                {
+                    // En una aplicación real, establecerías un estado de error
+                    // Aquí solo devolvemos falso y confiamos en el mensaje de error de Razor
+                    isValid = false;
+                }
+            }
+        }
+        return isValid;
+    }
+}

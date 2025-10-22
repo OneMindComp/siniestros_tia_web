@@ -1,0 +1,158 @@
+﻿@using DenunciaSiniestro.Web.Components.ViewModel;
+@using DenunciaSiniestro.Dominio;
+@* Puedes inyectar servicios aquí si es necesario, pero para este caso no lo es. *@
+
+@*
+    Este componente recibe un campo y renderiza el control de formulario
+    apropiado usando un bloque @switch/case.
+*@
+
+<div class="field-renderer-container">
+    @switch (Campo.Tipo)
+    {
+        case TipoCampo.Texto:
+        case TipoCampo.Numero:
+            {
+                // Usamos <input> en lugar de InputText / InputNumber
+                Input value = GetValue(Campo.Nombre);
+                var inputType = Campo.Tipo == TipoCampo.Numero ? "number" : "text";
+
+                <input id="@Campo.Nombre"
+                       value="@(value?.Valor ?? string.Empty)"
+                       @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value))"
+                       type="@inputType"
+                       class="form-control" />
+                break;
+            }
+
+        case TipoCampo.TextoMultilinea:
+            {
+                var value = GetValue(Campo.Nombre);
+
+                <textarea id="@Campo.Nombre"
+                          @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value?.ToString()))"
+                          rows="3"
+                          class="form-control">@(value?.Valor ?? string.Empty)</textarea>
+                break;
+            }
+
+        case TipoCampo.Fecha:
+            {
+                var dateString = GetValue(Campo.Nombre)?.Valor is DateTime dt ? dt.ToString("yyyy-MM-dd") : string.Empty;
+
+                <input id="@Campo.Nombre"
+                       type="date"
+                       value="@dateString"
+                       @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, DateTime.TryParse(e.Value?.ToString(), out var dt) ? (object)dt : null))"
+                       class="form-control" />
+                break;
+            }
+        case TipoCampo.Select:
+        case TipoCampo.MultiSelect:
+            {
+                var value = GetValue(Campo.Nombre);
+
+                <select id="@Campo.Nombre"
+                        value="@(value?.Valor ?? string.Empty)"
+                        @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value?.ToString()))"
+                        class="form-control">
+                    <option value="">Seleccione una opción</option>
+                    @foreach (var opcion in Campo.Opciones)
+                    {
+                        <option value="@opcion.Valor">@opcion.Etiqueta</option>
+                    }
+                </select>
+                break;
+            }
+
+        case TipoCampo.Radio:
+            {
+                var selectedValue = GetValue(Campo.Nombre);
+
+                <fieldset class="form-control border-0 p-0">
+                    @foreach (var opcion in Campo.Opciones)
+                    {
+                        <div class="form-check form-check-inline">
+                            <input type="radio"
+                                   id="@(Campo.Nombre + opcion.Valor)"
+                                   name="@Campo.Nombre"
+                                   value="@opcion.Valor"
+                                   checked="@(selectedValue.Valor == opcion.Valor)"
+                                   @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value?.ToString()))"
+                                   class="form-check-input" />
+                            <label class="form-check-label" for="@(Campo.Nombre + opcion.Valor)">@opcion.Etiqueta</label>
+                        </div>
+                    }
+                </fieldset>
+                break;
+            }
+
+        case TipoCampo.Email:
+            {
+                var value = GetValue(Campo.Nombre)?.ToString();
+
+                <input id="@Campo.Nombre"
+                       value="@(value ?? string.Empty)"
+                       @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value))"
+                       type="email"
+                       class="form-control" />
+                break;
+            }
+
+
+        case TipoCampo.Checkbox:
+            {
+                var isChecked = GetValue(Campo.Nombre)?.Valor is bool b && b;
+
+                <div class="form-check">
+                    <input type="checkbox"
+                           id="@Campo.Nombre"
+                           checked="@isChecked"
+                           @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value is bool checkValue ? (object)checkValue : false))"
+                           class="form-check-input" />
+                    <label class="form-check-label" for="@Campo.Nombre">@Campo.Descripcion</label>
+                </div>
+                break;
+            }
+
+    }
+</div>
+
+
+@code {
+    // Parámetros de entrada para el componente
+    [Parameter, EditorRequired]
+    public TipoDenuncio TipoDenuncio { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Seccion Seccion { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Campo Campo { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Dictionary<string, Input> FormData { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public EventCallback<KeyValuePair<string, Input>> OnSetValue { get; set; }
+
+    [Parameter, EditorRequired]
+    public Func<string, Input?> GetValueMethod { get; set; } = default!;
+
+
+    // Método local para obtener el valor, llamando al método padre
+    private Input? GetValue(string key) => GetValueMethod(key);
+
+    // Método local para establecer el valor, invocando el EventCallback al padre
+    private async Task SetValue(string sectionName, string key, object? value)
+    {
+        Input valor = new Input()
+        {
+            NombreSeccion = sectionName,
+            Valor = value
+        };
+
+        // Se encapsula la lógica de SetValue para llamarla desde el componente padre
+        await OnSetValue.InvokeAsync(new KeyValuePair<string, Input>(key, valor));
+    }
+}

@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DenunciaSiniestro.Dominio.Denuncios
+{
+    public class Lesionado
+    {
+        public string Nombre { get; set; } = default!;
+        public string Rut { get; set; } = default!;
+        public string Celular { get; set; } = default!;
+        public string Mail { get; set; } = default!;
+        public Lesionado() { }
+        public Lesionado(string nombre, string rut, string celular, string mail) { }
+
+        public static Lesionado Crear(
+            string nombre,
+            string rut,
+            string celular,
+            string mail
+
+            )
+        {
+            return new Lesionado(
+                nombre,
+                rut,
+                celular,
+                mail
+                );
+        }
+    }
+}

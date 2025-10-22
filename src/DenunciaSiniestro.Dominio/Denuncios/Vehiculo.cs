@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DenunciaSiniestro.Dominio.Denuncios
+{
+    public class Vehiculo
+    {
+        public string NumeroPoliza { get; set; } = default!;
+        public string Patente { get; set; } = default!;
+        public string NumeroMotor { get; set; } = default!;
+        public Vehiculo() { }
+        public Vehiculo(string numeroPoliza, string patente, string numeroMotor) { }
+
+        public static Vehiculo Crear(
+            string numeroPoliza,
+            string patente,
+            string numeroMotor
+
+            )
+        {
+            return new Vehiculo(
+                numeroPoliza,
+                patente,
+                numeroMotor
+                );
+        }
+    }
+}
