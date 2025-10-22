@@ -14,7 +14,7 @@ public class RecaptchaController : ControllerBase
     [HttpPost("validate")]
     public async Task<IActionResult> ValidateRecaptcha([FromBody] RecaptchaRequest request)
     {
-        var secretKey = "6LcPvesrAAAAAGO9bpiw_sHFnG9Flg9usmKQY-oY"; // clave secreta
+        var secretKey = ""; // clave secreta
 
         using var http = new HttpClient();
         var response = await http.PostAsync(
