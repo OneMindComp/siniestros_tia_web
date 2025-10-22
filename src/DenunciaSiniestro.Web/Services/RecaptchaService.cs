@@ -9,7 +9,7 @@ public class RecaptchaService
     {
         _jsRuntime = jsRuntime;
         // Puedes mover esta key a appsettings.json si prefieres
-        _siteKey = "6LcPvesrAAAAAAJOPVZ-2o1cJSC6ZpDhgPiIUOjP";
+        _siteKey = "";
     }
 
     public async Task<string> GetTokenAsync(string action = "form_submit")
