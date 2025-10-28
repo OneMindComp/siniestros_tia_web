@@ -2,6 +2,6 @@
 {
     public class FiltroDenuncio : FiltroBase<long>
     {
-        public string NumeroSeguimiento { get; private set; } = string.Empty;
+        public string NumeroSeguimiento { get; set; } = string.Empty;
     }
 }
