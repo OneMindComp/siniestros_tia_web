@@ -116,5 +116,10 @@ namespace DenunciaSiniestro.Dominio.Entidades
         {
             NumeroSiniestro=numeroSiniestro;
         }
+        public void EstablecerDatosBasicos(
+           string datosBasicos)
+        {
+           DatosBasicos=datosBasicos;
+        }
     }
 }

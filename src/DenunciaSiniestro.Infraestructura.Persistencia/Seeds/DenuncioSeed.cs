@@ -29,7 +29,9 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Seeds
                 estado: "Ingresado",
                 fechaCreacion: new System.DateTime(2024, 9, 15, 14, 30, 0, System.DateTimeKind.Utc)
             );
-
+            denuncio.EstablecerDatosBasicos(
+                "{}"
+                );
             builder.Entity<Denuncio>().HasData(denuncio);
         }
     }
