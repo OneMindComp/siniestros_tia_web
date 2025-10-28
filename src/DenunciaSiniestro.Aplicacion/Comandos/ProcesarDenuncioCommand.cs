@@ -124,12 +124,12 @@ namespace DenunciaSiniestro.Aplicacion.Comandos
 
                 numeroSeguimiento = GeneradorCodigoSeguimiento.Generar();
 
-                denuncio = await _denuncioRepositorio.Obtener(numeroSeguimiento);
+                denuncio = await _denuncioRepositorio.Buscar(new Dominio.Filtros.FiltroDenuncio() {NumeroSeguimiento= numeroSeguimiento });
 
                 while (denuncio != null)
                 {
                     numeroSeguimiento = GeneradorCodigoSeguimiento.Generar();
-                    denuncio = await _denuncioRepositorio.Obtener(numeroSeguimiento);
+                    denuncio = await _denuncioRepositorio.Buscar(new Dominio.Filtros.FiltroDenuncio() { NumeroSeguimiento = numeroSeguimiento });
                 }
 
                 Soap soap = Soap.Crear(vehiculo, denunciante, conductor, lesionado, siniestro);

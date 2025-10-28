@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using DenunciaSiniestro.Aplicacion.Contratos.Repositorios;
 using DenunciaSiniestro.Dominio.Entidades;
+using DenunciaSiniestro.Dominio.Filtros;
 using Sbins.Mediador.Abstracciones;
 
 namespace PasarelaPago.Aplicacion.Consultas
@@ -46,7 +47,7 @@ namespace PasarelaPago.Aplicacion.Consultas
         {
             try
             {
-                var denuncio = await _denuncioRepositorio.Obtener(request.NumeroSeguimiento);
+                var denuncio = await _denuncioRepositorio.Buscar(new FiltroDenuncio() { NumeroSeguimiento = request.NumeroSeguimiento });
                 return denuncio;
             }
             catch (Exception)

@@ -45,7 +45,8 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
                 .HasColumnName("FechaModificacion")
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
-
+            // Ignorar propiedad Secciones (no se persiste, solo se usa en memoria)
+            builder.Ignore(c => c.Secciones);
             // Relaciones
             builder.HasOne(c => c.TipoDenuncio)
                 .WithMany(t => t.ConfiguracionesFormulario)

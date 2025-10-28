@@ -1,3 +1,4 @@
+using DenunciaSiniestro.Dominio;
 using DenunciaSiniestro.Dominio.Entidades;
 using DenunciaSiniestro.Infraestructura.Persistencia.Seeds;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,11 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Contexto
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            // Ignorar objetos de valor que NO son entidades de base de datos
+            // Estas clases solo se usan para deserializar JSON
+            modelBuilder.Ignore<Campo>();
+            modelBuilder.Ignore<Seccion>();
+            modelBuilder.Ignore<Opcion>();
             // Aplicar todas las configuraciones de entidades
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DenuncioDbContext).Assembly);
             modelBuilder.ApplySeeds();

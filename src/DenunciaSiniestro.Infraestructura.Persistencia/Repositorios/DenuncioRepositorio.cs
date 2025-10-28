@@ -51,6 +51,11 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Repositorios
                 query = query.Where(d => d.Id == filtro.Id);
             }
 
+            if (!string.IsNullOrEmpty(filtro.NumeroSeguimiento))
+            {
+                query = query.Where(d => d.NumeroSeguimiento == filtro.NumeroSeguimiento);
+            }
+
             var resultado = await query.FirstOrDefaultAsync();
 
             if (resultado == null)
