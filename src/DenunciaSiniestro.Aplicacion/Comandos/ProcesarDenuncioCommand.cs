@@ -1,15 +1,14 @@
-﻿using System.Text.Json;
-using DenunciaSiniestro.Aplicacion.Contratos;
+﻿using DenunciaSiniestro.Aplicacion.Contratos;
 using DenunciaSiniestro.Aplicacion.Contratos.Repositorios;
 using DenunciaSiniestro.Aplicacion.Dtos.Request;
 using DenunciaSiniestro.Aplicacion.Dtos.Response;
 using DenunciaSiniestro.Aplicacion.Utils;
-using DenunciaSiniestro.Dominio;
 using DenunciaSiniestro.Dominio.Denuncios;
 using DenunciaSiniestro.Dominio.Entidades;
 using DenunciaSiniestro.Dominio.Enumeradores;
 using Microsoft.Extensions.Logging;
 using Sbins.Mediador.Abstracciones;
+using System.Text.Json;
 
 namespace DenunciaSiniestro.Aplicacion.Comandos
 {
@@ -141,13 +140,13 @@ namespace DenunciaSiniestro.Aplicacion.Comandos
                 denuncio.EstablecerEstadoYFechaIngreso(EstadoDenuncio.Ingresado.ToString(), DateTime.Now);
                 denuncio.EstablecerContenidoFormulario(jsonRespuestas, numeroSeguimiento);
 
-                denuncio = await _denuncioRepositorio.Crear(denuncio);
+                denuncio = await _denuncioRepositorio.Agregar(denuncio);
 
                 denuncio.EstablecerDenuncioSoap(soap);
                 denuncio = await _denuncioContract.Enviar(denuncio);
                 denuncio.EstablecerEstadoYFechaActualizacion(EstadoDenuncio.SiniestroGenerado.ToString(), DateTime.Now);
 
-                await _denuncioRepositorio.Editar(denuncio);
+                await _denuncioRepositorio.Actualizar(denuncio);
 
                 ProcesarDenuncioResponse procesarDenuncioResponse = new ProcesarDenuncioResponse()
                 {
@@ -159,11 +158,11 @@ namespace DenunciaSiniestro.Aplicacion.Comandos
             }
             catch (Exception ex)
             {
-                
+
                 if (denuncio != null)
                 {
                     denuncio.EstablecerEstadoYFechaActualizacion(EstadoDenuncio.ErrorAlGenerarSiniestro.ToString(), DateTime.Now);
-                    await _denuncioRepositorio.Editar(denuncio);
+                    await _denuncioRepositorio.Actualizar(denuncio);
                 }
 
                 throw new Sbins.Comunes.Excepciones.ApplicationException(ex.Message);

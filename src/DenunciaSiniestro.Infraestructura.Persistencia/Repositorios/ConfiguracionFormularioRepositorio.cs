@@ -1,29 +1,68 @@
 using DenunciaSiniestro.Aplicacion.Contratos.Repositorios;
+using DenunciaSiniestro.Dominio.Entidades;
 using DenunciaSiniestro.Dominio.Filtros;
+using DenunciaSiniestro.Infraestructura.Persistencia.Contexto;
+using Microsoft.EntityFrameworkCore;
 
 namespace DenunciaSiniestro.Infraestructura.Persistencia.Repositorios
 {
     /// <summary>
-    /// Implementacion del repositorio de ConfiguracionFormularioModelo con operaciones especificas
+    /// Implementacion del repositorio de ConfiguracionFormulario con operaciones especificas
     /// </summary>
     public class ConfiguracionFormularioRepositorio : IConfiguracionFormularioRepositorio
     {
-        public Task<Dominio.Entidades.ConfiguracionFormulario> Buscar(FiltroConfiguracionFormulario filtro)
+        private readonly DenuncioDbContext _context;
+
+        public ConfiguracionFormularioRepositorio(DenuncioDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public Task<List<Dominio.Entidades.ConfiguracionFormulario>> Buscarlista(FiltroConfiguracionFormulario filtro)
+        public async Task<ConfiguracionFormulario> Buscar(FiltroConfiguracionFormulario filtro)
         {
-            throw new NotImplementedException();
+            var query = _context.ConfiguracionesFormulario
+                .Include(c => c.TipoDenuncio)
+                .AsQueryable();
+
+            if (filtro.Id > 0)
+            {
+                query = query.Where(c => c.Id == filtro.Id);
+            }
+
+            if (filtro.IdTipoDenuncio > 0)
+            {
+                query = query.Where(c => c.IdTipoDenuncio == filtro.IdTipoDenuncio);
+            }
+
+            var resultado = await query.FirstOrDefaultAsync();
+
+            if (resultado == null)
+            {
+                throw new InvalidOperationException("No se encontro la configuracion de formulario con los criterios especificados");
+            }
+
+            return resultado;
         }
 
-        public Task<Dominio.Entidades.ConfiguracionFormulario?> ObtenerActivaPorTipoDenuncio(int idTipoDenuncio)
+        public async Task<List<ConfiguracionFormulario>> Buscarlista(FiltroConfiguracionFormulario filtro)
         {
-            throw new NotImplementedException();
+            var query = _context.ConfiguracionesFormulario
+                .Include(c => c.TipoDenuncio)
+                .AsQueryable();
+
+            if (filtro.Id > 0)
+            {
+                query = query.Where(c => c.Id == filtro.Id);
+            }
+
+            if (filtro.IdTipoDenuncio > 0)
+            {
+                query = query.Where(c => c.IdTipoDenuncio == filtro.IdTipoDenuncio);
+            }
+
+            return await query.ToListAsync();
         }
+
+       
     }
 }
-
-
-

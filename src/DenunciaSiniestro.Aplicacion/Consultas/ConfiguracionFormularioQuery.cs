@@ -46,7 +46,7 @@ namespace PasarelaPago.Aplicacion.Consultas
         {
             try
             {
-                var formulario = await _formularioRepositorio.ObtenerActivaPorTipoDenuncio(request.TipoDenuncio);
+                var formulario = await _formularioRepositorio.Buscar(new DenunciaSiniestro.Dominio.Filtros.FiltroConfiguracionFormulario() {IdTipoDenuncio= request.TipoDenuncio });
 
                 if (formulario == null || formulario.EstructuraJson == null)
                 {

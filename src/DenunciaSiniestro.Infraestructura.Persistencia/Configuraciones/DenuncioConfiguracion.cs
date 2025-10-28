@@ -75,6 +75,10 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
                 .IsRequired()
                 .HasMaxLength(50);
 
+            // Propiedades que NO se persisten en la base de datos
+            builder.Ignore(d => d.Producto);
+            builder.Ignore(d => d.DenuncioSoap);
+
             // Relaciones
             builder.HasOne(d => d.TipoDenuncio)
                 .WithMany(t => t.Denuncios)
@@ -88,6 +92,7 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
 
             // Indices
             builder.HasIndex(d => d.NumeroSiniestro).IsUnique();
+            builder.HasIndex(d => d.NumeroSeguimiento).IsUnique();
             builder.HasIndex(d => d.Estado);
             builder.HasIndex(d => d.FechaDenuncio);
             builder.HasIndex(d => new { d.IdTipoDenuncio, d.Estado });
