@@ -1,72 +1,77 @@
-﻿using System.Reflection;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json;
 using DenunciaSiniestro.Aplicacion.Contratos;
+using DenunciaSiniestro.Aplicacion.Contratos.Repositorios;
 using DenunciaSiniestro.Aplicacion.Dtos.Request;
+using DenunciaSiniestro.Aplicacion.Dtos.Response;
 using DenunciaSiniestro.Aplicacion.Utils;
 using DenunciaSiniestro.Dominio;
 using DenunciaSiniestro.Dominio.Denuncios;
+using DenunciaSiniestro.Dominio.Entidades;
+using DenunciaSiniestro.Dominio.Enumeradores;
+using Microsoft.Extensions.Logging;
 using Sbins.Mediador.Abstracciones;
 
 namespace DenunciaSiniestro.Aplicacion.Comandos
 {
     /// <summary>
-    /// Recibe la.
+    /// Procesa un denuncio.
     /// </summary>
-    public class ProcesarDenuncioCommand : IRequest<string>
+    public class ProcesarDenuncioCommand : IRequest<ProcesarDenuncioResponse>
     {
-        public DenuncioRequest ProcesarDenuncioRequest { get; set; } = default!;
+        public ProcesarDenuncioRequest DenuncioRequest { get; set; } = default!;
     }
 
     /// <summary>
-    /// Maneja la lógica para .
+    /// Maneja la logica para procesar un denuncio.
     /// </summary>
-    public class ProcesarDenuncioCommandHandler : IRequestHandler<ProcesarDenuncioCommand, string>
+    public class ProcesarDenuncioCommandHandler : IRequestHandler<ProcesarDenuncioCommand, ProcesarDenuncioResponse>
     {
         private readonly IDenuncioContract _denuncioContract;
+        private readonly ILogger<ProcesarDenuncioCommandHandler> _logger;
+        private readonly IDenuncioRepositorio _denuncioRepositorio;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="cadenaEmisionFactory"></param>
         /// <param name="logger"></param>
-        /// <param name="colaTareaBackground"></param>
-        /// <param name="correoContract"></param>
-        /// <param name="parametros"></param>
-        public ProcesarDenuncioCommandHandler(IDenuncioContract denuncioContract)
+        /// <param name="denuncioContract"></param>
+        /// <param name="denuncioRepositorio"></param>
+        public ProcesarDenuncioCommandHandler(ILogger<ProcesarDenuncioCommandHandler> logger, IDenuncioContract denuncioContract, IDenuncioRepositorio denuncioRepositorio)
         {
+            _logger = logger;
             _denuncioContract = denuncioContract;
+            _denuncioRepositorio = denuncioRepositorio;
         }
 
         /// <summary>
-        /// Implementa la lógica para .
+        /// Implementa la logica para procesar un denuncio.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         /// <exception cref="Sbins.Comunes.Excepciones.ApplicationException"></exception>
-        public async Task<string> Handle(ProcesarDenuncioCommand request, CancellationToken cancellationToken)
+        public async Task<ProcesarDenuncioResponse> Handle(ProcesarDenuncioCommand request, CancellationToken cancellationToken)
         {
+            string numeroSeguimiento = "";
+            Denuncio? denuncio = Denuncio.Crear();
+
             try
             {
+                _logger.LogInformation("Iniciando proceso de denuncio de siniestro.");
 
+                var proceso = request.DenuncioRequest;
 
-                var proceso = request.ProcesarDenuncioRequest;
+                var datosVehiculo = proceso.Valores.Where(x => x.Value.NombreSeccion.Replace(" ", string.Empty) == "DatosVehiculo");
+                var datosDenunciante = proceso.Valores.Where(x => x.Value.NombreSeccion.Replace(" ", string.Empty) == "DatosDenunciante");
+                var datosConductor = proceso.Valores.Where(x => x.Value.NombreSeccion.Replace(" ", string.Empty) == "DatosConductor");
+                var datosLesionado = proceso.Valores.Where(x => x.Value.NombreSeccion.Replace(" ", string.Empty) == "DatosLesionado");
+                var datosSiniestro = proceso.Valores.Where(x => x.Value.NombreSeccion.Replace(" ", string.Empty) == "DatosSiniestro");
 
-                // 1. Obtener las colecciones de la sección (esto sigue siendo necesario)
-                var datosVehiculo = proceso.Valores.Where(x => x.Value.NombreSeccion == "DatosVehiculo");
-                var datosDenunciante = proceso.Valores.Where(x => x.Value.NombreSeccion == "DatosDenunciante");
-                var datosConductor = proceso.Valores.Where(x => x.Value.NombreSeccion == "DatosConductor");
-                var datosLesionado = proceso.Valores.Where(x => x.Value.NombreSeccion == "DatosLesionado");
-                var datosSiniestro = proceso.Valores.Where(x => x.Value.NombreSeccion == "DatosSiniestro");
-
-                // 2. Convertir cada colección a un diccionario (Lógica Reutilizable 1)
                 var dictVehiculo = ExtractorDatos.ConvertirADiccionario(datosVehiculo);
                 var dictDenunciante = ExtractorDatos.ConvertirADiccionario(datosDenunciante);
                 var dictConductor = ExtractorDatos.ConvertirADiccionario(datosConductor);
                 var dictLesionado = ExtractorDatos.ConvertirADiccionario(datosLesionado);
                 var dictSiniestro = ExtractorDatos.ConvertirADiccionario(datosSiniestro);
-
-                // 3. Mapear los objetos usando el diccionario (Lógica Reutilizable 2)
 
                 // Vehiculo
                 Vehiculo vehiculo = ExtractorDatos.MapearObjeto(dictVehiculo, GetValue =>
@@ -110,31 +115,59 @@ namespace DenunciaSiniestro.Aplicacion.Comandos
                 Siniestro siniestro = ExtractorDatos.MapearObjeto(dictSiniestro, GetValue =>
                     Siniestro.Crear(
                         ubicacion: GetValue(nameof(Siniestro.Ubicacion)),
-                        // NOTA: Es importante que el valor para la fecha sea una string válida para DateTime.Parse
                         fecha: DateTime.Parse(GetValue(nameof(Siniestro.Fecha))),
                         relatoAccidente: GetValue(nameof(Siniestro.RelatoAccidente)),
                         numeroPartePolicial: GetValue(nameof(Siniestro.NumeroPartePolicial))
                     )
                 );
+
+                _logger.LogInformation("Datos extraidos para siniestro asociado a poliza {NumeroPoliza}", vehiculo.NumeroPoliza);
+
+                numeroSeguimiento = GeneradorCodigoSeguimiento.Generar();
+
+                denuncio = await _denuncioRepositorio.Obtener(numeroSeguimiento);
+
+                while (denuncio != null)
+                {
+                    numeroSeguimiento = GeneradorCodigoSeguimiento.Generar();
+                    denuncio = await _denuncioRepositorio.Obtener(numeroSeguimiento);
+                }
+
                 Soap soap = Soap.Crear(vehiculo, denunciante, conductor, lesionado, siniestro);
+                string jsonRespuestas = JsonSerializer.Serialize(soap);
 
-                Denuncio denuncio = Denuncio.Crear(proceso.TipoDenuncio.ToString(), soap);
+                denuncio = Denuncio.Crear((int)Dominio.Enumeradores.TipoDenuncio.SOAP, 1, DateTime.Now, $"{denunciante.Nombre} {denunciante.Apellidos}",
+                    denunciante.Celular);
+                denuncio.EstablecerEstadoYFechaIngreso(EstadoDenuncio.Ingresado.ToString(), DateTime.Now);
+                denuncio.EstablecerContenidoFormulario(jsonRespuestas, numeroSeguimiento);
 
-                var result = await _denuncioContract.Enviar(denuncio);
+                denuncio = await _denuncioRepositorio.Crear(denuncio);
 
-                return "";
+                denuncio.EstablecerDenuncioSoap(soap);
+                denuncio = await _denuncioContract.Enviar(denuncio);
+                denuncio.EstablecerEstadoYFechaActualizacion(EstadoDenuncio.SiniestroGenerado.ToString(), DateTime.Now);
+
+                await _denuncioRepositorio.Editar(denuncio);
+
+                ProcesarDenuncioResponse procesarDenuncioResponse = new ProcesarDenuncioResponse()
+                {
+                    Estado = EstadoDenuncio.Ingresado,
+                    NumeroSeguimiento = denuncio.NumeroSeguimiento
+                };
+
+                return procesarDenuncioResponse;
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
-        }
+                
+                if (denuncio != null)
+                {
+                    denuncio.EstablecerEstadoYFechaActualizacion(EstadoDenuncio.ErrorAlGenerarSiniestro.ToString(), DateTime.Now);
+                    await _denuncioRepositorio.Editar(denuncio);
+                }
 
-        public class RecaptchaResponse
-        {
-            [JsonPropertyName("success")] public bool Success { get; set; }
-            [JsonPropertyName("score")] public float Score { get; set; }
-            [JsonPropertyName("action")] public string Action { get; set; }
+                throw new Sbins.Comunes.Excepciones.ApplicationException(ex.Message);
+            }
         }
     }
 }

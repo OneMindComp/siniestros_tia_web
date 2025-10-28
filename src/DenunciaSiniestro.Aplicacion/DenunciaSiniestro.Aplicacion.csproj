@@ -6,12 +6,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="12.0.0" />
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.10" />
     <PackageReference Include="Sbins.Comunes.Excepciones" Version="0.1.4" />
     <PackageReference Include="Sbins.Mediador" Version="1.0.0" />
-    <PackageReference Include="Sbins.Mediador.Abstracciones" Version="1.0.0" />
   </ItemGroup>
 
   <PropertyGroup>

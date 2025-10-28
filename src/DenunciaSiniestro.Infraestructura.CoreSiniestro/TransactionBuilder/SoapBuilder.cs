@@ -6,13 +6,10 @@ namespace DenunciaSiniestro.Infraestructura.CoreSiniestro.TransactionBuilder
 {
     public class SoapBuilder
     {
-        private readonly Soap _denuncio;
         private readonly List<AccionRequest> _transacciones = [];
 
-        public SoapBuilder(Soap denuncio) {
-            _denuncio = denuncio;
+        public SoapBuilder(Soap denuncio) {}
 
-        }
         private SoapBuilder(
             AccionRequest accionRequest,
             List<AccionRequest> transacciones

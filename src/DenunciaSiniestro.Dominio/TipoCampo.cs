@@ -1,5 +1,5 @@
 ﻿namespace DenunciaSiniestro.Dominio
 {
-    public enum TipoCampo { Texto, TextoMultilinea, Fecha, Numero, MultiSelect, Radio, Checkbox, Select, Email }
+    public enum TipoCampo { Texto, Rut, TextoMultilinea, Fecha, Numero, MultiSelect, Radio, Checkbox, Select, Email }
 
 }

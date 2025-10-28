@@ -8,13 +8,13 @@ namespace DenunciaSiniestro.Dominio.Denuncios
 {
     public class Vehiculo
     {
-        public string NumeroPoliza { get; set; } = default!;
-        public string Patente { get; set; } = default!;
-        public string NumeroMotor { get; set; } = default!;
+        public string NumeroPoliza { get; private set; } = default!;
+        public string Patente { get; private set; } = default!;
+        public string NumeroMotor { get; private set; } = default!;
 
-        public Vehiculo() { }
+		private Vehiculo() { }
 
-        public Vehiculo(string numeroPoliza, string patente, string numeroMotor) {
+		private Vehiculo(string numeroPoliza, string patente, string numeroMotor) {
             NumeroPoliza = numeroPoliza;
             Patente = patente;
             NumeroMotor = numeroMotor;

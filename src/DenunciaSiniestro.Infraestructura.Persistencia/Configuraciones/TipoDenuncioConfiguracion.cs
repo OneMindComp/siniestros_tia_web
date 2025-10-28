@@ -1,11 +1,11 @@
+using DenunciaSiniestro.Dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DenunciaSiniestro.Infraestructura.Persistencia.Modelo;
 
 namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
 {
     /// <summary>
-    /// Configuracion de Entity Framework para la entidad TipoDenuncio
+    /// Configuracion de Entity Framework para la entidad TipoDenuncioModelo
     /// </summary>
     public class TipoDenuncioConfiguracion : IEntityTypeConfiguration<TipoDenuncio>
     {
@@ -13,9 +13,9 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
         {
             builder.ToTable("TipoDenuncio");
 
-            builder.HasKey(t => t.IdTipoDenuncio);
-            builder.Property(t => t.IdTipoDenuncio)
-                .HasColumnName("IdTipoDenuncio")
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.Id)
+                .HasColumnName("Id")
                 .ValueGeneratedOnAdd();
 
             builder.Property(t => t.Nombre)

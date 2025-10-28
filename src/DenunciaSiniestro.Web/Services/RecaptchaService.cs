@@ -1,18 +1,18 @@
 ﻿using System.Text.Json;
+using DenunciaSiniestro.Aplicacion.Dtos.Response;
 using Microsoft.JSInterop;
-using Sbins.Mediador.Abstracciones;
-using static DenunciaSiniestro.Aplicacion.Comandos.ProcesarDenuncioCommandHandler;
 
 public class RecaptchaService
 {
     private readonly IJSRuntime _jsRuntime;
     private readonly string _siteKey;
+    private readonly string _secretKey;
 
-    public RecaptchaService(IJSRuntime jsRuntime)
+    public RecaptchaService(IJSRuntime jsRuntime, IConfiguration configuration)
     {
         _jsRuntime = jsRuntime;
-        // Puedes mover esta key a appsettings.json si prefieres
-        _siteKey = "";
+        _siteKey = configuration["Recaptcha:SiteKey"]!;
+        _secretKey = configuration["Recaptcha:SecretKey"]!;
     }
 
     public async Task<bool> ValidateToken(string action = "form_submit")
@@ -25,11 +25,9 @@ public class RecaptchaService
             _siteKey,
             action);
 
-            var secretKey = ""; // clave secreta
-
             using var http = new HttpClient();
             var response = await http.PostAsync(
-                $"https://www.google.com/recaptcha/api/siteverify?secret={secretKey}&response={valor}",
+                $"https://www.google.com/recaptcha/api/siteverify?secret={_secretKey}&response={valor}",
                 null);
 
             var json = await response.Content.ReadAsStringAsync();
@@ -38,7 +36,7 @@ public class RecaptchaService
             return result?.Success == true && result.Score >= 0.5;
       
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             throw;
         }

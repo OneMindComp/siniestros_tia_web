@@ -1,8 +1,11 @@
-﻿namespace DenunciaSiniestro.Dominio
+﻿using DenunciaSiniestro.Dominio.Denuncios;
+
+namespace DenunciaSiniestro.Dominio
 {
     public class Estado
     {
-        public int Id { get; set; } = default!;
-        public string Nombre { get; set; } = default!;
-    }
+        public int? Id { get; private set; }
+        public string Nombre { get; private set; } = default!;
+
+    }             
 }

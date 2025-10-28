@@ -1,8 +1,8 @@
 ﻿namespace DenunciaSiniestro.Aplicacion.Dtos.Request
 {
-    public class DenuncioRequest
+    public class ProcesarDenuncioRequest
     {
-        public int TipoDenuncio { get; set; }
+        public long TipoDenuncio { get; set; }
         /// <summary>
         /// Valores
         /// </summary>

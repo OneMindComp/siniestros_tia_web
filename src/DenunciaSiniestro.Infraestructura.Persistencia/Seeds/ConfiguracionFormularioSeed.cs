@@ -1,27 +1,26 @@
-﻿using DenunciaSiniestro.Infraestructura.Persistencia.Modelo;
+﻿using DenunciaSiniestro.Dominio.Entidades;
 using DenunciaSiniestro.Infraestructura.Persistencia.Seeds.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DenunciaSiniestro.Infraestructura.Persistencia.Seeds
 {
     /// <summary>
-    /// Seeder para ConfiguracionFormulario - Crea una configuracion para Accidente de Transito
+    /// Seeder para ConfiguracionFormularioModelo - Crea una configuracion para Accidente de Transito
     /// </summary>
     internal class ConfiguracionFormularioSeed : ISeed
     {
         public void Seed(ModelBuilder builder)
         {
             builder.Entity<ConfiguracionFormulario>().HasData(
-                new ConfiguracionFormulario
-                {
-                    IdConfiguracion = 1,
-                    IdTipoDenuncio = 1,
-                    EstructuraJson = @"{""campos"":[{""id"":""fechaHora"",""tipo"":""datetime"",""etiqueta"":""Fecha y hora del accidente"",""requerido"":true},{""id"":""lugar"",""tipo"":""text"",""etiqueta"":""Lugar del accidente"",""requerido"":true,""placeholder"":""Dirección exacta""},{""id"":""descripcion"",""tipo"":""textarea"",""etiqueta"":""Descripción del accidente"",""requerido"":true,""maxLength"":500},{""id"":""huboDaniosPersonales"",""tipo"":""boolean"",""etiqueta"":""¿Hubo daños personales?"",""requerido"":true},{""id"":""vehiculosInvolucrados"",""tipo"":""number"",""etiqueta"":""Número de vehículos involucrados"",""requerido"":true,""min"":1}]}",
-                    Version = 1,
-                    Activo = true,
-                    FechaCreacion = new System.DateTime(2024, 1, 1, 0, 0, 0, System.DateTimeKind.Utc),
-                    FechaModificacion = new System.DateTime(2024, 1, 1, 0, 0, 0, System.DateTimeKind.Utc)
-                }
+                ConfiguracionFormulario.Crear(
+                    id:1,
+                    idTipoDenuncio : 1,
+                    estructuraJson : @"{""Secciones"":[{""Campos"":[{""Tipo"":0,""Nombre"":""NumeroPoliza"",""Requerido"":true,""Descripcion"":""Número de póliza""},{""Tipo"":0,""Nombre"":""Patente"",""Requerido"":true,""Descripcion"":""Patente""},{""Tipo"":0,""Nombre"":""NumeroMotor"",""Requerido"":true,""Descripcion"":""Número de motor""}],""Nombre"":""DatosVehiculo"",""Descripcion"":""Información del vehículo involucrado en el accidente""},{""Campos"":[{""Tipo"":0,""Nombre"":""Nombre"",""Requerido"":true,""Descripcion"":""Nombre del denunciante""},{""Tipo"":0,""Nombre"":""Apellidos"",""Requerido"":true,""Descripcion"":""Apellidos del denunciante""},{""Tipo"":1,""Nombre"":""Rut"",""Requerido"":true,""Descripcion"":""Rut del denunciante""},{""Tipo"":0,""Nombre"":""Celular"",""Requerido"":true,""Descripcion"":""Celular / Teléfono del denunciante""},{""Tipo"":9,""Nombre"":""Mail"",""Requerido"":true,""Descripcion"":""Correo electrónico del denunciante""}],""Nombre"":""DatosDenunciante"",""Descripcion"":""Información personal del denunciante""},{""Campos"":[{""Tipo"":0,""Nombre"":""Nombre"",""Requerido"":true,""Descripcion"":""Nombre del conductor""},{""Tipo"":1,""Nombre"":""Rut"",""Requerido"":true,""Descripcion"":""Rut del conductor""}],""Nombre"":""DatosConductor"",""Descripcion"":""Información sobre el conductor involucrado""},{""Campos"":[{""Tipo"":0,""Nombre"":""Nombre"",""Requerido"":true,""Descripcion"":""Nombre del lesionado""},{""Tipo"":1,""Nombre"":""Rut"",""Requerido"":true,""Descripcion"":""Rut del lesionado""},{""Tipo"":0,""Nombre"":""Celular"",""Requerido"":true,""Descripcion"":""Celular / Teléfono del lesionado""},{""Tipo"":9,""Nombre"":""Mail"",""Requerido"":true,""Descripcion"":""Correo electrónico del lesionado""}],""Nombre"":""DatosLesionado"",""Descripcion"":""Información sobre el lesionado en el accidente""},{""Campos"":[{""Tipo"":2,""Nombre"":""Ubicacion"",""Requerido"":true,""Descripcion"":""Ubicación en la que se produjo el accidente""},{""Tipo"":3,""Nombre"":""Fecha"",""Requerido"":true,""Descripcion"":""Fecha siniestro""},{""Tipo"":2,""Nombre"":""Relato"",""Requerido"":true,""Descripcion"":""Relato del accidente""},{""Tipo"":4,""Nombre"":""NumeroPartePolicial"",""Requerido"":true,""Descripcion"":""Número Parte Policial""},{""Tipo"":9,""Nombre"":""recordType"",""Opciones"":[{""Etiqueta"":""--Ninguno--"",""Valor"":""""},{""Etiqueta"":""Caso General"",""Valor"":""012Uf0000003ixO""},{""Etiqueta"":""Caso Glia"",""Valor"":""012Uf000003cYuz""},{""Etiqueta"":""Caso Protección Patrimonial"",""Valor"":""012Uf000000JYHJ""},{""Etiqueta"":""Caso Siniestro"",""Valor"":""0124T00000054Ym""}],""Requerido"":false,""Descripcion"":""Tipo de registro del caso""}],""Nombre"":""DatosSiniestro"",""Descripcion"":""Información del siniestro reportado""}]}",
+                    version : 1,
+                    activo : true,
+                    fechaCreacion : new System.DateTime(2025, 10, 23, 0, 0, 0, System.DateTimeKind.Utc),
+                    fechaModificacion : new System.DateTime(2025, 10, 23, 0, 0, 0, System.DateTimeKind.Utc)
+                )
             );
         }
     }

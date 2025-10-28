@@ -1,11 +1,6 @@
-﻿using DenunciaSiniestro.Infraestructura.Persistencia.Modelo;
+﻿using DenunciaSiniestro.Dominio.Entidades;
 using DenunciaSiniestro.Infraestructura.Persistencia.Seeds.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DenunciaSiniestro.Infraestructura.Persistencia.Seeds
 {
@@ -14,12 +9,14 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Seeds
         public void Seed(ModelBuilder builder)
         {
             builder.Entity<TipoDenuncio>().HasData(
-                new TipoDenuncio
-                {
-                    IdTipoDenuncio = 1,
-                    Nombre = "Accidente de Tránsito",
-                    // ... propiedades
-                }
+                 TipoDenuncio.Crear
+                (
+                    nombre: "SOAP",
+                    descripcion: "Denuncias relacionadas con accidentes de tránsito SOAP.",
+                    urlPath: "accidente-transito",
+                    iconoUrl: "https://southbridgeseguros.cl/media/wysiwyg/sb-seguros/soap_icon.png",
+                    activo: true
+                )
             );
         }
     }

@@ -11,6 +11,20 @@
 <div class="field-renderer-container">
     @switch (Campo.Tipo)
     {
+        case TipoCampo.Rut:
+            {
+                // Usamos <input> en lugar de InputText / InputNumber
+                InputRequest value = GetValue(Campo.Nombre);
+                var inputType = Campo.Tipo == TipoCampo.Numero ? "number" : "text";
+
+                <input id="@(Seccion.Nombre + Campo.Nombre)"
+                       value="@(value?.Valor ?? string.Empty)"
+                       @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, e.Value))"
+                       type="@inputType"
+                       class="form-control" />
+                break;
+            }
+
         case TipoCampo.Texto:
         case TipoCampo.Numero:
             {
@@ -18,9 +32,9 @@
                 InputRequest value = GetValue(Campo.Nombre);
                 var inputType = Campo.Tipo == TipoCampo.Numero ? "number" : "text";
 
-                <input id="@Campo.Nombre"
+                <input id="@(Seccion.Nombre + Campo.Nombre)"
                        value="@(value?.Valor ?? string.Empty)"
-                       @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value))"
+                       @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, e.Value))"
                        type="@inputType"
                        class="form-control" />
                 break;
@@ -30,8 +44,8 @@
             {
                 var value = GetValue(Campo.Nombre);
 
-                <textarea id="@Campo.Nombre"
-                          @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value?.ToString()))"
+                <textarea id="@(Seccion.Nombre + Campo.Nombre)"
+                          @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, e.Value?.ToString()))"
                           rows="3"
                           class="form-control">@(value?.Valor ?? string.Empty)</textarea>
                 break;
@@ -41,10 +55,10 @@
             {
                 var dateString = GetValue(Campo.Nombre)?.Valor is DateTime dt ? dt.ToString("yyyy-MM-dd") : string.Empty;
 
-                <input id="@Campo.Nombre"
+                <input id="@(Seccion.Nombre + Campo.Nombre)"
                        type="date"
                        value="@dateString"
-                       @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, DateTime.TryParse(e.Value?.ToString(), out var dt) ? (object)dt : null))"
+                       @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, DateTime.TryParse(e.Value?.ToString(), out var dt) ? (object)dt : null))"
                        class="form-control" />
                 break;
             }
@@ -53,9 +67,9 @@
             {
                 var value = GetValue(Campo.Nombre);
 
-                <select id="@Campo.Nombre"
+                <select id="@(Seccion.Nombre + Campo.Nombre)"
                         value="@(value?.Valor ?? string.Empty)"
-                        @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value?.ToString()))"
+                        @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, e.Value?.ToString()))"
                         class="form-control">
                     <option value="">Seleccione una opción</option>
                     @foreach (var opcion in Campo.Opciones)
@@ -75,13 +89,13 @@
                     {
                         <div class="form-check form-check-inline">
                             <input type="radio"
-                                   id="@(Campo.Nombre + opcion.Valor)"
-                                   name="@Campo.Nombre"
+                                   id="@((Seccion.Nombre + Campo.Nombre) + opcion.Valor)"
+                                   name="@(Seccion.Nombre + Campo.Nombre)"
                                    value="@opcion.Valor"
                                    checked="@(selectedValue.Valor == opcion.Valor)"
-                                   @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value?.ToString()))"
+                                   @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, e.Value?.ToString()))"
                                    class="form-check-input" />
-                            <label class="form-check-label" for="@(Campo.Nombre + opcion.Valor)">@opcion.Etiqueta</label>
+                            <label class="form-check-label" for="@((Seccion.Nombre + Campo.Nombre) + opcion.Valor)">@opcion.Etiqueta</label>
                         </div>
                     }
                 </fieldset>
@@ -92,9 +106,9 @@
             {
                 var value = GetValue(Campo.Nombre)?.ToString();
 
-                <input id="@Campo.Nombre"
+                <input id="@(Seccion.Nombre + Campo.Nombre)"
                        value="@(value ?? string.Empty)"
-                       @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value))"
+                       @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, e.Value))"
                        type="email"
                        class="form-control" />
                 break;
@@ -103,15 +117,15 @@
 
         case TipoCampo.Checkbox:
             {
-                var isChecked = GetValue(Campo.Nombre)?.Valor is bool b && b;
+                var isChecked = GetValue(Seccion.Nombre + Campo.Nombre)?.Valor is bool b && b;
 
                 <div class="form-check">
                     <input type="checkbox"
-                           id="@Campo.Nombre"
+                           id="@(Seccion.Nombre + Campo.Nombre)"
                            checked="@isChecked"
-                           @onchange="@(e => SetValue(Seccion.Nombre, Campo.Nombre, e.Value is bool checkValue ? (object)checkValue : false))"
+                           @onchange="@(e => SetValue(Seccion.Nombre, Seccion.Nombre + Campo.Nombre, e.Value is bool checkValue ? (object)checkValue : false))"
                            class="form-check-input" />
-                    <label class="form-check-label" for="@Campo.Nombre">@Campo.Descripcion</label>
+                    <label class="form-check-label" for="@(Seccion.Nombre + Campo.Nombre)">@Campo.Descripcion</label>
                 </div>
                 break;
             }
@@ -121,9 +135,6 @@
 
 
 @code {
-    // Parámetros de entrada para el componente
-    [Parameter, EditorRequired]
-    public TipoDenuncio TipoDenuncio { get; set; } = default!;
 
     [Parameter, EditorRequired]
     public Seccion Seccion { get; set; } = default!;

@@ -9,10 +9,13 @@ namespace DenunciaSiniestro.Infraestructura.CoreSiniestro
     {
         public static IServiceCollection AddCoreSiniestroInfraestructura(this IServiceCollection services, IConfiguration configuration)
         {
+            CoreSiniestroSettings coreSiniestroSettings = configuration.GetSection(nameof(CoreSiniestroSettings)).Get<CoreSiniestroSettings>() 
+                ?? throw new Sbins.Comunes.Excepciones.InfraestructureException("No se ha podido realizar AddCoreSiniestroInfraestructura");
+
             services.AddScoped<IDenuncioContract, DenuncioImplementacion>();
             services.AddHttpClient<ICoreSiniestrosApi, CoreSiniestrosApi>(cliente =>
             {
-                cliente.BaseAddress = new Uri("https://localhost/4200");
+                cliente.BaseAddress = new Uri(coreSiniestroSettings.BasePath);
             });
 
             return services;

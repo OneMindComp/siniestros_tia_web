@@ -1,31 +1,29 @@
 ﻿namespace DenunciaSiniestro.Dominio.Entidades
 {
-    public class ConfiguracionFormulario
+    public class ConfiguracionFormulario : Entidad<long>, IAggregateRoot
     {
-        public int IdConfiguracion { get; private set; }
-        public int IdTipoDenuncio { get; private set; }
+        public long IdTipoDenuncio { get; private set; }
         public string EstructuraJson { get; private set; } = string.Empty;
         public int Version { get; private set; }
         public bool Activo { get; private set; }
         public DateTime FechaCreacion { get; private set; }
         public DateTime FechaModificacion { get; private set; }
+        public List<Seccion> Secciones { get; private set; } = new List<Seccion>();
 
-        // Constructor vacio requerido por EF Core
-        public ConfiguracionFormulario()
-        {
-        }
+        public TipoDenuncio TipoDenuncio { get; private set; } = default!;
+        public List<Denuncio> Denuncios { get; private set; } = new List<Denuncio>();
+        public ConfiguracionFormulario(){}
 
-        // Constructor privado con todos los parametros
-        private ConfiguracionFormulario(
-            int idConfiguracion,
-            int idTipoDenuncio,
+        public ConfiguracionFormulario(
+            long id,
+            long idTipoDenuncio,
             string estructuraJson,
             int version,
             bool activo,
             DateTime fechaCreacion,
             DateTime fechaModificacion)
         {
-            IdConfiguracion = idConfiguracion;
+            Id = id;
             IdTipoDenuncio = idTipoDenuncio;
             EstructuraJson = estructuraJson;
             Version = version;
@@ -34,10 +32,9 @@
             FechaModificacion = fechaModificacion;
         }
 
-        // Metodo estatico para crear una nueva instancia
         public static ConfiguracionFormulario Crear(
-            int idConfiguracion,
-            int idTipoDenuncio,
+            long id,
+            long idTipoDenuncio,
             string estructuraJson,
             int version,
             bool activo,
@@ -45,13 +42,30 @@
             DateTime fechaModificacion)
         {
             return new ConfiguracionFormulario(
-                idConfiguracion: idConfiguracion,
+                id: id,
                 idTipoDenuncio: idTipoDenuncio,
                 estructuraJson: estructuraJson ?? string.Empty,
                 version: version,
                 activo: activo,
                 fechaCreacion: fechaCreacion,
                 fechaModificacion: fechaModificacion);
+        }
+
+        public void AsignarTipoDenuncio(
+            TipoDenuncio tipoDenuncio)
+        {
+            TipoDenuncio = tipoDenuncio;
+        }
+
+        public void AsignarSecciones(
+           List<Seccion> secciones)
+        {
+            Secciones = secciones;
+        }
+        public void AsignarDenuncios(
+           List<Denuncio> denuncios)
+        {
+            Denuncios = denuncios;
         }
     }
 }

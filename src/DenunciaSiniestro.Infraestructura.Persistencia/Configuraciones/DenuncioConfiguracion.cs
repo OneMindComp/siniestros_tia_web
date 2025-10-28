@@ -1,6 +1,6 @@
+using DenunciaSiniestro.Dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DenunciaSiniestro.Infraestructura.Persistencia.Modelo;
 
 namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
 {
@@ -13,9 +13,9 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
         {
             builder.ToTable("Denuncio");
 
-            builder.HasKey(d => d.IdDenuncio);
-            builder.Property(d => d.IdDenuncio)
-                .HasColumnName("IdDenuncio")
+            builder.HasKey(d => d.Id);
+            builder.Property(d => d.Id)
+                .HasColumnName("Id")
                 .ValueGeneratedOnAdd();
 
             builder.Property(d => d.IdTipoDenuncio)
@@ -28,7 +28,6 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
 
             builder.Property(d => d.NumeroSiniestro)
                 .HasColumnName("NumeroSiniestro")
-                .IsRequired()
                 .HasMaxLength(50);
 
             builder.Property(d => d.FechaDenuncio)
@@ -70,6 +69,11 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Configuraciones
                 .HasColumnName("FechaActualizacion")
                 .HasColumnType("datetime")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+
+            builder.Property(d => d.NumeroSeguimiento)
+                .HasColumnName("NumeroSeguimiento")
+                .IsRequired()
+                .HasMaxLength(50);
 
             // Relaciones
             builder.HasOne(d => d.TipoDenuncio)

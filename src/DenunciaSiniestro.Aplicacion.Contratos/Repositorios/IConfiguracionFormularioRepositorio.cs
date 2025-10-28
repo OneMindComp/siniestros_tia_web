@@ -1,10 +1,13 @@
-﻿namespace DenunciaSiniestro.Aplicacion.Contratos.Repositorios
+﻿using DenunciaSiniestro.Dominio.Entidades;
+using DenunciaSiniestro.Dominio.Filtros;
+
+namespace DenunciaSiniestro.Aplicacion.Contratos.Repositorios
 {
-    public interface IConfiguracionFormularioRepositorio
+    public interface IConfiguracionFormularioRepositorio : IRepositorioBusqueda<ConfiguracionFormulario, FiltroConfiguracionFormulario>
     {
         /// <summary>
         /// Obtiene la configuracion activa de un tipo de denuncio
         /// </summary>
-        Task<Dominio.Entidades.ConfiguracionFormulario?> ObtenerActivaPorTipoDenuncio(int idTipoDenuncio);
+        Task<ConfiguracionFormulario?> ObtenerActivaPorTipoDenuncio(int idTipoDenuncio);
     }
 }

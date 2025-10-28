@@ -1,112 +1,35 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "SBINS - API Integracion Core Emision",
-    "description": "API's para la emision de productos y endosos hacia el CORE TIA..",
-    "version": "v1.6.0"
+    "title": "SBINS - ICore Siniestro API ",
+    "description": "Proyecto dedicado a entregar Apis para la obtencion y registro de siniestros hacia el CORE TIA.",
+    "version": "v1.5.0"
   },
   "paths": {
-    "/api/accidentes-personales": {
-      "post": {
+    "/falabella/estado": {
+      "get": {
         "tags": [
-          "AccidentesPersonales"
+          "Falabella"
         ],
-        "summary": "Cotizar polizas accidentes personales.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/AccidentesPersonalesCotizacionRequest"
-                  }
-                ],
-                "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/AccidentesPersonalesCotizacionRequest"
-                  }
-                ],
-                "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/AccidentesPersonalesCotizacionRequest"
-                  }
-                ],
-                "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
-              }
+        "summary": "Obtiene estado de servicio tecnico desde Tia para Falabella.",
+        "parameters": [
+          {
+            "name": "ClaimCaseNo",
+            "in": "query",
+            "description": "Numero de siniestro Tia.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "AccidentesPersonales"
-        ],
-        "summary": "Modificar polizas accidentes personales cotizadas.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/AccidentesPersonalesModificacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar poliza seguro accidentes personales modificacion."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/AccidentesPersonalesModificacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar poliza seguro accidentes personales modificacion."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/AccidentesPersonalesModificacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar poliza seguro accidentes personales modificacion."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                  "$ref": "#/components/schemas/EstadoServicioTecnicoResponseApiOkResponse"
                 }
               }
             }
@@ -114,12 +37,12 @@
         }
       }
     },
-    "/api/auto-planet": {
+    "/falabella/orden-trabajo": {
       "post": {
         "tags": [
-          "AutoPlanet"
+          "Falabella"
         ],
-        "summary": "Cotiza poliza de Auto.",
+        "summary": "Crea orden de trabajo de falabella en Tia.",
         "requestBody": {
           "description": "",
           "content": {
@@ -127,30 +50,30 @@
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/CrearCotizacionAutoPlanetRequest"
+                    "$ref": "#/components/schemas/OrdenTrabajoRequest"
                   }
                 ],
-                "description": "Request con data requerida para cotizar una poliza seguro Auto."
+                "description": "Request para el siniestro de falabella"
               }
             },
             "text/json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/CrearCotizacionAutoPlanetRequest"
+                    "$ref": "#/components/schemas/OrdenTrabajoRequest"
                   }
                 ],
-                "description": "Request con data requerida para cotizar una poliza seguro Auto."
+                "description": "Request para el siniestro de falabella"
               }
             },
             "application/*+json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/CrearCotizacionAutoPlanetRequest"
+                    "$ref": "#/components/schemas/OrdenTrabajoRequest"
                   }
                 ],
-                "description": "Request con data requerida para cotizar una poliza seguro Auto."
+                "description": "Request para el siniestro de falabella"
               }
             }
           }
@@ -161,7 +84,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                  "$ref": "#/components/schemas/OrdenTrabajoResponseApiOkResponse"
                 }
               }
             }
@@ -169,12 +92,12 @@
         }
       }
     },
-    "/api/cancelacion/poliza": {
+    "/falabella/courier": {
       "post": {
         "tags": [
-          "Cancelacion"
+          "Falabella"
         ],
-        "summary": "Genera la cancelacion de una poliza.",
+        "summary": "Envia courier de orden de trabajo falabella en Tia.",
         "requestBody": {
           "description": "",
           "content": {
@@ -182,30 +105,30 @@
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/CancelacionPolizaRequest"
+                    "$ref": "#/components/schemas/EnviarCourierRequest"
                   }
                 ],
-                "description": "Request para cancelacion de poliza cotizada."
+                "description": "Courier"
               }
             },
             "text/json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/CancelacionPolizaRequest"
+                    "$ref": "#/components/schemas/EnviarCourierRequest"
                   }
                 ],
-                "description": "Request para cancelacion de poliza cotizada."
+                "description": "Courier"
               }
             },
             "application/*+json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/CancelacionPolizaRequest"
+                    "$ref": "#/components/schemas/EnviarCourierRequest"
                   }
                 ],
-                "description": "Request para cancelacion de poliza cotizada."
+                "description": "Courier"
               }
             }
           }
@@ -216,62 +139,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/emision": {
-      "post": {
-        "tags": [
-          "Emision"
-        ],
-        "summary": "Emitir polizas.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/EmisionRequest"
-                  }
-                ],
-                "description": "Request para emision de poliza cotizada."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/EmisionRequest"
-                  }
-                ],
-                "description": "Request para emision de poliza cotizada."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/EmisionRequest"
-                  }
-                ],
-                "description": "Request para emision de poliza cotizada."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EmisionResponseApiOkResponse"
+                  "$ref": "#/components/schemas/OrdenTrabajoResponseApiOkResponse"
                 }
               }
             }
@@ -319,12 +187,12 @@
         }
       }
     },
-    "/api/hogar": {
+    "/siniestro": {
       "post": {
         "tags": [
-          "Hogar"
+          "Siniestro"
         ],
-        "summary": "Cotizar polizas hogar.",
+        "summary": "Crea siniestros en Tia.",
         "requestBody": {
           "description": "",
           "content": {
@@ -332,30 +200,30 @@
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/HogarCotizacionRequest"
+                    "$ref": "#/components/schemas/SiniestroSoapRequest"
                   }
                 ],
-                "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+                "description": "Request para siniestro soap."
               }
             },
             "text/json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/HogarCotizacionRequest"
+                    "$ref": "#/components/schemas/SiniestroSoapRequest"
                   }
                 ],
-                "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+                "description": "Request para siniestro soap."
               }
             },
             "application/*+json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/HogarCotizacionRequest"
+                    "$ref": "#/components/schemas/SiniestroSoapRequest"
                   }
                 ],
-                "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+                "description": "Request para siniestro soap."
               }
             }
           }
@@ -366,60 +234,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Hogar"
-        ],
-        "summary": "Modificar polizas hogar cotizadas.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/HogarModificacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/HogarModificacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/HogarModificacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
+                  "$ref": "#/components/schemas/SiniestroPropuestoResponseApiOkResponse"
                 }
               }
             }
@@ -427,396 +242,17 @@
         }
       }
     },
-    "/api/mascota": {
-      "post": {
+    "/siniestro/{NumeroSiniestro}": {
+      "get": {
         "tags": [
-          "Mascota"
+          "Siniestro"
         ],
-        "summary": "Cotizar polizas mascotas.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaCotizacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para cotizar una poliza seguro de mascota."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaCotizacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para cotizar una poliza seguro de mascota."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaCotizacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para cotizar una poliza seguro de mascota."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Mascota"
-        ],
-        "summary": "Modificar polizas mascotas cotizadas.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaModificacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para modificar una poliza seguro de mascota."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaModificacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para modificar una poliza seguro de mascota."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaModificacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para modificar una poliza seguro de mascota."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/mascota-colectivo": {
-      "post": {
-        "tags": [
-          "MascotaColectivo"
-        ],
-        "summary": "Cotizar polizas mascotas colectivo.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaColectivoCotizacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaColectivoCotizacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/MascotaColectivoCotizacionRequest"
-                  }
-                ],
-                "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/oncologico": {
-      "post": {
-        "tags": [
-          "Oncologico"
-        ],
-        "summary": "Cotiza polizas oncologicas.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/OncologicoCotizacionRequest"
-                  }
-                ],
-                "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/OncologicoCotizacionRequest"
-                  }
-                ],
-                "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/OncologicoCotizacionRequest"
-                  }
-                ],
-                "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PolizaApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Oncologico"
-        ],
-        "summary": "Modifica polizas oncologicas cotizadas.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/OncologicoModificacionRequest"
-                  }
-                ],
-                "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/OncologicoModificacionRequest"
-                  }
-                ],
-                "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/OncologicoModificacionRequest"
-                  }
-                ],
-                "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PolizaPropuestaResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/operaciones-poliza": {
-      "post": {
-        "tags": [
-          "Operaciones Poliza"
-        ],
-        "summary": "Crear cotizacion de una poliza en TIA.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CrearCotizacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar una poliza en TIA."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CrearCotizacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar una poliza en TIA."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/CrearCotizacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar una poliza en TIA."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CrearCotizacionResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Operaciones Poliza"
-        ],
-        "summary": "Actualiza cotizacion de una poliza en TIA.",
-        "requestBody": {
-          "description": "",
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ActualizarCotizacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar una poliza en TIA."
-              }
-            },
-            "text/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ActualizarCotizacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar una poliza en TIA."
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/ActualizarCotizacionRequest"
-                  }
-                ],
-                "description": "Request para cotizar una poliza en TIA."
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ActualizarCotizacionResponseApiOkResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/renovacion/{numeroPoliza}": {
-      "post": {
-        "tags": [
-          "Renovacion"
-        ],
-        "summary": "Renovar poliza.",
+        "summary": "Obtiene siniestros desde Tia para AWD.",
         "parameters": [
           {
-            "name": "numeroPoliza",
+            "name": "NumeroSiniestro",
             "in": "path",
-            "description": "",
+            "description": "Numero de siniestro.",
             "required": true,
             "schema": {
               "type": "string"
@@ -829,7 +265,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RenovarPolizaResponseApiOkResponse"
+                  "$ref": "#/components/schemas/ObtenerSiniestroAwdResponseListApiOkResponse"
                 }
               }
             }
@@ -837,7 +273,172 @@
         }
       }
     },
-    "/api/transacciones": {
+    "/siniestro/SiniestrosTia": {
+      "get": {
+        "tags": [
+          "Siniestro"
+        ],
+        "summary": "Obtiene siniestros desde Tia para FraudKeeper.",
+        "parameters": [
+          {
+            "name": "NumeroSiniestro",
+            "in": "query",
+            "description": "Numero de siniestro.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "NumeroCaso",
+            "in": "query",
+            "description": "Numero de caso.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperResponseListApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/siniestro/sub": {
+      "get": {
+        "tags": [
+          "Siniestro"
+        ],
+        "summary": "Obtiene subsiniestro TIA para FraudKeeper.",
+        "parameters": [
+          {
+            "name": "NumeroSubSiniestro",
+            "in": "query",
+            "description": "Numero de subsiniestro.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubSiniestroResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/siniestro/archivo": {
+      "post": {
+        "tags": [
+          "Siniestro"
+        ],
+        "summary": "Guarda archivo de siniestro en Core.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Data": {
+                    "type": "string",
+                    "description": "Archivo a guardar.",
+                    "format": "binary"
+                  },
+                  "NumeroSiniestro": {
+                    "type": "integer",
+                    "description": "Numero de siniestro sin guion ni certificado.",
+                    "format": "int64"
+                  }
+                }
+              },
+              "encoding": {
+                "Data": {
+                  "style": "form"
+                },
+                "NumeroSiniestro": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuardarArchivoResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/siniestro/sub/archivo": {
+      "post": {
+        "tags": [
+          "Siniestro"
+        ],
+        "summary": "Guarda archivo de subsiniestro en Core.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Data": {
+                    "type": "string",
+                    "description": "Archivo a guardar.",
+                    "format": "binary"
+                  },
+                  "NumeroSubsiniestro": {
+                    "type": "string",
+                    "description": "Numero de subsiniestro con guion y certificado."
+                  }
+                }
+              },
+              "encoding": {
+                "Data": {
+                  "style": "form"
+                },
+                "NumeroSubsiniestro": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GuardarArchivoSubsiniestroResponseApiOkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transacciones": {
       "post": {
         "tags": [
           "Transacciones"
@@ -850,30 +451,30 @@
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/TransaccionRequest"
+                    "$ref": "#/components/schemas/CrearTransaccionRequest"
                   }
                 ],
-                "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+                "description": "Representa denuncios de siniestros, que se deben guardar en el Core TIA."
               }
             },
             "text/json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/TransaccionRequest"
+                    "$ref": "#/components/schemas/CrearTransaccionRequest"
                   }
                 ],
-                "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+                "description": "Representa denuncios de siniestros, que se deben guardar en el Core TIA."
               }
             },
             "application/*+json": {
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/TransaccionRequest"
+                    "$ref": "#/components/schemas/CrearTransaccionRequest"
                   }
                 ],
-                "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+                "description": "Representa denuncios de siniestros, que se deben guardar en el Core TIA."
               }
             }
           }
@@ -884,7 +485,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PolizaEmitidaResponseApiOkResponse"
+                  "$ref": "#/components/schemas/CrearTransaccionResponseApiOkResponse"
                 }
               }
             }
@@ -895,372 +496,6 @@
   },
   "components": {
     "schemas": {
-      "AccidentesPersonalesAseguradoCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "relacion": {
-            "type": "string",
-            "description": "Relacion con el contratante."
-          },
-          "porcentaje": {
-            "type": "number",
-            "description": "Porcentaje de suma asegurada en beneficio del beneficiario.",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request asegurado para cotizar poliza seguro accidentes personales cotizacion."
-      },
-      "AccidentesPersonalesAseguradoModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "relacion": {
-            "type": "string",
-            "description": "Relacion con el contratante."
-          },
-          "porcentaje": {
-            "type": "number",
-            "description": "Porcentaje de suma asegurada en beneficio del beneficiario.",
-            "format": "double"
-          },
-          "operacion": {
-            "type": "string",
-            "description": "Tipo de operacion a realizar para el beneficiario durante el proceso de endoso."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request asegurado para cotizar poliza seguro accidentes personales modificacion."
-      },
-      "AccidentesPersonalesContratanteCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono del contratante."
-          },
-          "correo": {
-            "type": "string",
-            "description": "Correo electronico del contratante."
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionRequest"
-              }
-            ],
-            "description": "Direccion postal del contratante."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro accidentes personales cotizacion."
-      },
-      "AccidentesPersonalesContratanteModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono del contratante."
-          },
-          "correo": {
-            "type": "string",
-            "description": "Correo electronico del contratante."
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionRequest"
-              }
-            ],
-            "description": "Direccion postal del contratante."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro accidentes personales modificacion."
-      },
-      "AccidentesPersonalesCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AccidentesPersonalesContratanteCotizacionRequest"
-              }
-            ],
-            "description": "Contratante de la poliza."
-          },
-          "asegurados": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccidentesPersonalesAseguradoCotizacionRequest"
-            },
-            "description": "Beneficiarios de la poliza."
-          },
-          "tipoCobertura": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con detalles de hogar requerida para cotizar una poliza seguro de accidentes personales."
-      },
-      "AccidentesPersonalesModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AccidentesPersonalesContratanteModificacionRequest"
-              }
-            ],
-            "description": "Contratante de la poliza."
-          },
-          "asegurados": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccidentesPersonalesAseguradoModificacionRequest"
-            },
-            "description": "Beneficiarios de la poliza."
-          },
-          "tipoCobertura": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para cotizar poliza seguro accidentes personales modificacion."
-      },
       "AccionRequest": {
         "type": "object",
         "properties": {
@@ -1279,41 +514,42 @@
         "additionalProperties": false,
         "description": "Objeto accion de TIA."
       },
-      "ActualizarCotizacionRequest": {
+      "CrearTransaccionRequest": {
         "type": "object",
         "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza"
-          },
-          "itemsPoliza": {
+          "acciones": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/LineaPolizaRequest"
+              "$ref": "#/components/schemas/AccionRequest"
             },
-            "description": "Lineas de la poliza."
+            "description": "Lista de acciones de una transaccion."
           }
         },
         "additionalProperties": false,
-        "description": "Request para cotizar una poliza en TIA."
+        "description": "Representa denuncios de siniestros, que se deben guardar en el Core TIA."
       },
-      "ActualizarCotizacionResponse": {
+      "CrearTransaccionResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
-            "description": "Identificador unico de la cotizacion.",
+            "description": "Id de registro.",
             "format": "int64"
           },
-          "numeroPoliza": {
+          "numeroSiniestro": {
             "type": "string",
-            "description": "Numero de poliza generado por la cotizacion."
+            "description": "Numero de siniestro."
+          },
+          "idTrazabilidad": {
+            "type": "integer",
+            "description": "Id de trazabilidad.",
+            "format": "int64"
           }
         },
         "additionalProperties": false,
-        "description": "Response para la actualizacion de una cotizacion de poliza de seguro."
+        "description": "Response de crear una transaccion."
       },
-      "ActualizarCotizacionResponseApiOkResponse": {
+      "CrearTransaccionResponseApiOkResponse": {
         "type": "object",
         "properties": {
           "statusCode": {
@@ -1326,774 +562,13 @@
           "result": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ActualizarCotizacionResponse"
+                "$ref": "#/components/schemas/CrearTransaccionResponse"
               }
             ],
-            "description": "Response para la actualizacion de una cotizacion de poliza de seguro."
+            "description": "Response de crear una transaccion."
           }
         },
         "additionalProperties": false
-      },
-      "ApiOkResponse": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "AsistenciaRequest": {
-        "type": "object",
-        "properties": {
-          "fechaInicioVigencia": {
-            "type": "string",
-            "description": "Fecha inicio vigencia",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFinVigencia": {
-            "type": "string",
-            "description": "Fecha fin vigencia",
-            "format": "date-time",
-            "nullable": true
-          },
-          "tipoMoneda": {
-            "type": "string",
-            "description": "Tipo moneda",
-            "nullable": true
-          },
-          "prima": {
-            "type": "number",
-            "description": "Prima",
-            "format": "double",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para la asistencia de una poliza de seguro en una cotizacion."
-      },
-      "AutoPlanetContratanteRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono del contratante."
-          },
-          "correo": {
-            "type": "string",
-            "description": "Correo electronico del contratante."
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionRequest"
-              }
-            ],
-            "description": "Direccion postal del contratante."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro Auto."
-      },
-      "AutoPlanetCotizacionFieldAutoRequest": {
-        "type": "object",
-        "properties": {
-          "codPlan": {
-            "type": "string",
-            "description": "Codigo Plan."
-          },
-          "patente": {
-            "type": "string",
-            "description": "Patente Vehiculo."
-          },
-          "patenteDV": {
-            "type": "string",
-            "description": "PatenteDV Vehiculo."
-          },
-          "anio": {
-            "type": "string",
-            "description": "Anio Vehiculo."
-          },
-          "numeroMotor": {
-            "type": "string",
-            "description": "Numero Motor Vehiculo"
-          },
-          "marca": {
-            "type": "string",
-            "description": "Marca Vehiculo"
-          },
-          "modelo": {
-            "type": "string",
-            "description": "Modelo Vehiculo"
-          },
-          "tipoVehiculo": {
-            "type": "string",
-            "description": "TipoVehiculo Vehiculo"
-          },
-          "vin": {
-            "type": "string",
-            "description": "Numero VIN"
-          },
-          "tipoPlan": {
-            "type": "integer",
-            "description": "Tipo plan.",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con detalles de auto requerida para cotizar una poliza seguro Auto."
-      },
-      "AutoPlanetCotizacionFieldCorredorRequest": {
-        "type": "object",
-        "properties": {
-          "idCorredor": {
-            "type": "integer",
-            "description": "Rut de corredor.",
-            "format": "int32"
-          },
-          "comision": {
-            "type": "integer",
-            "description": "Comision de corredor",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro Auto."
-      },
-      "CancelacionPolizaRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza."
-          },
-          "codCancelacion": {
-            "type": "integer",
-            "description": "Codigo de cancelacion.",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para cancelacion de poliza cotizada."
-      },
-      "CoaseguroRequest": {
-        "type": "object",
-        "properties": {
-          "participantes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ParticipanteCoaseguroRequest"
-            },
-            "description": "Participantes del coaseguro."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para el coaseguro en una poliza."
-      },
-      "CoberturaModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "codigo": {
-            "type": "string",
-            "description": "Codigo de cobertura."
-          },
-          "monto": {
-            "type": "number",
-            "description": "Monto de cobertura.",
-            "format": "double"
-          },
-          "operacion": {
-            "type": "string",
-            "description": "Tipo de operacion a realizar para el beneficiario durante el proceso de cotizacion."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para modificar una cobertura en una poliza cotizada."
-      },
-      "CoberturaRequest": {
-        "type": "object",
-        "properties": {
-          "codigo": {
-            "type": "string",
-            "description": "Codigo de cobertura."
-          },
-          "monto": {
-            "type": "number",
-            "description": "Monto de cobertura.",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data de cobertura requerida para cotizar una poliza."
-      },
-      "ComisionCorredorRequest": {
-        "type": "object",
-        "properties": {
-          "rol": {
-            "type": "string",
-            "description": "Rol del corredor.\r\nValor TIA: agentRole.",
-            "nullable": true
-          },
-          "posicionEnPoliza": {
-            "type": "string",
-            "description": "Posicion del corredor en poliza.\r\nValor TIA: agentPositionOnPolicy.",
-            "nullable": true
-          },
-          "codigo": {
-            "type": "string",
-            "description": "Codigo del corredor.\r\nValor TIA: agentNo.",
-            "nullable": true
-          },
-          "comision": {
-            "type": "number",
-            "description": "Comision.\r\nValor TIA: percentageOfCommission.",
-            "format": "double",
-            "nullable": true
-          },
-          "grupoComision": {
-            "type": "string",
-            "description": "Grupo de comisiones al que pertenece el corredor.\r\nValor TIA: commissionGroup.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para la comision de un corredor en una cotizacion de poliza de seguro."
-      },
-      "CorredorRequest": {
-        "type": "object",
-        "properties": {
-          "codigo": {
-            "type": "string",
-            "description": "Codido de corredor."
-          },
-          "portal": {
-            "type": "integer",
-            "description": "Portal.",
-            "format": "int32"
-          },
-          "comision": {
-            "type": "string",
-            "description": "Comision."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Corredor request."
-      },
-      "CrearCotizacionAutoPlanetRequest": {
-        "type": "object",
-        "properties": {
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AutoPlanetContratanteRequest"
-              }
-            ],
-            "description": "Contratante."
-          },
-          "auto": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AutoPlanetCotizacionFieldAutoRequest"
-              }
-            ],
-            "description": "Auto a asegurar."
-          },
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AutoPlanetCotizacionFieldCorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "maestraPoliza": {
-            "type": "string",
-            "description": "Poliza Maestra.",
-            "nullable": true
-          },
-          "notificaciones": {
-            "type": "string",
-            "description": "Notificaciones.",
-            "nullable": true
-          },
-          "plataformaVenta": {
-            "type": "string",
-            "description": "Plataforma de venta.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data requerida para cotizar una poliza seguro Auto."
-      },
-      "CrearCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "codigoProducto": {
-            "type": "string",
-            "description": "Codigo Producto EJ: HF, M4.\r\nValor TIA: prodId.",
-            "nullable": true
-          },
-          "fechaEmision": {
-            "type": "string",
-            "description": "Fecha Emision.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "inicioVigencia": {
-            "type": "string",
-            "description": "Inicio de Vigencia.\r\nValor TIA: coverStartDate",
-            "format": "date-time",
-            "nullable": true
-          },
-          "terminoVigencia": {
-            "type": "string",
-            "description": "Termino de Vigencia.\r\nValor TIA: coverEndDate",
-            "format": "date-time",
-            "nullable": true
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de Venta EJ: 6, 8.\r\nValor TIA: salesChannel.",
-            "nullable": true
-          },
-          "plataformaVenta": {
-            "type": "string",
-            "description": "Plataforma de Venta EJ: SVC, ANS.\r\nValor TIA: platform.",
-            "nullable": true
-          },
-          "origenVenta": {
-            "type": "string",
-            "description": "Estrategia de Venta.\r\nValor TIA: origen.",
-            "nullable": true
-          },
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Poliza EJ: 0020187867.\r\nValor TIA: policyNoAlt.",
-            "nullable": true
-          },
-          "certificado": {
-            "type": "integer",
-            "description": "Certificado EJ: 4900.",
-            "format": "int32",
-            "nullable": true
-          },
-          "renovacion": {
-            "type": "integer",
-            "description": "Renovacion.",
-            "format": "int32",
-            "nullable": true
-          },
-          "codigoPropuesta": {
-            "type": "integer",
-            "description": "Codigo propuesta.",
-            "format": "int32",
-            "nullable": true
-          },
-          "subRamo": {
-            "type": "string",
-            "description": "Sub Ramo.\r\nValor TIA: subRamoCmf.",
-            "nullable": true
-          },
-          "codigoSic": {
-            "type": "string",
-            "description": "Codigo SIC.\r\nValor TIA: sicCode.",
-            "nullable": true
-          },
-          "tipoPoliza": {
-            "type": "string",
-            "description": "Tipo de poliza.\r\nValor TIA: clPolicyType.",
-            "nullable": true
-          },
-          "porcentajeComision": {
-            "type": "integer",
-            "description": "Porcentaje de comision de la poliza, es la suma de las comisiones individiales de los corredores.\r\nValor TIA: comPercent.",
-            "format": "int32",
-            "nullable": true
-          },
-          "esFacultativo": {
-            "type": "string",
-            "description": "Indica si la poliza se crea con facultativo.\r\nValor TIA: facYn.",
-            "nullable": true
-          },
-          "hora": {
-            "type": "string",
-            "description": "Hora.\r\nValor TIA: time",
-            "nullable": true
-          },
-          "resumenMontos": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ResumenMontosRequest"
-              }
-            ],
-            "description": "Resumen de montos de la poliza.",
-            "nullable": true
-          },
-          "itemsPoliza": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LineaPolizaRequest"
-            },
-            "description": "Items de la poliza.",
-            "nullable": true
-          },
-          "comisionCorredores": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ComisionCorredorRequest"
-            },
-            "description": "Comision de corredores.",
-            "nullable": true
-          },
-          "datosPago": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DatosPagoRequest"
-              }
-            ],
-            "description": "Datos Pago.",
-            "nullable": true
-          },
-          "participantes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ParticipanteRequest"
-            },
-            "description": "Participantes.",
-            "nullable": true
-          },
-          "coaseguro": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CoaseguroRequest"
-              }
-            ],
-            "description": "Coaseguro de la poliza.",
-            "nullable": true
-          },
-          "reaseguro": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/ReaseguroRequest"
-              }
-            ],
-            "description": "Reaseguro de la poliza.",
-            "nullable": true
-          },
-          "limite": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/LimiteRequest"
-              }
-            ],
-            "description": "Limite.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para cotizar una poliza en TIA."
-      },
-      "CrearCotizacionResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "Id unico de la cotizacion.",
-            "format": "int64"
-          },
-          "identificadorPoliza": {
-            "type": "integer",
-            "description": "Identificador de poliza generado por la cotizacion.",
-            "format": "int64"
-          },
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza generado por la cotizacion."
-          },
-          "idContratantePoliza": {
-            "type": "integer",
-            "description": "Id contratante poliza.",
-            "format": "int64"
-          },
-          "idAseguradoPoliza": {
-            "type": "integer",
-            "description": "Id asegurado poliza.",
-            "format": "int64"
-          },
-          "idObjetoAsegurado": {
-            "type": "integer",
-            "description": "Id objeto asegurado.",
-            "format": "int64"
-          },
-          "contenido": {
-            "description": "Contenido."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Response para la creacion de una cotizacion de poliza de seguro."
-      },
-      "CrearCotizacionResponseApiOkResponse": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          },
-          "result": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CrearCotizacionResponse"
-              }
-            ],
-            "description": "Response para la creacion de una cotizacion de poliza de seguro."
-          }
-        },
-        "additionalProperties": false
-      },
-      "Cuota": {
-        "type": "object",
-        "properties": {
-          "numeroCuota": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "fechaPago": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "tasaInteres": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "montoInteres": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "ivaPrima": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "ivaInteres": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "primaNeta": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "totalPrima": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "CuotaRequest": {
-        "type": "object",
-        "properties": {
-          "numeroCuota": {
-            "type": "integer",
-            "description": "Numero Cuota.\r\nValor TIA: instalmentNo",
-            "format": "int32",
-            "nullable": true
-          },
-          "fechaPago": {
-            "type": "string",
-            "description": "Fecha de Pago.\r\nValor TIA: dueDate",
-            "format": "date-time",
-            "nullable": true
-          },
-          "tasaInteres": {
-            "type": "number",
-            "description": "Tasa Interes",
-            "format": "double",
-            "nullable": true
-          },
-          "montoInteres": {
-            "type": "number",
-            "description": "Monto interes",
-            "format": "double",
-            "nullable": true
-          },
-          "ivaPrima": {
-            "type": "number",
-            "description": "Prima IVA",
-            "format": "double",
-            "nullable": true
-          },
-          "ivaInteres": {
-            "type": "number",
-            "description": "Interes IVA",
-            "format": "double",
-            "nullable": true
-          },
-          "primaNeta": {
-            "type": "number",
-            "description": "Prima neta",
-            "format": "double",
-            "nullable": true
-          },
-          "totalPrima": {
-            "type": "number",
-            "description": "Prima total.\r\nValor TIA: amount.",
-            "format": "double",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para los detalles de una cuota en una cotizacion de poliza de seguro."
-      },
-      "DatosPagoRequest": {
-        "type": "object",
-        "properties": {
-          "codigoPlanPago": {
-            "type": "string",
-            "description": "Codigo de Plan Pago.\r\nValor TIA: instlPlanType.",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo Pago.\r\nValor TIA: paymentMethod",
-            "nullable": true
-          },
-          "totalCuotas": {
-            "type": "integer",
-            "description": "Total Cuotas",
-            "format": "int32",
-            "nullable": true
-          },
-          "diaPago": {
-            "type": "string",
-            "description": "Dia Pago",
-            "nullable": true
-          },
-          "tipoRegistro": {
-            "type": "string",
-            "description": "Tipo Registro",
-            "nullable": true
-          },
-          "cupon": {
-            "type": "string",
-            "description": "Cupon",
-            "nullable": true
-          },
-          "datosTarjeta": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/TarjetaRequest"
-              }
-            ],
-            "description": "Datos Bancarios",
-            "nullable": true
-          },
-          "planCuotas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CuotaRequest"
-            },
-            "description": "Detalle de cuotas",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para los datos de pago en una cotizacion de poliza de seguro."
       },
       "DependencyResponse": {
         "type": "object",
@@ -2119,189 +594,130 @@
         },
         "additionalProperties": false
       },
-      "DetalleCuotas": {
+      "EnviarCourierRequest": {
         "type": "object",
         "properties": {
-          "cuotas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Cuota"
-            }
+          "memberNo": {
+            "type": "string",
+            "description": "Numero de socio."
+          },
+          "certificateNo": {
+            "type": "string",
+            "description": "Numero certificado u otNumAct."
+          },
+          "extWoNo": {
+            "type": "string",
+            "description": "Numero orden de trabajo."
+          },
+          "eventDate": {
+            "type": "string",
+            "description": "fechaEvento + horaEvento (ISO-8601 format)"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "Codigo de transaccion."
+          },
+          "messageId": {
+            "type": "string",
+            "description": "id del mensaje."
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Courier"
       },
-      "DetalleCuotasRequest": {
+      "EstadoServicioTecnicoResponse": {
         "type": "object",
         "properties": {
-          "cuotas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CuotaRequest"
-            },
-            "description": "Detalle de cuotas",
+          "numeroServicioTecnico": {
+            "type": "string",
+            "description": "Número del Servicio Técnico.",
+            "nullable": true
+          },
+          "numeroF11": {
+            "type": "string",
+            "description": "Número de Guia Socio - F11.",
+            "nullable": true
+          },
+          "codigoServicioTecnico": {
+            "type": "string",
+            "description": "Código Servicio Técnico (Rut ST)-F11.",
+            "nullable": true
+          },
+          "nombreServicioTecnico": {
+            "type": "string",
+            "description": "Nombre Servicio Técnico-F11.",
+            "nullable": true
+          },
+          "telefonoServicioTecnico": {
+            "type": "string",
+            "description": "Telefono Servicio Técnico-F11.",
+            "nullable": true
+          },
+          "sucursalServicioTecnico": {
+            "type": "string",
+            "description": "Sucursal Servicio Técnico-F11.",
+            "nullable": true
+          },
+          "estadoOrdenTrabajo": {
+            "type": "string",
+            "description": "Estado OT/F11 Sistema Externo.",
+            "nullable": true
+          },
+          "fechaModificacionEstado": {
+            "type": "string",
+            "description": "Fecha Modificación Estado.",
+            "nullable": true
+          },
+          "fechaRecepcionProducto": {
+            "type": "string",
+            "description": "Fecha Recepción Producto.",
+            "nullable": true
+          },
+          "numeroGuiaRecepcion": {
+            "type": "string",
+            "description": "Número Guia Recepción Producto.",
+            "nullable": true
+          },
+          "fechaEntregaProducto": {
+            "type": "string",
+            "description": "Fecha Entrega Producto.",
+            "nullable": true
+          },
+          "numeroGuiaDespacho": {
+            "type": "string",
+            "description": "Número Guía Despacho Producto.",
+            "nullable": true
+          },
+          "descripcionRechazoOReparacion": {
+            "type": "string",
+            "description": "Descripción y/o Motivo de Rechazo o Reparación.",
+            "nullable": true
+          },
+          "skuProducto": {
+            "type": "string",
+            "description": "SKU Producto cambio.",
+            "nullable": true
+          },
+          "precioProducto": {
+            "type": "string",
+            "description": "Precio Producto cambio.",
+            "nullable": true
+          },
+          "fechaCreacionOT": {
+            "type": "string",
+            "description": "Fecha de Creación de OT Sistema Externo (SBINS).",
+            "nullable": true
+          },
+          "numeroOTServicioTecnico": {
+            "type": "string",
+            "description": "Numero OT Servicio Externo (SBINS).",
             "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Request para el detalle pago de una emision de poliza."
+        "description": "Respuesta para el estado de servicio tecnico desde Tia."
       },
-      "DireccionCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numero": {
-            "type": "integer",
-            "description": "Numero de la direccion.\r\nValor TIA: streetNo",
-            "format": "int32",
-            "nullable": true
-          },
-          "numeroDepartamento": {
-            "type": "integer",
-            "description": "Numero del departamento.",
-            "format": "int32",
-            "nullable": true
-          },
-          "numeroDePiso": {
-            "type": "integer",
-            "description": "Numero de piso donde se encuentra la propiedad.",
-            "format": "int32",
-            "nullable": true
-          },
-          "calle": {
-            "type": "string",
-            "description": "Calle de la direccion.\r\nValor TIA: street",
-            "nullable": true
-          },
-          "codigoPostal": {
-            "type": "string",
-            "description": "Codigo postal de la direccion.\r\nValor TIA: postCode.",
-            "nullable": true
-          },
-          "comuna": {
-            "type": "string",
-            "description": "Comuna de la direccion.",
-            "nullable": true
-          },
-          "codigoComuna": {
-            "type": "string",
-            "description": "Codigo de la comuna.",
-            "nullable": true
-          },
-          "ciudad": {
-            "type": "string",
-            "description": "Ciudad de la direccion.",
-            "nullable": true
-          },
-          "codigoCiudad": {
-            "type": "string",
-            "description": "Codigo de la ciudad.",
-            "nullable": true
-          },
-          "region": {
-            "type": "string",
-            "description": "Region de la direccion.",
-            "nullable": true
-          },
-          "codigoRegion": {
-            "type": "string",
-            "description": "Codigo de la region.",
-            "nullable": true
-          },
-          "pais": {
-            "type": "string",
-            "description": "Pais de la direccion.",
-            "nullable": true
-          },
-          "codigoPais": {
-            "type": "string",
-            "description": "Codigo del pais.\r\nValor TIA: countryCode.",
-            "nullable": true
-          },
-          "latitud": {
-            "type": "string",
-            "description": "Latitud.\r\nValor TIA: latitude.",
-            "nullable": true
-          },
-          "longitud": {
-            "type": "string",
-            "description": "Longitud.\r\nValor TIA: longitude.",
-            "nullable": true
-          },
-          "resolucion": {
-            "type": "string",
-            "description": "Resolucion de las coordenadas geograficas.\r\nValor TIA: resolution.",
-            "nullable": true
-          },
-          "descripcion": {
-            "type": "string",
-            "description": "Descripcion de la direccion.\r\nValor TIA: Description.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para la direccion de un objeto asegurado en una cotizacion de poliza."
-      },
-      "DireccionRequest": {
-        "type": "object",
-        "properties": {
-          "calle": {
-            "type": "string",
-            "description": "Nombre de la calle."
-          },
-          "numeroCalle": {
-            "type": "string",
-            "description": "Numero de calle."
-          },
-          "departamento": {
-            "type": "string",
-            "description": "Departamento.",
-            "nullable": true
-          },
-          "codigoComuna": {
-            "type": "string",
-            "description": "Codigo de comuna."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data de direccion de persona requerida para cotizar una poliza."
-      },
-      "EmisionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza."
-          },
-          "notificarPago": {
-            "type": "boolean",
-            "description": "Indicador si es requerido notificar el pago a Pasarela de Pago.",
-            "nullable": true
-          },
-          "detalleCuotas": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DetalleCuotasRequest"
-              }
-            ],
-            "description": "Detalle cuotas.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para emision de poliza cotizada."
-      },
-      "EmisionResponse": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Response de emision de poliza de seguro."
-      },
-      "EmisionResponseApiOkResponse": {
+      "EstadoServicioTecnicoResponseApiOkResponse": {
         "type": "object",
         "properties": {
           "statusCode": {
@@ -2314,10 +730,98 @@
           "result": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/EmisionResponse"
+                "$ref": "#/components/schemas/EstadoServicioTecnicoResponse"
               }
             ],
-            "description": "Response de emision de poliza de seguro."
+            "description": "Respuesta para el estado de servicio tecnico desde Tia."
+          }
+        },
+        "additionalProperties": false
+      },
+      "GuardarArchivoResponse": {
+        "type": "object",
+        "properties": {
+          "numeroSiniestro": {
+            "type": "string",
+            "description": "Numero de siniestro."
+          },
+          "idCaso": {
+            "type": "string",
+            "description": "Identificador del caso de un siniestro."
+          },
+          "archivoGuardado": {
+            "type": "boolean",
+            "description": "Estado de guardado true si satisfactorio o false si error."
+          },
+          "mensaje": {
+            "type": "string",
+            "description": "Mensaje de exito u error, segun sea el estado."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response de guardar archivo en el core."
+      },
+      "GuardarArchivoResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GuardarArchivoResponse"
+              }
+            ],
+            "description": "Response de guardar archivo en el core."
+          }
+        },
+        "additionalProperties": false
+      },
+      "GuardarArchivoSubsiniestroResponse": {
+        "type": "object",
+        "properties": {
+          "numeroSubsiniestro": {
+            "type": "string",
+            "description": "Numero de subsiniestro."
+          },
+          "idCaso": {
+            "type": "string",
+            "description": "Identificador del caso de un siniestro."
+          },
+          "archivoGuardado": {
+            "type": "boolean",
+            "description": "Estado de guardado true si satisfactorio o false si error."
+          },
+          "mensaje": {
+            "type": "string",
+            "description": "Mensaje de exito u error, segun sea el estado."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response de guardar archivo de subsiniestro en el core."
+      },
+      "GuardarArchivoSubsiniestroResponseApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GuardarArchivoSubsiniestroResponse"
+              }
+            ],
+            "description": "Response de guardar archivo de subsiniestro en el core."
           }
         },
         "additionalProperties": false
@@ -2363,1306 +867,364 @@
         },
         "additionalProperties": false
       },
-      "HogarContratanteRequest": {
+      "ObtenerSiniestroAwdAfectadoFieldResponse": {
         "type": "object",
         "properties": {
-          "numeroDocumento": {
+          "rut": {
             "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
+            "description": "Rut del afectado"
           },
           "nombre": {
             "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono del contratante."
-          },
-          "correo": {
-            "type": "string",
-            "description": "Correo electronico del contratante."
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionRequest"
-              }
-            ],
-            "description": "Direccion postal del contratante."
-          },
-          "tipo": {
-            "type": "string",
-            "description": "\"1\"-> \"Propietario\"\r\n\"2\"-> \"Arrendatario\"\r\n\"3\"-> \"Inversionista\""
+            "description": "Nombre del afectado"
           }
         },
         "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro hogar full cotizacion."
+        "description": "Campo afectado para Response de obtener siniestro awd."
       },
-      "HogarCotizacionRequest": {
+      "ObtenerSiniestroAwdFieldAseguradoResponse": {
+        "type": "object",
+        "properties": {
+          "rut": {
+            "type": "string",
+            "description": "Rut del asegurado"
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del asegurado"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Campo asegurado para Response de obtener siniestro awd."
+      },
+      "ObtenerSiniestroAwdFieldCorredorResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Id del corredor"
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del corredor"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Campo corredor para Response de obtener siniestro awd."
+      },
+      "ObtenerSiniestroAwdFieldPolizaResponse": {
         "type": "object",
         "properties": {
           "numeroPoliza": {
             "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
+            "description": "Numero de poliza"
           },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
+          "numeroCertificado": {
+            "type": "integer",
+            "description": "Numero de certificado",
+            "format": "int32"
           },
-          "idLineaProducto": {
+          "lineaNegocio": {
             "type": "string",
-            "description": "Id de la linea de producto."
+            "description": "Linea de negocio"
           },
-          "fechaInicio": {
+          "inicioVigencia": {
             "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
+            "description": "Inicio de vigencia",
+            "format": "date-time"
           },
-          "fechaFin": {
+          "terminoVigencia": {
             "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
+            "description": "Termino de vigencia",
+            "format": "date-time"
           },
-          "metodoPago": {
+          "ramo": {
             "type": "string",
-            "description": "Metodo de pago."
+            "description": "Ramo"
           },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
+          "asegurado": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObtenerSiniestroAwdFieldAseguradoResponse"
+              }
+            ],
+            "description": "Asegurado"
           },
           "corredor": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/CorredorRequest"
+                "$ref": "#/components/schemas/ObtenerSiniestroAwdFieldCorredorResponse"
               }
             ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/HogarContratanteRequest"
-              }
-            ],
-            "description": "Contratante."
-          },
-          "hogar": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/HogarRequest"
-              }
-            ],
-            "description": "Hogar a asegurar."
-          },
-          "coberturas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CoberturaRequest"
-            },
-            "description": "Coberturas."
-          },
-          "aceptaEnvioCorreos": {
-            "type": "string",
-            "description": "Acepta envios de correo."
+            "description": "Corredor"
           }
         },
         "additionalProperties": false,
-        "description": "Request con data requerida para cotizar una poliza seguro hogar full."
+        "description": "Response para los datos adicionales que se envian a Awd."
       },
-      "HogarModificacionRequest": {
+      "ObtenerSiniestroAwdLiquidadorFieldResponse": {
         "type": "object",
         "properties": {
-          "numeroPoliza": {
+          "id": {
             "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
+            "description": "Id del liquidador"
           },
-          "idProducto": {
+          "nombre": {
             "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/HogarContratanteRequest"
-              }
-            ],
-            "description": "Contratante."
-          },
-          "hogar": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/HogarRequest"
-              }
-            ],
-            "description": "Hogar a asegurar."
-          },
-          "coberturas": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CoberturaModificacionRequest"
-            },
-            "description": "Lista de coberturas"
-          },
-          "aceptaEnvioCorreos": {
-            "type": "string",
-            "description": "Acepta envios de correo."
+            "description": "Nombre del liquidador"
           }
         },
         "additionalProperties": false,
-        "description": "Request con data requerida para modificar de cotizacion poliza seguro hogar full."
+        "description": "Campo liquidador para Response de obtener siniestro awd."
       },
-      "HogarRequest": {
+      "ObtenerSiniestroAwdResponse": {
         "type": "object",
         "properties": {
-          "calle": {
-            "type": "string",
-            "description": "Calle."
+          "numeroSiniestro": {
+            "type": "integer",
+            "description": "Numero de siniestro.",
+            "format": "int32"
           },
-          "numeroCalle": {
+          "estadoSiniestro": {
             "type": "string",
-            "description": "Numero de calle."
+            "description": "Estado de siniestro."
           },
-          "departamento": {
+          "codigoEstado": {
             "type": "string",
-            "description": "Letra o numero departamento.",
-            "nullable": true
+            "description": "Codigo de estado."
           },
-          "piso": {
+          "ajustador": {
             "type": "string",
-            "description": "Piso.",
-            "nullable": true
+            "description": "Nombre ajustador."
           },
-          "codigoComuna": {
+          "fechaPerdida": {
             "type": "string",
-            "description": "Codigo de la comuna"
+            "description": "Fecha de perdida.",
+            "format": "date-time"
           },
-          "codigoRegion": {
+          "lugarPerdida": {
             "type": "string",
-            "description": "Codigo de la region."
+            "description": "Lugar de perdida."
           },
-          "superficie": {
+          "descripcionPerdida": {
             "type": "string",
-            "description": "Superficie del domicilio en m2.",
-            "nullable": true
+            "description": "descripcion de la perdida."
           },
-          "comunaExcluida": {
+          "codigoCatastrofe": {
             "type": "string",
-            "description": "Indica si la comuna esta excluida o no."
+            "description": "Codigo de catastrofe."
           },
-          "antiguedad": {
+          "fechaReporteSiniestro": {
             "type": "string",
-            "description": "Antiguedad del domicilio."
+            "description": "Fecha reporte de siniestr´.",
+            "format": "date-time"
           },
-          "tipoUso": {
+          "fechaCreacion": {
             "type": "string",
-            "description": "Tipo de uso del domicilio."
-          },
-          "tipo": {
-            "type": "string",
-            "description": "Tipo de domicilio."
-          },
-          "materialConstruccion": {
-            "type": "string",
-            "description": "Material de construccion del domicilio."
-          },
-          "sector": {
-            "type": "string",
-            "description": "Indica el sector en el que se encuentra el domicilio."
-          },
-          "clasificacion": {
-            "type": "string",
-            "description": "Indica la clasificacion industrial del domicilio.",
-            "nullable": true
-          },
-          "tipoConstruccion": {
-            "type": "string",
-            "description": "Indica el tipo de construccion del domicilio.",
-            "nullable": true
-          },
-          "zonaRiesgo": {
-            "type": "string",
-            "description": "Indica si es una zona de riesgo o no."
-          },
-          "condominio": {
-            "type": "string",
-            "description": "Indica si es un condominio o no."
-          },
-          "numeroCasa": {
-            "type": "string",
-            "description": "Indica numero de casa..",
-            "nullable": true
-          },
-          "medidasSeguridad": {
-            "type": "string",
-            "description": "Indica si cumple con las medidas de seguridad o no."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con detalles de hogar requerida para cotizar una poliza seguro hogar full."
-      },
-      "LimiteRequest": {
-        "type": "object",
-        "properties": {
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Id tipo objeto.\r\nValor TIA: typeId"
-          },
-          "nivelLimite": {
-            "type": "string",
-            "description": "Nivel limite.\r\nValor TIA: limitLevel.",
-            "nullable": true
-          },
-          "valorLimite": {
-            "type": "string",
-            "description": "Valor limite.\r\nValor TIA: limitLevel.",
-            "nullable": true
-          },
-          "nivelRetencion": {
-            "type": "string",
-            "description": "Nivel de retencion.\r\nValorTIA: retentionLevel",
-            "nullable": true
-          },
-          "codigoRiesgo": {
-            "type": "string",
-            "description": "CodigoRiesgo.\r\nValorTIA: risk",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para limte de una poliza."
-      },
-      "LineaPolizaRequest": {
-        "type": "object",
-        "properties": {
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Codigo cobertura EJ: PTOSB.\r\nValor TIA: productLineId"
-          },
-          "tasa": {
-            "type": "string",
-            "description": "Tasa.\r\nValor TIA: Tasa.",
-            "nullable": true
-          },
-          "fechaInicioCobertura": {
-            "type": "string",
-            "description": "Fecha de inicio de la cobertura de la poliza.\r\nValor TIA: coverStartDate.",
-            "nullable": true
+            "description": "Fecha creacion.",
+            "format": "date-time"
           },
           "moneda": {
             "type": "string",
-            "description": "Moneda de la cobertura EJ: CLP, USD.\r\nValorTIA: currencyCode",
-            "nullable": true
+            "description": "Tipo moneda."
           },
-          "objetoAsegurado": {
+          "reservaIndemnizacion": {
+            "type": "integer",
+            "description": "Reserva de indemnizacion.",
+            "format": "int32"
+          },
+          "reservaHonorarios": {
+            "type": "integer",
+            "description": "Reserva de honorarios.",
+            "format": "int32"
+          },
+          "porcentajeSeguidor": {
+            "type": "integer",
+            "description": "Porcentaje seguidor.",
+            "format": "int32"
+          },
+          "afectado": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/ObjetoAseguradoRequest"
+                "$ref": "#/components/schemas/ObtenerSiniestroAwdAfectadoFieldResponse"
               }
             ],
-            "description": "Contiene los datos del asegurado (Puede ser persona, objeto, bienes, etc.).",
+            "description": "Afectado."
+          },
+          "liquidador": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObtenerSiniestroAwdLiquidadorFieldResponse"
+              }
+            ],
+            "description": "Liquidador."
+          },
+          "poliza": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObtenerSiniestroAwdFieldPolizaResponse"
+              }
+            ],
+            "description": "Poliza."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response del siniestro Awd."
+      },
+      "ObtenerSiniestroAwdResponseListApiOkResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObtenerSiniestroAwdResponse"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ObtenerSiniestroFraudKeeperFieldDatosAdicionalesResponse": {
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "string",
+            "description": "Codigo del dato adicional.",
+            "nullable": true
+          },
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del dato adicional.",
+            "nullable": true
+          },
+          "plugin": {
+            "type": "string",
+            "description": "Plugin utilizado.",
+            "nullable": true
+          },
+          "valor": {
+            "type": "string",
+            "description": "Valor del dato adicional.",
+            "nullable": true
+          },
+          "version": {
+            "type": "integer",
+            "description": "Version del dato adicional.",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Campo datos adicionales para Response de obtener siniestro fraudkeeper."
+      },
+      "ObtenerSiniestroFraudKeeperFieldExposicionResponse": {
+        "type": "object",
+        "properties": {
+          "descripcionCobertura": {
+            "type": "string",
+            "description": "Descripcion de Cobertura.",
+            "nullable": true
+          },
+          "codigoCobertura": {
+            "type": "string",
+            "description": "Codigo de Descripcion de Cobertura.",
+            "nullable": true
+          },
+          "monedaCobertura": {
+            "type": "string",
+            "description": "Moneda de Cobertura.",
+            "nullable": true
+          },
+          "montoAseguradoActual": {
+            "type": "string",
+            "description": "Monto asegurado actual.",
+            "nullable": true
+          },
+          "montoAseguradoOriginal": {
+            "type": "string",
+            "description": "Monto asegurado original.",
+            "nullable": true
+          },
+          "reserva": {
+            "type": "integer",
+            "description": "Reserva.",
+            "format": "int32",
+            "nullable": true
+          },
+          "pago": {
+            "type": "integer",
+            "description": "Pago.",
+            "format": "int32",
+            "nullable": true
+          },
+          "reservaMonedaLocal": {
+            "type": "integer",
+            "description": "Reserva en moneda local.",
+            "format": "int32",
+            "nullable": true
+          },
+          "pagoMonedaLocal": {
+            "type": "integer",
+            "description": "Pago en moneda local.",
+            "format": "int32",
+            "nullable": true
+          },
+          "firstParty": {
+            "type": "boolean",
+            "description": "No utilizado.",
+            "nullable": true
+          },
+          "contactosRelacionados": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Contactos relacionados, no utilizado.",
+            "nullable": true
+          },
+          "modelos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Modelos, no utilizado",
+            "nullable": true
+          },
+          "datosAdicionales": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Datos adicionales.",
+            "nullable": true
+          },
+          "vehiculos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Listado de patentes de vehiculos, no utilizado.",
             "nullable": true
           },
           "riesgos": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/RiesgoRequest"
+              "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperFieldRiesgoResponse"
             },
-            "description": "Lista de riesgos asociados a la cobertura.",
-            "nullable": true
-          },
-          "asistencias": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AsistenciaRequest"
-            },
-            "description": "Asistencia",
+            "description": "Listado de riesgos.",
             "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Request para lineas de una poliza de seguro."
+        "description": "Campo exposicion para Response de obtener siniestro fraudkeeper."
       },
-      "MascotaColectivoCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "numeroPolizaMaestra": {
-            "type": "string",
-            "description": "Numero de poliza maestra."
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MascotaContratanteRequest"
-              }
-            ],
-            "description": "Contratante de la poliza."
-          },
-          "mascota": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MascotaColectivoRequest"
-            },
-            "description": "Plan de seguro de mascotas."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data requerida para cotizar una poliza seguro de mascota colectivo."
-      },
-      "MascotaColectivoRequest": {
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "type": "string",
-            "description": "Nombre de la Mascota"
-          },
-          "edad": {
-            "type": "string",
-            "description": "Edad de la Mascota."
-          },
-          "sexo": {
-            "type": "string",
-            "description": "Sexo \"M\" o \"H\"."
-          },
-          "tipo": {
-            "type": "string",
-            "description": "Tipo."
-          },
-          "linaje": {
-            "type": "string",
-            "description": "Linaje."
-          },
-          "raza": {
-            "type": "string",
-            "description": "Raza.",
-            "nullable": true
-          },
-          "tipoCobertura": {
-            "type": "string",
-            "description": "Tipo de cobertura",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data de mascota para cotizar una poliza seguro de mascota colectivo."
-      },
-      "MascotaContratanteRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono del contratante."
-          },
-          "correo": {
-            "type": "string",
-            "description": "Correo electronico del contratante."
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionRequest"
-              }
-            ],
-            "description": "Direccion postal del contratante."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro mascota."
-      },
-      "MascotaCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MascotaContratanteRequest"
-              }
-            ],
-            "description": "Contratante de la poliza."
-          },
-          "mascota": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MascotaRequest"
-              }
-            ],
-            "description": "Plan de seguro de mascotas."
-          },
-          "tipoCobertura": {
-            "type": "string",
-            "description": "Tipo de cobertura"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data requerida para cotizar una poliza seguro de mascota."
-      },
-      "MascotaModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MascotaContratanteRequest"
-              }
-            ],
-            "description": "Contratante de la poliza."
-          },
-          "mascota": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/MascotaRequest"
-              }
-            ],
-            "description": "Plan de seguro de mascotas."
-          },
-          "tipoCobertura": {
-            "type": "string",
-            "description": "Tipo de cobertura"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data requerida para modificar una poliza seguro de mascota."
-      },
-      "MascotaRequest": {
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "type": "string",
-            "description": "Nombre de la Mascota"
-          },
-          "edad": {
-            "type": "string",
-            "description": "Edad de la Mascota."
-          },
-          "sexo": {
-            "type": "string",
-            "description": "Sexo \"M\" o \"H\"."
-          },
-          "tipo": {
-            "type": "string",
-            "description": "Tipo."
-          },
-          "linaje": {
-            "type": "string",
-            "description": "Linaje."
-          },
-          "raza": {
-            "type": "string",
-            "description": "Raza.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data de mascota para cotizar una poliza seguro de mascota."
-      },
-      "ObjetoAseguradoRequest": {
-        "type": "object",
-        "properties": {
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto.\r\nValor TIA: objectType",
-            "nullable": true
-          },
-          "idTipo": {
-            "type": "string",
-            "description": "ID del tipo de objeto.\r\nValor TIA: typeId",
-            "nullable": true
-          },
-          "propiedades": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "Propiedades del objeto.",
-            "nullable": true
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionCotizacionRequest"
-              }
-            ],
-            "description": "Direccion del objeto.",
-            "nullable": true
-          },
-          "subObjetos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SubObjetoRequest"
-            },
-            "description": "Lista de sub objetos asociados al objeto asegurado.",
-            "nullable": true
-          },
-          "idTitularPoliza": {
-            "type": "string",
-            "description": "Id titular poliza.\r\nValor TIA: custNo",
-            "nullable": true
-          },
-          "idNombreObjeto": {
-            "type": "string",
-            "description": "Id nombre objeto.\r\nValor TIA: objectNameId",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para el objeto asegurado."
-      },
-      "OncologicoAseguradoCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "relacion": {
-            "type": "string",
-            "description": "Relacion con el contratante."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request asegurado para cotizar poliza seguro oncologico cotizacion."
-      },
-      "OncologicoAseguradoModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "relacion": {
-            "type": "string",
-            "description": "Relacion con el contratante."
-          },
-          "operacion": {
-            "type": "string",
-            "description": "Tipo de operacion a realizar para el beneficiario durante el proceso de endoso."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request asegurado para cotizar poliza seguro oncologico modificacion."
-      },
-      "OncologicoContratanteCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono del contratante."
-          },
-          "correo": {
-            "type": "string",
-            "description": "Correo electronico del contratante."
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionRequest"
-              }
-            ],
-            "description": "Direccion postal del contratante."
-          },
-          "tipoIsapre": {
-            "type": "string",
-            "description": "Tipo de Isapre."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro oncologico cotizacion."
-      },
-      "OncologicoContratanteModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroDocumento": {
-            "type": "string",
-            "description": "RUT, Pasaporte u otro\r\nNota: En caso de ser RUT, debe incluir el digito verificador sin guion."
-          },
-          "tipoDocumento": {
-            "type": "string",
-            "description": "Tipo de documento de identificacion.\r\n\"1\" -> RUT.\r\n\"2\" -> Pasaporte.\r\n\"3\" -> Otro."
-          },
-          "nombre": {
-            "type": "string",
-            "description": "Nombre del beneficiario."
-          },
-          "apellidoPaterno": {
-            "type": "string",
-            "description": "Apellido paterno del beneficiario."
-          },
-          "apellidoMaterno": {
-            "type": "string",
-            "description": "Apellido materno del beneficiario.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento del beneficiario.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono del contratante."
-          },
-          "correo": {
-            "type": "string",
-            "description": "Correo electronico del contratante."
-          },
-          "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionRequest"
-              }
-            ],
-            "description": "Direccion postal del contratante."
-          },
-          "tipoIsapre": {
-            "type": "string",
-            "description": "Tipo de Isapre."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request contratante para cotizar poliza seguro oncologico modificacion."
-      },
-      "OncologicoCotizacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OncologicoContratanteCotizacionRequest"
-              }
-            ],
-            "description": "Contratante de la poliza."
-          },
-          "asegurados": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OncologicoAseguradoCotizacionRequest"
-            },
-            "description": "Asegurados de la poliza."
-          },
-          "oncologico": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OncologicoRequest"
-              }
-            ],
-            "description": "Plan de seguro oncologico."
-          },
-          "tipoCobertura": {
-            "type": "string",
-            "description": "Tipo de cobertura"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con detalles requeridos para cotizar una poliza seguro oncologico."
-      },
-      "OncologicoModificacionRequest": {
-        "type": "object",
-        "properties": {
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza entregado en la cotizacion.",
-            "nullable": true
-          },
-          "idProducto": {
-            "type": "string",
-            "description": "Codigo de producto."
-          },
-          "idLineaProducto": {
-            "type": "string",
-            "description": "Id de la linea de producto."
-          },
-          "fechaInicio": {
-            "type": "string",
-            "description": "Fecha inicio.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "fechaFin": {
-            "type": "string",
-            "description": "Fecha fin.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "metodoPago": {
-            "type": "string",
-            "description": "Metodo de pago."
-          },
-          "planPago": {
-            "type": "string",
-            "description": "Tipo de plan de pago a plazos."
-          },
-          "aceptaTerminos": {
-            "type": "string",
-            "description": "Acepta terminos y condiciones."
-          },
-          "tipoObjeto": {
-            "type": "string",
-            "description": "Tipo de objeto."
-          },
-          "idTipoObjeto": {
-            "type": "string",
-            "description": "Tipo de cobertura."
-          },
-          "canalVenta": {
-            "type": "string",
-            "description": "Canal de venta."
-          },
-          "codigoDescuento": {
-            "type": "string",
-            "description": "Codigo de descuento."
-          },
-          "corredor": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CorredorRequest"
-              }
-            ],
-            "description": "Informacion de corredor.",
-            "nullable": true
-          },
-          "contratante": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OncologicoContratanteModificacionRequest"
-              }
-            ],
-            "description": "Contratante de la poliza."
-          },
-          "asegurados": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OncologicoAseguradoModificacionRequest"
-            },
-            "description": "Asegurados de la poliza."
-          },
-          "oncologico": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OncologicoRequest"
-              }
-            ],
-            "description": "Plan de seguro oncologico."
-          },
-          "tipoCobertura": {
-            "type": "string",
-            "description": "Tipo de cobertura"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con detalles requeridos para modificar una poliza seguro oncologico."
-      },
-      "OncologicoRequest": {
-        "type": "object",
-        "properties": {
-          "codigoPlan": {
-            "type": "string",
-            "description": "Codigo del plan."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request con data de plan oncologico requerido para cotizar una poliza oncologica."
-      },
-      "ParticipanteCoaseguroRequest": {
-        "type": "object",
-        "properties": {
-          "idCoasegurador": {
-            "type": "string",
-            "description": "Identificador del participante en el coaseguro.\r\nValor TIA: nameIdNo",
-            "nullable": true
-          },
-          "tipo": {
-            "type": "string",
-            "description": "Tipo de participante en el coaseguro. EJ: LEAD, FOLL.\r\nValor TIA: coinsType",
-            "nullable": true
-          },
-          "porcentajeParticipacion": {
-            "type": "integer",
-            "description": "Porcentaje de participacion del coasegurador en el coaseguro.\r\nValor TIA: participation.",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para los participantes del coaseguro en una poliza."
-      },
-      "ParticipanteReaseguroRequest": {
-        "type": "object",
-        "properties": {
-          "idReasegurado": {
-            "type": "integer",
-            "description": "Identificador del participante en el reaseguro.\r\nValor TIA: nameIdNo",
-            "format": "int64"
-          },
-          "numeroAgente": {
-            "type": "integer",
-            "description": "Numero de agente.\r\nValor TIA: agentNo",
-            "format": "int32"
-          },
-          "porcentajeCesion": {
-            "type": "integer",
-            "description": "Porcentaje de cesion.\r\nValor TIA: cesionPercent.",
-            "format": "int32"
-          },
-          "porcentajeComision": {
-            "type": "integer",
-            "description": "Porcentaje de comision.\r\nValor TIA: commissionPercent.",
-            "format": "int32"
-          },
-          "margenPrima": {
-            "type": "integer",
-            "description": "Margen de prima.\r\nValor TIA: markupPremium.",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para los participantes del reaseguro en una poliza."
-      },
-      "ParticipanteRequest": {
+      "ObtenerSiniestroFraudKeeperFieldParticipanteResponse": {
         "type": "object",
         "properties": {
           "roles": {
@@ -3670,194 +1232,363 @@
             "items": {
               "type": "string"
             },
-            "description": "Roles del participante."
+            "description": "Rol de la persona: Demandante, Asegurado, Afectado, Corredor, Liquidador.",
+            "nullable": true
           },
-          "informacionAdicional": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "Informacion adicional del participante.",
+          "idEjecutivo": {
+            "type": "string",
+            "description": "Id de ejecutivo (Liquidador, Corredor).",
             "nullable": true
           },
           "persona": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/PersonaRequest"
+                "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperFieldPersonaResponse"
               }
             ],
-            "description": "Datos del participante.",
+            "description": "persona.",
             "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Request para los participantes en una cotizacion de poliza de seguro."
+        "description": "Campo participante para Response de obtener siniestro fraudkeeper."
       },
-      "PersonaRequest": {
+      "ObtenerSiniestroFraudKeeperFieldPersonaResponse": {
         "type": "object",
         "properties": {
-          "tipoPersona": {
+          "nombre": {
             "type": "string",
-            "description": "Tipo de persona.\r\nValor TIA: type.",
-            "nullable": true
-          },
-          "nombresRazonSocial": {
-            "type": "string",
-            "description": "Primer nombre o razon social.\r\nValor TIA: forename",
-            "nullable": true
-          },
-          "apellidos": {
-            "type": "string",
-            "description": "Apellidos.\r\n///Valor TIA: lastname",
+            "description": "Nombre de la persona.",
             "nullable": true
           },
           "rut": {
             "type": "string",
-            "description": "Rut de la persona.\r\nValor TIA: civilRegistrationCode.",
-            "nullable": true
-          },
-          "tipoIdentificacion": {
-            "type": "string",
-            "description": "Tipo de documentacion.\r\nValor TIA: documentType.",
-            "nullable": true
-          },
-          "fechaNacimiento": {
-            "type": "string",
-            "description": "Fecha de nacimiento.\r\nValor TIA: birthDate.",
-            "format": "date-time",
-            "nullable": true
-          },
-          "telefono": {
-            "type": "string",
-            "description": "Telefono de contacto.\r\nValor TIA: phone.",
-            "nullable": true
-          },
-          "mail": {
-            "type": "string",
-            "description": "Direccion de correo electronico.\r\nValor TIA: email",
+            "description": "RUT de la persona.",
             "nullable": true
           },
           "direccion": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DireccionCotizacionRequest"
-              }
-            ],
-            "description": "Direccion",
+            "type": "string",
+            "description": "Direccion de la persona.",
+            "nullable": true
+          },
+          "ciudad": {
+            "type": "string",
+            "description": "Ciudad de la persona.",
+            "nullable": true
+          },
+          "estado": {
+            "type": "string",
+            "description": "Estado de la persona.",
+            "nullable": true
+          },
+          "pais": {
+            "type": "string",
+            "description": "Pais de la persona.",
+            "nullable": true
+          },
+          "tipoPersona": {
+            "type": "string",
+            "description": "Tipo de persona C: Empresa P: Persona.",
+            "nullable": true
+          },
+          "nombreADesplegar": {
+            "type": "string",
+            "description": "Nombre a desplegar.",
+            "nullable": true
+          },
+          "clienteDesde": {
+            "type": "string",
+            "description": "Fecha desde cuando es cliente.",
+            "format": "date-time",
             "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Request para los datos de una persona participante en una cotizacion de poliza de seguro."
+        "description": "Campo persona para Response de obtener siniestro fraudkeeper."
       },
-      "Poliza": {
+      "ObtenerSiniestroFraudKeeperFieldPolizaResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64",
-            "readOnly": true
-          },
           "numeroPoliza": {
             "type": "string",
-            "readOnly": true
+            "description": "Numero de Poliza.",
+            "nullable": true
           },
-          "precioPagado": {
-            "type": "number",
-            "format": "double",
-            "readOnly": true
-          },
-          "precioTarifa": {
-            "type": "number",
-            "format": "double",
-            "readOnly": true
-          },
-          "idTrazabilidad": {
-            "type": "integer",
-            "format": "int64",
-            "readOnly": true
-          },
-          "idContratantePoliza": {
-            "type": "integer",
-            "format": "int64",
-            "readOnly": true
-          },
-          "idAseguradoPoliza": {
-            "type": "integer",
-            "format": "int64",
-            "readOnly": true
-          },
-          "idObjetoAsegurado": {
-            "type": "integer",
-            "format": "int64",
-            "readOnly": true
-          },
-          "contenido": {
-            "readOnly": true
-          },
-          "identificadorPoliza": {
-            "type": "integer",
-            "format": "int64",
-            "readOnly": true
-          },
-          "codigoRecaudador": {
+          "fechaCreacion": {
             "type": "string",
-            "readOnly": true
+            "description": "Fecha de Creacion.",
+            "nullable": true
           },
-          "detalleCuotas": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/DetalleCuotas"
-              }
-            ],
-            "nullable": true,
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "PolizaApiOkResponse": {
-        "type": "object",
-        "properties": {
-          "statusCode": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          },
-          "result": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/Poliza"
-              }
-            ]
-          }
-        },
-        "additionalProperties": false
-      },
-      "PolizaEmitidaResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "Id de registro.",
-            "format": "int64"
-          },
-          "numeroPoliza": {
+          "fechaInicio": {
             "type": "string",
-            "description": "Numero de poliza."
+            "description": "Fecha de Inicio de vigencia.",
+            "nullable": true
           },
-          "idTrazabilidad": {
+          "fechaExpiracion": {
+            "type": "string",
+            "description": "Fecha de Expiracion de vigencia.",
+            "nullable": true
+          },
+          "fechaCancelacion": {
+            "type": "string",
+            "description": "Fecha de Cancelacion.",
+            "nullable": true
+          },
+          "fechaRehabilitacion": {
+            "type": "string",
+            "description": "Fecha de Rehabilitacion.",
+            "nullable": true
+          },
+          "codigoProducto": {
+            "type": "string",
+            "description": "Codigo del Producto.",
+            "nullable": true
+          },
+          "codigoProductor": {
+            "type": "string",
+            "description": "Codigo del Productor.",
+            "nullable": true
+          },
+          "textoAdicional": {
+            "type": "string",
+            "description": "Texto adicional.",
+            "nullable": true
+          },
+          "metodoVenta": {
+            "type": "string",
+            "description": "Metodo de Venta.",
+            "nullable": true
+          },
+          "prima": {
             "type": "number",
-            "description": "Id de trazabilidad.",
-            "format": "double"
+            "description": "Prima.",
+            "format": "double",
+            "nullable": true
+          },
+          "primaConImpuestos": {
+            "type": "number",
+            "description": "Prima mas Impuestos.",
+            "format": "double",
+            "nullable": true
+          },
+          "numeroCertificado": {
+            "type": "integer",
+            "description": "Numero de Certificado.",
+            "format": "int32",
+            "nullable": true
+          },
+          "lineaNegocio": {
+            "type": "string",
+            "description": "Linea de negocio.",
+            "nullable": true
+          },
+          "ramo": {
+            "type": "string",
+            "description": "Codigo de Ramo.",
+            "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Response de una poliza creada."
+        "description": "Campo poliza para Response de obtener siniestro fraudkeeper."
       },
-      "PolizaEmitidaResponseApiOkResponse": {
+      "ObtenerSiniestroFraudKeeperFieldRiesgoResponse": {
+        "type": "object",
+        "properties": {
+          "numero": {
+            "type": "integer",
+            "description": "Numero de riesgo.",
+            "format": "int32",
+            "nullable": true
+          },
+          "codigo": {
+            "type": "string",
+            "description": "Codigo de riesgo.",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "description": "Descripcion del riesgo.",
+            "nullable": true
+          },
+          "especificaciones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Especificaciones del riesgo.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Campo riesgo para Response de obtener siniestro fraudkeeper."
+      },
+      "ObtenerSiniestroFraudKeeperResponse": {
+        "type": "object",
+        "properties": {
+          "fechaCreacion": {
+            "type": "string",
+            "description": "Fecha de creacion del siniestro",
+            "format": "date-time",
+            "nullable": true
+          },
+          "idPublico": {
+            "type": "string",
+            "description": "Identificador siniestro + subsiniestro",
+            "nullable": true
+          },
+          "numeroSiniestro": {
+            "type": "string",
+            "description": "Numero del siniestro",
+            "nullable": true
+          },
+          "fechaAcontecimiento": {
+            "type": "string",
+            "description": "Fecha que ocurrio el siniestro",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaApertura": {
+            "type": "string",
+            "description": "Fecha de apertura del siniestro",
+            "format": "date-time",
+            "nullable": true
+          },
+          "fechaNotificacion": {
+            "type": "string",
+            "description": "Fecha de notificacion del siniestro",
+            "format": "date-time",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "description": "Descripcion del siniestro",
+            "nullable": true
+          },
+          "causaPrimaria": {
+            "type": "string",
+            "description": "Causa primaria del siniestro",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "description": "Direccion que ocurrio el siniestro",
+            "nullable": true
+          },
+          "pais": {
+            "type": "string",
+            "description": "Pais que ocurrio del siniestro",
+            "nullable": true
+          },
+          "hasMatters": {
+            "type": "boolean",
+            "description": "Indicador de importancia del siniestro",
+            "nullable": true
+          },
+          "coberturaEnCuestion": {
+            "type": "boolean",
+            "description": "Cobertura en cuestion",
+            "nullable": true
+          },
+          "notasAdicionales": {
+            "type": "string",
+            "description": "Notas adicionales",
+            "nullable": true
+          },
+          "administradorReclamos": {
+            "type": "string",
+            "description": "Administrador del reclamos",
+            "nullable": true
+          },
+          "numeroDeVehiculos": {
+            "type": "integer",
+            "description": "Numero de Vehiculos",
+            "format": "int32",
+            "nullable": true
+          },
+          "numeroDeTestigos": {
+            "type": "integer",
+            "description": "Numero de Testigos",
+            "format": "int32",
+            "nullable": true
+          },
+          "montoTotalReclamo": {
+            "type": "number",
+            "description": "Total monto reclamado",
+            "format": "double",
+            "nullable": true
+          },
+          "branchGroupCode": {
+            "type": "string",
+            "description": "Major line",
+            "nullable": true
+          },
+          "branchGroupDescription": {
+            "type": "string",
+            "description": "Major line cd + Minor line + Class profile cd",
+            "nullable": true
+          },
+          "lenguaje": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lenguaje",
+            "nullable": true
+          },
+          "informacionExterna": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Informacion Externa",
+            "nullable": true
+          },
+          "archivos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Archivos",
+            "nullable": true
+          },
+          "poliza": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperFieldPolizaResponse"
+              }
+            ],
+            "description": "Poliza",
+            "nullable": true
+          },
+          "exposiciones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperFieldExposicionResponse"
+            },
+            "description": "Exposiciones",
+            "nullable": true
+          },
+          "datosAdicionales": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperFieldDatosAdicionalesResponse"
+            },
+            "description": "Datos adicional",
+            "nullable": true
+          },
+          "participantes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperFieldParticipanteResponse"
+            },
+            "description": "Entidad particpante del siniestro (demandante, Afectado, Liquidador, etc)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response del siniestro fraudkeeper"
+      },
+      "ObtenerSiniestroFraudKeeperResponseListApiOkResponse": {
         "type": "object",
         "properties": {
           "statusCode": {
@@ -3868,43 +1599,154 @@
             "type": "string"
           },
           "result": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PolizaEmitidaResponse"
-              }
-            ],
-            "description": "Response de una poliza creada."
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObtenerSiniestroFraudKeeperResponse"
+            }
           }
         },
         "additionalProperties": false
       },
-      "PolizaPropuestaResponse": {
+      "OrdenTrabajoRequest": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "description": "Id de registro.",
-            "format": "int64"
-          },
-          "numeroPoliza": {
+          "certificateNo": {
             "type": "string",
-            "description": "Numero de poliza."
+            "description": "Numero de certificado.",
+            "nullable": true
           },
-          "precioPagado": {
-            "type": "number",
-            "description": "Precio pagado.",
-            "format": "double"
+          "companyRegistrationNo": {
+            "type": "string",
+            "description": "Numero de registro de compañia.",
+            "nullable": true
           },
-          "precioTarifa": {
-            "type": "number",
-            "description": "Precio de tarifa.",
-            "format": "double"
+          "eventType": {
+            "type": "string",
+            "description": "Tipo de evento.",
+            "nullable": true
+          },
+          "causeType": {
+            "type": "string",
+            "description": "Tipo Causa.",
+            "nullable": true
+          },
+          "subcauseType": {
+            "type": "string",
+            "description": "Sub Tipo Causa.",
+            "nullable": true
+          },
+          "incidentDate": {
+            "type": "string",
+            "description": "Fecha incidente.",
+            "nullable": true
+          },
+          "isExactIncidentDate": {
+            "type": "string",
+            "description": "Es fecha de incidente exacta.",
+            "nullable": true
+          },
+          "placeType": {
+            "type": "string",
+            "description": "Tipo de lugar.",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "description": "Direccion del siniestro.",
+            "nullable": true
+          },
+          "handler": {
+            "type": "string",
+            "description": "Gestor.",
+            "nullable": true
+          },
+          "informerType": {
+            "type": "string",
+            "description": "Tipo de informante.",
+            "nullable": true
+          },
+          "informerName": {
+            "type": "string",
+            "description": "Nombre Informante.",
+            "nullable": true
+          },
+          "notificationDate": {
+            "type": "string",
+            "description": "Fecha de notificacion.",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado siniestro.",
+            "nullable": true
+          },
+          "lossOfBonus": {
+            "type": "string",
+            "description": "Perdida de bono.",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripcion del siniestro.",
+            "nullable": true
+          },
+          "riskNo": {
+            "type": "string",
+            "description": "Numero de riesgo.",
+            "nullable": true
+          },
+          "subriskNo": {
+            "type": "string",
+            "description": "Numero de subriesgo",
+            "nullable": true
+          },
+          "filedBy": {
+            "type": "string",
+            "description": "Archivado por.",
+            "nullable": true
+          },
+          "c24": {
+            "type": "string",
+            "description": "Rut del contacto",
+            "nullable": true
+          },
+          "c26": {
+            "type": "string",
+            "description": "Fono IVR.",
+            "nullable": true
+          },
+          "c28": {
+            "type": "string",
+            "description": "Fono del contacto.",
+            "nullable": true
+          },
+          "c29": {
+            "type": "string",
+            "description": "Direccion comercial del cliente.",
+            "nullable": true
+          },
+          "c903": {
+            "type": "string",
+            "description": "OT_NUM_ST + OT_COD_SUC_INGRESO + OT_NUM_GUIA_SOCIO + COD_SINIESTRO + COD_TIP_AT_SINIESTRO + COD_TRANSACCION + ID_MENSAJE",
+            "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Response de la cotizacion de una poliza."
+        "description": "Request para el siniestro de falabella"
       },
-      "PolizaPropuestaResponseApiOkResponse": {
+      "OrdenTrabajoResponse": {
+        "type": "object",
+        "properties": {
+          "numeroSiniestro": {
+            "type": "integer",
+            "description": "Respuesta numero siniestro.",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Response para la orden de trabajo."
+      },
+      "OrdenTrabajoResponseApiOkResponse": {
         "type": "object",
         "properties": {
           "statusCode": {
@@ -3917,10 +1759,10 @@
           "result": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/PolizaPropuestaResponse"
+                "$ref": "#/components/schemas/OrdenTrabajoResponse"
               }
             ],
-            "description": "Response de la cotizacion de una poliza."
+            "description": "Response para la orden de trabajo."
           }
         },
         "additionalProperties": false
@@ -3940,53 +1782,19 @@
         "additionalProperties": false,
         "description": "Propiedad de una accion."
       },
-      "ReaseguroRequest": {
+      "SiniestroPropuestoResponse": {
         "type": "object",
         "properties": {
-          "tipoFacultativo": {
-            "type": "string",
-            "description": "Tipo reaseguro\r\nValor TIA: facType",
-            "nullable": true
-          },
-          "porcentajeLimite": {
+          "numeroSiniestro": {
             "type": "integer",
-            "description": "Porcentaje limite",
-            "format": "int32",
-            "nullable": true
-          },
-          "participantes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ParticipanteReaseguroRequest"
-            },
-            "description": "Participantes del coaseguro.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para el reaseguro en una poliza."
-      },
-      "RenovarPolizaResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "description": "Id de registro.",
+            "description": "Respuesta.",
             "format": "int64"
-          },
-          "numeroPoliza": {
-            "type": "string",
-            "description": "Numero de poliza."
-          },
-          "polizaRenovada": {
-            "type": "boolean",
-            "description": "Poliza renovada"
           }
         },
         "additionalProperties": false,
-        "description": "Response de una poliza renovada."
+        "description": "Response para el siniestro propuesto."
       },
-      "RenovarPolizaResponseApiOkResponse": {
+      "SiniestroPropuestoResponseApiOkResponse": {
         "type": "object",
         "properties": {
           "statusCode": {
@@ -3999,162 +1807,137 @@
           "result": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/RenovarPolizaResponse"
+                "$ref": "#/components/schemas/SiniestroPropuestoResponse"
               }
             ],
-            "description": "Response de una poliza renovada."
+            "description": "Response para el siniestro propuesto."
           }
         },
         "additionalProperties": false
       },
-      "ResumenMontosRequest": {
+      "SiniestroSoapRequest": {
         "type": "object",
         "properties": {
-          "moneda": {
+          "numeroPoliza": {
             "type": "string",
-            "description": "Moneda de la cobertura EJ: CLP, USD.\r\nValorTIA: currencyCode",
+            "description": "Numero de poliza."
+          },
+          "patente": {
+            "type": "string",
+            "description": "Patente."
+          },
+          "rutContratante": {
+            "type": "string",
+            "description": "Rut contratante."
+          },
+          "nombreContratante": {
+            "type": "string",
+            "description": "Nombre contratante."
+          },
+          "rutLesionado": {
+            "type": "string",
+            "description": "Rut lesionado."
+          },
+          "nombreLesionado": {
+            "type": "string",
+            "description": "Nombre lesionado."
+          },
+          "fecha": {
+            "type": "string",
+            "description": "Fecha siniestro."
+          },
+          "numeroParte": {
+            "type": "integer",
+            "description": "Numero de parte.",
+            "format": "int64"
+          },
+          "fechaParte": {
+            "type": "string",
+            "description": "Fecha de parte."
+          },
+          "tipoEvento": {
+            "type": "string",
+            "description": "Tipo de evento."
+          },
+          "numeroInterno": {
+            "type": "string",
+            "description": "Numero interno.",
             "nullable": true
           },
-          "totalMontoInteres": {
-            "type": "number",
-            "description": "Total monto interes",
-            "format": "double",
-            "nullable": true
+          "rutInstitucionSalud": {
+            "type": "string",
+            "description": "Rut institucion de salud."
           },
-          "totalIvaPrima": {
-            "type": "number",
-            "description": "Total iva prima",
-            "format": "double",
-            "nullable": true
+          "nombreInstitucionSalud": {
+            "type": "string",
+            "description": "Nombre institucion de salud."
           },
-          "totalIvaInteres": {
+          "montoBruto": {
             "type": "number",
-            "description": "Total iva interes",
-            "format": "double",
-            "nullable": true
+            "description": "Monto bruto.",
+            "format": "double"
           },
-          "totalPrimaBruta": {
+          "iva": {
             "type": "number",
-            "description": "Total prima bruta",
-            "format": "double",
-            "nullable": true
+            "description": "Iva.",
+            "format": "double"
           },
-          "totalPrimaNeta": {
+          "montoNeto": {
             "type": "number",
-            "description": "Total prima neta",
-            "format": "double",
-            "nullable": true
+            "description": "Monto neto.",
+            "format": "double"
+          },
+          "numeroFactura": {
+            "type": "integer",
+            "description": "Numero de factura.",
+            "format": "int64"
+          },
+          "controlador": {
+            "type": "string",
+            "description": "Controlador"
+          },
+          "liquidador": {
+            "type": "integer",
+            "description": "Liquidador",
+            "format": "int64"
           }
         },
         "additionalProperties": false,
-        "description": "Request para el resumen de montos de una cotizacion de poliza en TIA."
+        "description": "Request para siniestro soap."
       },
-      "RiesgoRequest": {
+      "SubSiniestroResponse": {
         "type": "object",
         "properties": {
-          "codigoRiesgo": {
-            "type": "string",
-            "description": "Codigo del riesgo.\r\nValor TIA: riskNo.",
-            "nullable": true
-          },
-          "riesgoCubierto": {
-            "type": "string",
-            "description": "riesgo Cubierto.\r\nValor TIA: riskYn.",
-            "nullable": true
-          },
-          "primaManual": {
-            "type": "number",
-            "description": "Prima total bruta poliza.\r\nValor TIA: manualPremium.",
-            "format": "double",
-            "nullable": true
-          },
-          "montoAsegurado": {
-            "type": "number",
-            "description": "Monto asegurado por la cobertura.\r\nValor TIA: RiskSum.",
-            "format": "double",
-            "nullable": true
-          },
-          "subLimite": {
-            "type": "number",
-            "description": "Sub Limite de la cobertura.\r\nValor TIA: subLimit.",
-            "format": "double",
+          "numeroCaso": {
+            "type": "integer",
+            "description": "Numero de caso.",
+            "format": "int64",
             "nullable": true
           }
         },
         "additionalProperties": false,
-        "description": "Request para los riesgos asociados a una poliza de seguro en una cotizacion."
+        "description": "Response para el subsiniestro."
       },
-      "SubObjetoRequest": {
+      "SubSiniestroResponseApiOkResponse": {
         "type": "object",
         "properties": {
-          "tipo": {
-            "type": "string",
-            "description": "Tipo de sub objeto, por ejemplo: \"Vehiculo\", \"Inmueble\", etc.",
-            "nullable": true
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
           },
-          "propiedades": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "Propiedades del sub objeto, como marca, modelo, a�o, etc.",
-            "nullable": true
+          "message": {
+            "type": "string"
+          },
+          "result": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SubSiniestroResponse"
+              }
+            ],
+            "description": "Response para el subsiniestro."
           }
         },
-        "additionalProperties": false,
-        "description": "Request para un sub objeto dentro de un objeto asegurado en una poliza."
-      },
-      "TarjetaRequest": {
-        "type": "object",
-        "properties": {
-          "numeroTarjeta": {
-            "type": "string",
-            "description": "Numero de Tarjeta.",
-            "nullable": true
-          },
-          "entidadFinanciera": {
-            "type": "string",
-            "description": "Banco.",
-            "nullable": true
-          },
-          "tipoTarjeta": {
-            "type": "string",
-            "description": "Tipo Tarjeta.",
-            "nullable": true
-          },
-          "redPago": {
-            "type": "string",
-            "description": "Red de Pago de la Tarjeta.",
-            "nullable": true
-          },
-          "nombreCliente": {
-            "type": "string",
-            "description": "Nombre cliente.",
-            "nullable": true
-          },
-          "fechaVencimiento": {
-            "type": "string",
-            "description": "Fecha de vencimiento de la Tarjeta.",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Request para los datos de la tarjeta en una cotizacion de poliza de seguro."
-      },
-      "TransaccionRequest": {
-        "type": "object",
-        "properties": {
-          "acciones": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AccionRequest"
-            },
-            "description": "Lista de acciones de una transaccion."
-          }
-        },
-        "additionalProperties": false,
-        "description": "Representa polizas generadas y emitidas en otros sistemas, que se deben guardar en el Core TIA."
+        "additionalProperties": false
       }
     }
   }

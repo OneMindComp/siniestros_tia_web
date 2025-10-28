@@ -23,7 +23,7 @@ namespace DenunciaSiniestro.Aplicacion
                 // Obtener el ensamblado actual
                 var assembly = Assembly.GetExecutingAssembly();
 
-                // Registrar handlers de un ensamblado específico
+                // Registrar handlers de un ensamblado especifico
                 config.AddHandlersFromAssembly(assembly);
             });
 

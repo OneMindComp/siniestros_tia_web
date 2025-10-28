@@ -1,0 +1,201 @@
+﻿@using System.Text.RegularExpressions
+@using DenunciaSiniestro.Aplicacion.Dtos.Request
+@using DenunciaSiniestro.Dominio
+@using DenunciaSiniestro.Web.Components.ViewModel
+
+@* Componente dedicado a la entrada y validación del RUT chileno.
+    Implementa @oninput para formateo instantáneo y @onchange para validación final.
+*@
+
+<div class="rut-input-container">
+    <input type="text"
+           id="@(Seccion.Nombre + Campo.Nombre)"
+           value="@_formattedRut"
+           @oninput="HandleInput"
+           @onchange="HandleChange"
+           maxlength="12"
+           class="form-control @_validationClass" />
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="text-danger small mt-1">@_errorMessage</div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Campo Campo { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Seccion Seccion { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public Dictionary<string, InputRequest> FormData { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public EventCallback<KeyValuePair<string, InputRequest>> OnSetValue { get; set; }
+
+    [Parameter, EditorRequired]
+    public Func<string, InputRequest?> GetValueMethod { get; set; } = default!;
+
+    private string _rawValue = string.Empty;
+    private string _formattedRut = string.Empty;
+    private string _errorMessage = string.Empty;
+    private string _validationClass => string.IsNullOrEmpty(_errorMessage) ? string.Empty : "is-invalid";
+
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        string newRut = e.Value?.ToString() ?? string.Empty;
+
+        string cleanRut = Regex.Replace(newRut, "[^0-9kK]", "");
+
+        _rawValue = cleanRut;
+        _formattedRut = FormatRut(cleanRut);
+
+        _errorMessage = string.Empty;
+    }
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        string cleanRut = _rawValue.ToUpper();
+        string fullKey = Seccion.Nombre + Campo.Nombre;
+
+        if (string.IsNullOrWhiteSpace(cleanRut))
+        {
+            var emptyInput = new InputRequest { NombreSeccion = Seccion.Nombre, Valor = null };
+            await OnSetValue.InvokeAsync(new KeyValuePair<string, InputRequest>(fullKey, emptyInput));
+            _errorMessage = string.Empty;
+            _formattedRut = string.Empty;
+            StateHasChanged();
+            return;
+        }
+
+        bool isValid = ValidateRut(cleanRut, isFinalCheck: true);
+
+        if (isValid)
+        {
+            string numero = cleanRut.Substring(0, cleanRut.Length - 1);
+            string dv = cleanRut.Substring(cleanRut.Length - 1).ToUpper();
+            string rutConGuion = $"{numero}-{dv}";
+
+            var input = new InputRequest
+            {
+                NombreSeccion = Seccion.Nombre,
+                Valor = rutConGuion
+            };
+
+            await OnSetValue.InvokeAsync(new KeyValuePair<string, InputRequest>(fullKey, input));
+
+            _errorMessage = string.Empty;
+        }
+        else
+        {
+            var invalidInput = new InputRequest { NombreSeccion = Seccion.Nombre, Valor = null };
+            await OnSetValue.InvokeAsync(new KeyValuePair<string, InputRequest>(fullKey, invalidInput));
+        }
+
+        StateHasChanged();
+    }
+
+    protected override void OnParametersSet()
+    {
+        var input = GetValueMethod(Seccion.Nombre + Campo.Nombre);
+        var valorConGuion = input?.Valor?.ToString(); // Este puede tener guion, ej: "20448825-8"
+
+        if (!string.IsNullOrEmpty(valorConGuion))
+        {
+            string cleanRut = Regex.Replace(valorConGuion, "[^0-9kK]", "");
+
+            if (cleanRut != _rawValue)
+            {
+                _rawValue = cleanRut;
+                _formattedRut = FormatRut(cleanRut);
+                ValidateRut(_rawValue, isFinalCheck: true);
+            }
+        }
+    }
+
+    private bool ValidateRut(string rut, bool isFinalCheck)
+    {
+        _errorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(rut))
+        {
+            if (Campo.Requerido && isFinalCheck)
+            {
+                _errorMessage = "El RUT es requerido.";
+                return false;
+            }
+            return true;
+        }
+
+        if (!Regex.IsMatch(rut, @"^\d{7,8}[\dkK]{1}$"))
+        {
+            _errorMessage = "El formato no es válido (ej: 12345678-9).";
+            return false;
+        }
+
+        if (!CheckDV(rut))
+        {
+            _errorMessage = "El Dígito Verificador (DV) es incorrecto.";
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool CheckDV(string rut)
+    {
+        string dv = rut.Substring(rut.Length - 1).ToUpper();
+        string numero = rut.Substring(0, rut.Length - 1);
+
+        int suma = 0;
+        int multiplicador = 2;
+
+        for (int i = numero.Length - 1; i >= 0; i--)
+        {
+            if (int.TryParse(numero[i].ToString(), out int digito))
+            {
+                suma += digito * multiplicador;
+                multiplicador = (multiplicador == 7) ? 2 : multiplicador + 1;
+            }
+        }
+
+        int resto = suma % 11;
+        int resultado = 11 - resto;
+
+        string dvCalculado;
+        if (resultado == 11) dvCalculado = "0";
+        else if (resultado == 10) dvCalculado = "K";
+        else dvCalculado = resultado.ToString();
+
+        return dvCalculado == dv;
+    }
+
+    private string FormatRut(string rut)
+    {
+        if (string.IsNullOrWhiteSpace(rut)) return string.Empty;
+
+        string cleanRut = Regex.Replace(rut, "[^0-9kK]", "");
+
+        if (cleanRut.Length < 2) return cleanRut;
+
+        string dv = cleanRut.Substring(cleanRut.Length - 1).ToUpper();
+        string num = cleanRut.Substring(0, cleanRut.Length - 1);
+
+        string formattedNum = "";
+        int counter = 0;
+        for (int i = num.Length - 1; i >= 0; i--)
+        {
+            formattedNum = num[i] + formattedNum;
+            counter++;
+            if (counter % 3 == 0 && i != 0)
+            {
+                formattedNum = "." + formattedNum;
+            }
+        }
+
+        return $"{formattedNum}-{dv}";
+    }
+}

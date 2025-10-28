@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Sbins.Comunes.Excepciones" Version="0.1.4" />
-  </ItemGroup>
-
 </Project>

@@ -1,4 +1,4 @@
-using DenunciaSiniestro.Infraestructura.Persistencia.Modelo;
+using DenunciaSiniestro.Dominio.Entidades;
 using DenunciaSiniestro.Infraestructura.Persistencia.Seeds;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,9 +13,9 @@ namespace DenunciaSiniestro.Infraestructura.Persistencia.Contexto
         {
         }
 
-        public DbSet<TipoDenuncio> TiposDenuncio { get; set; } = null!;
-        public DbSet<ConfiguracionFormulario> ConfiguracionesFormulario { get; set; } = null!;
-        public DbSet<Denuncio> Denuncios { get; set; } = null!;
+        public DbSet<TipoDenuncio> TiposDenuncio { get; private set; } = null!;
+        public DbSet<ConfiguracionFormulario> ConfiguracionesFormulario { get; private set; } = null!;
+        public DbSet<Denuncio> Denuncios { get; private set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -8,14 +8,14 @@ namespace DenunciaSiniestro.Dominio.Denuncios
 {
     public class Siniestro
     {
-        public string Ubicacion { get; set; } = default!;
-        public DateTime Fecha { get; set; }
-        public string RelatoAccidente { get; set; } = default!;
-        public string NumeroPartePolicial { get; set; } = default!;
+        public string Ubicacion { get; private set; } = default!;
+        public DateTime Fecha { get; private set; }
+        public string RelatoAccidente { get; private set; } = default!;
+        public string NumeroPartePolicial { get; private set; } = default!;
 
-        public Siniestro() { }
+		private Siniestro() { }
 
-        public Siniestro(string ubicacion, DateTime fecha, string relatoAccidente, string numeroPartePolicial) {
+		private Siniestro(string ubicacion, DateTime fecha, string relatoAccidente, string numeroPartePolicial) {
             Ubicacion = ubicacion;
             Fecha = fecha;
             RelatoAccidente = relatoAccidente;

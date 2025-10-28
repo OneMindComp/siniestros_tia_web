@@ -30,10 +30,19 @@ namespace DenunciaSiniestro.Aplicacion.Utils
             Dictionary<string, string> dict,
             Func<Func<string, string>, T> crearFunc)
         {
-            // Función auxiliar para obtener el valor del diccionario.
-            // Usa el nombre de la propiedad en minúsculas.
-            string GetValue(string name) =>
-                dict.TryGetValue(name.ToLowerInvariant(), out var value) ? value : string.Empty;
+            string GetValue(string name)
+            {
+                string searchKey = name.ToLowerInvariant();
+
+                foreach (var kvp in dict)
+                {
+                    if (kvp.Key.ToLowerInvariant().Contains(searchKey))
+                    {
+                        return kvp.Value;
+                    }
+                }
+                return string.Empty;
+            }
 
             return crearFunc(GetValue);
         }

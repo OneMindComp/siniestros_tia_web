@@ -2,15 +2,15 @@
 {
     public class Soap
     {
-        public Vehiculo Vehiculo { get; set; } = default!;
-        public Denunciante Denunciante { get; set; } = default!;
-        public Conductor Conductor { get; set; } = default!;
-        public Lesionado Lesionado { get; set; } = default!;
-        public Siniestro Siniestro { get; set; } = default!;
+        public Vehiculo Vehiculo { get; private set; } = default!;
+        public Denunciante Denunciante { get; private set; } = default!;
+        public Conductor Conductor { get; private set; } = default!;
+        public Lesionado Lesionado { get; private set; } = default!;
+        public Siniestro Siniestro { get; private set; } = default!;
 
-        public Soap() { }
+		private Soap() { }
 
-        public Soap(Vehiculo vehiculo, Denunciante denunciante, Conductor conductor, Lesionado lesionado, Siniestro siniestro) {
+		private Soap(Vehiculo vehiculo, Denunciante denunciante, Conductor conductor, Lesionado lesionado, Siniestro siniestro) {
             Vehiculo = vehiculo;
             Denunciante = denunciante;
             Conductor = conductor;
